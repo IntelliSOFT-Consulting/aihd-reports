@@ -2,13 +2,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>ugandaemrreports</artifactId>
-		<version>2.0.3-SNAPSHOT</version>
+		<artifactId>aihdreports</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>ugandaemrreports-api</artifactId>
-	<name>UgandaEMR Reports Module API</name>
-	<description>API project for UgandaEMR Reports</description>
+	<artifactId>aihdreports-api</artifactId>
+	<name>aihdreports Reports Module API</name>
+	<description>API project for AIHD Reports</description>
 
 	<dependencies>
 

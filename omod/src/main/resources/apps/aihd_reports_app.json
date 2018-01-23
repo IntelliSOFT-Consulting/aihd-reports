@@ -1,0 +1,49 @@
+[
+  {
+    "id": "aihdreports.reports",
+    "description": "Homepage showing a list of different kinds of reports",
+    "order": 10,
+    "extensionPoints": [
+      {
+        "id": "org.openmrs.module.aihdreports.reports.monthly",
+        "description": "Links to available Monthly Reports",
+        "supportedExtensionTypes": [ "link" ]
+      },
+      {
+        "id": "org.openmrs.module.aihdreports.reports.registers",
+        "description": "Links to available Registers",
+        "supportedExtensionTypes": [ "link" ]
+      }
+    ],
+    "extensions": [
+      {
+        "id": "aihdreports.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+        "type": "link",
+        "label": "AIHD Reports",
+        "url": "aihdreports/reports.page",
+        "icon": "icon-book",
+        "order": 110
+      },
+
+
+      {
+        "id": "Daily Register",
+        "extensionPointId": "org.openmrs.module.aihdreports.reports.registers",
+        "type": "link",
+        "label": "Daily Register",
+        "url": "reportingui/runReport.page?reportDefinition=fed89032-0017-11e8-9580-f731617cc228",
+        "order": 5
+      },
+      {
+        "id": "Monthly Reporting Form",
+        "extensionPointId": "org.openmrs.module.aihdreports.reports.monthly",
+        "type": "link",
+        "label": "Monthly Reporting Form",
+        "url": "reportingui/runReport.page?reportDefinition=94ead1d2-0015-11e8-87c2-ebf60d915687",
+        "order": 5
+      }
+
+    ]
+  }
+]

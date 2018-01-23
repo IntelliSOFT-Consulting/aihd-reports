@@ -2,29 +2,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.openmrs.module</groupId>
-    <artifactId>ugandaemrreports</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
+    <artifactId>aihdreports</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>UgandaEMR Reports Module</name>
-    <description>Reports for the UgandaEMR distribution</description>
-    <url>https://wiki.openmrs.org/display/docs/Uganda+EMR+Reports+Module+Module</url>
+    <name>Reporting module for AIHD</name>
+    <description>This module will house all the reports needs for AIHD</description>
 
-    <developers>
-        <developer>
-            <name>METS Programme</name>
-        </developer>
-    </developers>
-
-    <organization>
-        <name>Monitoring and Evaluation Technical Support Project (METS)</name>
-        <url>http://mets.or.ug</url>
-    </organization>
+    <url>https://wiki.openmrs.org/x/FQ4z</url>
 
     <scm>
-        <connection>scm:git:git@github.com:METS-Programme/openmrs-module-ugandaemr-reports.git</connection>
-        <developerConnection>scm:git:git@github.com:METS-Programme/openmrs-module-ugandaemr-reports.git
-        </developerConnection>
-        <url>scm:git:https://github.com/METS-Programme/openmrs-module-ugandaemr-reports</url>
+        <connection>scm:git:https://github.com/IntelliSOFT-Consulting/aihd-reports.git</connection>
+        <developerConnection>scm:git:https://github.com/IntelliSOFT-Consulting/aihd-reports.git</developerConnection>
+        <url>https://github.com/IntelliSOFT-Consulting/aihd-reports/</url>
         <tag>HEAD</tag>
     </scm>
 
