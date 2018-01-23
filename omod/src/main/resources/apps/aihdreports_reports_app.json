@@ -25,8 +25,6 @@
         "icon": "icon-book",
         "order": 110
       },
-
-
       {
         "id": "Daily Register",
         "extensionPointId": "org.openmrs.module.aihdreports.reports.registers",
