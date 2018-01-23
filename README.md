@@ -1,4 +1,4 @@
-openmrs-module-ugandaemr-reports
+openmrs-module-aihd-reports
 =============================
 
-Provides reporting functionality for the UgandaEMR distribution
+Provides reporting functionality for the AIHD distribution
