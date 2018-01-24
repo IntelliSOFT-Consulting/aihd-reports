@@ -2,7 +2,9 @@ package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.aihdreports.reporting.converter.EncounterDateConveter;
 import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
+import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.DataDefinition;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
@@ -11,6 +13,7 @@ import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
+import org.openmrs.module.reporting.data.patient.definition.EncountersForPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.*;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
@@ -85,9 +88,9 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
-		dsd.addColumn("Date", encounterDateDataDefinition(), "", new DateConverter());
+		dsd.addColumn("Date", encounterDateDataDefinition(), "", new EncounterDateConveter());
 		dsd.addColumn("Patient No", identifierDef, "");
-		dsd.addColumn("Name", nameDef, "");
+		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
 
@@ -95,7 +98,9 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	}
 
 	private DataDefinition encounterDateDataDefinition(){
-		EncounterDataDefinition encounterDataDefinition = new EncounterDatetimeDataDefinition();
+		EncountersForPatientDataDefinition encounterDataDefinition = new EncountersForPatientDataDefinition();
+		encounterDataDefinition.setWhich(TimeQualifier.LAST);
+		encounterDataDefinition.addType(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12 "));
 		return encounterDataDefinition;
 	}
 }
