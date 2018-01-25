@@ -3,9 +3,8 @@ package org.openmrs.module.aihdreports.reporting.converter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Encounter;
+import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
 import org.openmrs.module.reporting.data.converter.DataConverter;
-
-import java.util.List;
 
 public class EncounterDateConveter implements DataConverter {
 
@@ -14,17 +13,13 @@ public class EncounterDateConveter implements DataConverter {
     @Override
     public Object convert(Object original) {
 
-        List<Encounter> encounters = (List<Encounter>) original;
+        Encounter encounter = (Encounter) original;
 
-        if (encounters.size() == 0)
+        if (original == null || encounter == null) {
             return "";
-
-        Encounter lastEncounter = encounters.get(0);
-
-        if (lastEncounter != null){
-            return lastEncounter.getEncounterDatetime();
-        } else {
-            return "";
+        }
+        else {
+            return CoreUtils.formatDates(encounter.getEncounterDatetime());
         }
     }
 

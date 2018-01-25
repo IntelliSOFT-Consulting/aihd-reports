@@ -19,6 +19,8 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.api.context.Context;
 import org.openmrs.util.OpenmrsUtil;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -113,6 +115,16 @@ public class CoreUtils {
      */
     public static EncounterType getEncounterType(String identifier) {
         return Context.getEncounterService().getEncounterTypeByUuid(identifier);
+
+    }
+
+    public static String formatDates(Date date){
+
+        Format formatter;
+        formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String s = formatter.format(date);
+
+        return s;
 
     }
 }
