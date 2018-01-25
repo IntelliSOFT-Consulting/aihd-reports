@@ -22,10 +22,12 @@ import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.stereotype.Component;
-
+import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
+import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefintion;
+import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Properties;
 @Component
 public class DailyRegisterReport extends AIHDDataExportManager {
 	
@@ -36,7 +38,12 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	
 	@Override
 	public ReportDesign buildReportDesign(ReportDefinition reportDefinition) {
-		return createExcelTemplateDesign(getExcelDesignUuid(), reportDefinition, "daily.xls");
+		ReportDesign rd= createExcelTemplateDesign(getExcelDesignUuid(), reportDefinition, "daily.xls");
+		Properties props = new Properties();
+		props.put("repeatingSections", "sheet:1,row:7,dataset:D");
+		props.put("sortWeight", "5000");
+		rd.setProperties(props);
+		return rd;
 	}
 	
 	@Override
@@ -85,7 +92,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-
+		SharedDataDefintion sdd= new SharedDataDefintion();
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
 		dsd.addColumn("Date", encounterDateDataDefinition(), "", new EncounterDateConveter());
@@ -93,6 +100,8 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
+		dsd.addColumn("Weight", sdd.definition("Weight",  Dictionary.getConcept("5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")), "", new ObsDataConverter());
+		dsd.addColumn("Height", sdd.definition("Height",  Dictionary.getConcept("5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")), "", new ObsDataConverter());
 
 		return dsd;
 	}
@@ -100,7 +109,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	private DataDefinition encounterDateDataDefinition(){
 		EncountersForPatientDataDefinition encounterDataDefinition = new EncountersForPatientDataDefinition();
 		encounterDataDefinition.setWhich(TimeQualifier.LAST);
-		encounterDataDefinition.addType(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12 "));
+		encounterDataDefinition.addType(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12"));
 		return encounterDataDefinition;
 	}
 }
