@@ -15,7 +15,9 @@
 package org.openmrs.module.aihdreports.reporting.utils;
 
 import org.openmrs.EncounterType;
+import org.openmrs.Form;
 import org.openmrs.GlobalProperty;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -106,16 +108,27 @@ public class CoreUtils {
         gp.setPropertyValue(value);
         Context.getAdministrationService().saveGlobalProperty(gp);
     }
-    
-    /**
-     * Get the EncounterType for the given identifier
-     *
-     * @param identifier The uuid of the encounter type
-     * @return the EncounterType
-     */
-    public static EncounterType getEncounterType(String identifier) {
-        return Context.getEncounterService().getEncounterTypeByUuid(identifier);
 
+    /**
+     * @return the EncounterType that matches the passed uuid, name, or primary key id
+     */
+    public static EncounterType getEncounterType(String lookup) {
+        EncounterType et = Context.getEncounterService().getEncounterTypeByUuid(lookup);
+        if (et == null) {
+            et = Context.getEncounterService().getEncounterType(lookup);
+        }
+        if (et == null) {
+            try {
+                et = Context.getEncounterService().getEncounterType(Integer.parseInt(lookup));
+            }
+            catch (Exception e) {
+            }
+        }
+        if (et == null) {
+            throw new IllegalArgumentException("Unable to find EncounterType using key: " + lookup);
+        }
+
+        return et;
     }
 
     public static String formatDates(Date date){
@@ -126,5 +139,47 @@ public class CoreUtils {
 
         return s;
 
+    }
+
+    /**
+     * @return the PatientIdentifier that matches the passed uuid, name, or primary key id
+     */
+    public static PatientIdentifierType getPatientIdentifierType(String lookup) {
+        PatientIdentifierType pit = Context.getPatientService().getPatientIdentifierTypeByUuid(lookup);
+        if (pit == null) {
+            pit = Context.getPatientService().getPatientIdentifierTypeByName(lookup);
+        }
+        if (pit == null) {
+            try {
+                pit = Context.getPatientService().getPatientIdentifierType(Integer.parseInt(lookup));
+            }
+            catch (Exception e) {
+            }
+        }
+        if (pit == null) {
+            throw new RuntimeException("Unable to find Patient Identifier using key: " + lookup);
+        }
+        return pit;
+    }
+
+    /**
+     * @return the Form that matches the passed uuid, name, or primary key id
+     */
+    public Form getForm(String lookup) {
+        Form form = Context.getFormService().getFormByUuid(lookup);
+        if (form == null) {
+            form = Context.getFormService().getForm(lookup);
+        }
+        if (form == null) {
+            try {
+                form = Context.getFormService().getForm(Integer.parseInt(lookup));
+            }
+            catch (Exception e) {
+            }
+        }
+        if (form == null) {
+            throw new IllegalArgumentException("Unable to find Form using key: " + lookup);
+        }
+        return form;
     }
 }

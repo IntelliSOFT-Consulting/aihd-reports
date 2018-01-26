@@ -14,8 +14,11 @@
 package org.openmrs.module.aihdreports.reporting.dataset.definition;
 
 import org.openmrs.Concept;
+import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
+import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.DataDefinition;
+import org.openmrs.module.reporting.data.patient.definition.EncountersForPatientDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.ObsForPersonDataDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.springframework.stereotype.Component;
@@ -25,9 +28,9 @@ import java.util.Date;
 /**
  */
 @Component
-public class SharedDataDefintion {
+public class SharedDataDefinition {
 
-    public DataDefinition definition(String name, Concept concept) {
+    public DataDefinition obsDdefinition(String name, Concept concept) {
         ObsForPersonDataDefinition obsForPersonDataDefinition = new ObsForPersonDataDefinition();
         obsForPersonDataDefinition.setName(name);
         obsForPersonDataDefinition.addParameter(new Parameter("onOrBefore", "End Date", Date.class));
@@ -35,5 +38,15 @@ public class SharedDataDefintion {
         obsForPersonDataDefinition.setQuestion(concept);
         obsForPersonDataDefinition.setWhich(TimeQualifier.LAST);
         return obsForPersonDataDefinition;
+    }
+
+    public DataDefinition encounterDefinition(String name, String encounterType) {
+        EncountersForPatientDataDefinition encounterForPersonDataDefinition = new EncountersForPatientDataDefinition();
+        encounterForPersonDataDefinition.setName(name);
+        encounterForPersonDataDefinition.addParameter(new Parameter("onOrBefore", "End Date", Date.class));
+        encounterForPersonDataDefinition.addParameter(new Parameter("onOrAfter", "Start Date", Date.class));
+        encounterForPersonDataDefinition.addType(CoreUtils.getEncounterType(encounterType));
+        encounterForPersonDataDefinition.setWhich(TimeQualifier.LAST);
+        return encounterForPersonDataDefinition;
     }
 }

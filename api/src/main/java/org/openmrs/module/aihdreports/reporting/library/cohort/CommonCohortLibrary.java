@@ -182,9 +182,6 @@ public class CommonCohortLibrary {
      *
      * @return the cohort definition
      */
-    public CohortDefinition transferredIn() {
-        return hasCodedObs(null,Dictionary.getConcept(Metadata.Concept.TRANSFER_IN), Dictionary.getConcepts(Metadata.Concept.YES_WHO));
-    }
     
     /**
      * MoH definition of children who is anybody 14 years and below
