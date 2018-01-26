@@ -34,6 +34,22 @@
         "order": 5
       },
       {
+        "id": "Diabetic Foot Register",
+        "extensionPointId": "org.openmrs.module.aihdreports.reports.registers",
+        "type": "link",
+        "label": "Diabetic Foot Register",
+        "url": "reportingui/runReport.page?reportDefinition=59e83c20-0270-11e8-8691-e3f98920b873",
+        "order": 6
+      },
+      {
+        "id": "Permanent Register",
+        "extensionPointId": "org.openmrs.module.aihdreports.reports.registers",
+        "type": "link",
+        "label": "Permanent Register",
+        "url": "reportingui/runReport.page?reportDefinition=713f9b56-0271-11e8-8377-3fa4a39ea76a",
+        "order": 7
+      },
+      {
         "id": "Monthly Reporting Form",
         "extensionPointId": "org.openmrs.module.aihdreports.reports.monthly",
         "type": "link",

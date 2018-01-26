@@ -1,18 +1,18 @@
 package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.PatientIdentifierType;
-import org.openmrs.api.context.Context;
+import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
 import org.openmrs.module.aihdreports.reporting.converter.EncounterDateConveter;
 import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
+import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
+import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
-import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.DataDefinition;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
-import org.openmrs.module.reporting.data.patient.definition.EncountersForPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.*;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
@@ -21,12 +21,11 @@ import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.stereotype.Component;
-import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
-import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
-import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
 @Component
 public class DailyRegisterReport extends AIHDDataExportManager {
 	
