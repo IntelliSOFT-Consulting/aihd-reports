@@ -14,11 +14,8 @@
 package org.openmrs.module.aihdreports.data.converter;
 
 import org.openmrs.Obs;
+import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
 import org.openmrs.module.reporting.data.converter.DataConverter;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class ObsDataConverter implements DataConverter {
@@ -35,11 +32,11 @@ public class ObsDataConverter implements DataConverter {
         }
 
         else if (obs.getValueDate() != null) {
-            return formatDate(obs.getValueDate());
+            return CoreUtils.formatDates(obs.getValueDate());
         }
 
         else if (obs.getValueDatetime() != null) {
-            return formatDate(obs.getValueDatetime());
+            return CoreUtils.formatDates(obs.getValueDatetime());
         }
 
         else if (obs.getValueNumeric() != null) {
@@ -61,10 +58,5 @@ public class ObsDataConverter implements DataConverter {
     @Override
     public Class<?> getDataType() {
         return String.class;
-    }
-
-    private String formatDate(Date date) {
-        DateFormat dateFormatter = new SimpleDateFormat("MMM d, yyyy");
-        return dateFormatter.format(date);
     }
 }

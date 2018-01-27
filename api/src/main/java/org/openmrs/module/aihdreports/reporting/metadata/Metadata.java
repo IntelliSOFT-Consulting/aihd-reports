@@ -18,6 +18,7 @@ public class Metadata {
     public static class EncounterType{
 
 		public final static String DM_FOLLOWUP = "2da542a4-f87d-11e7-8eb4-37dc291c1b12";
+		public final static String DM_INITIAL ="bf3f3108-f87c-11e7-913d-5f679b8fdacb";
     }
     
     public static class Program{

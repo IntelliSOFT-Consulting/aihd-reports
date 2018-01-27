@@ -2,6 +2,10 @@ package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
+import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationDataDefinition;
+import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.InitialReturnVisitCalculation;
+import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
 import org.openmrs.module.aihdreports.reporting.converter.EncounterDateConveter;
 import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
@@ -85,7 +89,6 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	private DataSetDefinition dataSetDefinition() {
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
 		SharedDataDefinition sdd= new SharedDataDefinition();
-		String followUpEncounter = Metadata.EncounterType.DM_FOLLOWUP;
 		PatientIdentifierType patientId = CoreUtils.getPatientIdentifierType(Metadata.Identifier.PATIENT_ID);
 		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
 		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
@@ -95,15 +98,25 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
-		dsd.addColumn("Date", sdd.encounterDefinition("Date", followUpEncounter), "", new EncounterDateConveter());
+		dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
 		dsd.addColumn("Patient No", identifierDef, "");
 		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
+		dsd.addColumn("fvrv", firstOrRevisit(), "", new CalculationResultConverter());
 		dsd.addColumn("Weight", sdd.obsDdefinition("Weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("Height", sdd.obsDdefinition("Height",  Dictionary.getConcept(Dictionary.HEIGHT)), "", new ObsDataConverter());
 
 		return dsd;
+	}
+
+	private DataDefinition encounterDate(){
+		CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
+		return cd;
+	}
+	private DataDefinition firstOrRevisit(){
+		CalculationDataDefinition cd = new CalculationDataDefinition("fvrv", new InitialReturnVisitCalculation());
+		return cd;
 	}
 
 }
