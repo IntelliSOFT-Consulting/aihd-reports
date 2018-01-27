@@ -3,10 +3,10 @@ package org.openmrs.module.aihdreports.reports;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
 import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationDataDefinition;
+import org.openmrs.module.aihdreports.reporting.calculation.BmiCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.InitialReturnVisitCalculation;
 import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
-import org.openmrs.module.aihdreports.reporting.converter.EncounterDateConveter;
 import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
@@ -104,6 +104,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
 		dsd.addColumn("fvrv", firstOrRevisit(), "", new CalculationResultConverter());
+		dsd.addColumn("bmi", bmi(), "", new CalculationResultConverter());
 		dsd.addColumn("Weight", sdd.obsDdefinition("Weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("Height", sdd.obsDdefinition("Height",  Dictionary.getConcept(Dictionary.HEIGHT)), "", new ObsDataConverter());
 
@@ -116,6 +117,11 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	}
 	private DataDefinition firstOrRevisit(){
 		CalculationDataDefinition cd = new CalculationDataDefinition("fvrv", new InitialReturnVisitCalculation());
+		return cd;
+	}
+
+	private DataDefinition bmi(){
+		CalculationDataDefinition cd = new CalculationDataDefinition("bmi", new BmiCalculation());
 		return cd;
 	}
 

@@ -21,7 +21,7 @@ public class CalculationResultConverter implements DataConverter {
         Object value = ((CalculationResult) obj).getValue();
 
         if (value instanceof Boolean) {
-            return (Boolean) value ? "Yes" : "No";
+            return (Boolean) value ? "Y" : "N";
         }
         else if (value instanceof Date) {
             return CoreUtils.formatDates((Date) value);
@@ -34,7 +34,7 @@ public class CalculationResultConverter implements DataConverter {
             return value.toString();
         }
         else if (value instanceof Double) {
-            return ((Double) value);
+            return Math.round(((Double) value) * 100) / 100;
         }
         else if (value instanceof Integer){
             return ((Integer) value);
