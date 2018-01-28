@@ -105,8 +105,18 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
 		dsd.addColumn("fvrv", firstOrRevisit(), "", new CalculationResultConverter());
 		dsd.addColumn("bmi", bmi(), "", new CalculationResultConverter());
-		dsd.addColumn("Weight", sdd.obsDdefinition("Weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
-		dsd.addColumn("Height", sdd.obsDdefinition("Height",  Dictionary.getConcept(Dictionary.HEIGHT)), "", new ObsDataConverter());
+		dsd.addColumn("htn", sdd.obsDdefinition("htn",  Dictionary.getConcept(Dictionary.HTN)), "", new ObsDataConverter());
+		dsd.addColumn("wc", sdd.obsDdefinition("wc",  Dictionary.getConcept(Dictionary.WAIST_CIRCUMFERENCE)), "", new ObsDataConverter());
+		dsd.addColumn("weight", sdd.obsDdefinition("weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
+		dsd.addColumn("systolic", sdd.obsDdefinition("systolic",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+		dsd.addColumn("diastolic", sdd.obsDdefinition("diastolic",  Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+		dsd.addColumn("rbs", sdd.obsDdefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
+		dsd.addColumn("fbs", sdd.obsDdefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
+		dsd.addColumn("currentHbac", sdd.obsDdefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
+		dsd.addColumn("diagnosis", sdd.obsDdefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
+		dsd.addColumn("treatment", sdd.obsDdefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
+		dsd.addColumn("nhif", sdd.obsDdefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
+		dsd.addColumn("next_appointment", sdd.obsDdefinition("next_appointment",  Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE)), "", new ObsDataConverter());
 
 		return dsd;
 	}

@@ -7,6 +7,23 @@ import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.stereotype.Component;
+import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
+import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
+import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
+import org.openmrs.module.reporting.data.converter.DataConverter;
+import org.openmrs.module.reporting.data.DataDefinition;
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
+import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
+import org.openmrs.module.reporting.data.converter.AgeConverter;
+import org.openmrs.module.reporting.data.converter.DataConverter;
+import org.openmrs.module.reporting.data.converter.ObjectFormatter;
+import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
+import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
+import org.openmrs.module.reporting.data.person.definition.*;
+import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
+import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
+import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationDataDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +87,31 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
     private DataSetDefinition dataSetDefinition() {
         PatientDataSetDefinition dsd = new PatientDataSetDefinition();
         SharedDataDefinition sdd= new SharedDataDefinition();
+        PatientIdentifierType patientId = CoreUtils.getPatientIdentifierType(Metadata.Identifier.PATIENT_ID);
+		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
+		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
+
+		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
+		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
+
+
+		dsd.addColumn("id", new PersonIdDataDefinition(), "");
+		dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
+		dsd.addColumn("Patient No", identifierDef, "");
+		dsd.addColumn("Names", nameDef, "");
+		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
+        dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
+        dsd.addColumn("rbs", sdd.obsDdefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
+		dsd.addColumn("fbs", sdd.obsDdefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
+        dsd.addColumn("currentHbac", sdd.obsDdefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
+        dsd.addColumn("abi", sdd.obsDdefinition("abi",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+        dsd.addColumn("complains", sdd.obsDdefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ObsDataConverter());
         return dsd;
     }
+
+    private DataDefinition encounterDate(){
+		CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
+		return cd;
+	}
 
 }
