@@ -6,6 +6,7 @@ import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
@@ -31,6 +32,10 @@ import java.util.Properties;
 
 @Component
 public class DiabeticFootRegisterReport extends AIHDDataExportManager{
+
+    @Autowired
+    SharedDataDefinition sdd;
+
     @Override
     public String getExcelDesignUuid() {
         return "4bc35404-0270-11e8-9058-5b0d24f9ec33";
@@ -86,7 +91,6 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
     private DataSetDefinition dataSetDefinition() {
         PatientDataSetDefinition dsd = new PatientDataSetDefinition();
-        SharedDataDefinition sdd= new SharedDataDefinition();
         PatientIdentifierType patientId = CoreUtils.getPatientIdentifierType(Metadata.Identifier.PATIENT_ID);
 		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
 		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
@@ -101,11 +105,11 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
         dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
-        dsd.addColumn("rbs", sdd.obsDdefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
-		dsd.addColumn("fbs", sdd.obsDdefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
-        dsd.addColumn("currentHbac", sdd.obsDdefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
-        dsd.addColumn("abi", sdd.obsDdefinition("abi",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
-        dsd.addColumn("complains", sdd.obsDdefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ObsDataConverter());
+        dsd.addColumn("rbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
+		dsd.addColumn("fbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
+        dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
+        dsd.addColumn("abi", sdd.obsDataDefinition("abi",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+        dsd.addColumn("complains", sdd.obsDataDefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ObsDataConverter());
         return dsd;
     }
 

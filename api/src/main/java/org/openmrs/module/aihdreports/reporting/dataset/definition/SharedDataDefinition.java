@@ -30,7 +30,7 @@ import java.util.Date;
 @Component
 public class SharedDataDefinition {
 
-    public DataDefinition obsDdefinition(String name, Concept concept) {
+    public DataDefinition obsDataDefinition(String name, Concept concept) {
         ObsForPersonDataDefinition obsForPersonDataDefinition = new ObsForPersonDataDefinition();
         obsForPersonDataDefinition.setName(name);
         obsForPersonDataDefinition.addParameter(new Parameter("onOrBefore", "End Date", Date.class));
