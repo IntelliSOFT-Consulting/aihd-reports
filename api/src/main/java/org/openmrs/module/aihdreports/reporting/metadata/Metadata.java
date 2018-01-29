@@ -16,14 +16,66 @@ public class Metadata {
         public final static String FBS = "160912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String HBA1C = "159644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String RETURN_VISIT_DATE = "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String SYMPTOM = "1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
         public final static String MEDICATION_HISTORY = "160741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String MEDICATION_ORDERED = "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String CURRENTLY_TAKING_MEDICATON = "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String DIET_AND_PHYSICAL_ACTIVITY = "";//a
+        public final static String OGLAS = "";//b
+        public final static String INSULIN = "";//c
+        public final static String ANT_HYPETENSIVE = "";//d
+        public final static String HERBAL = "";//e
+        public final static String OTHER = "";//f
+        public final static String OGLAS_AND_INSULIN = "";//g
+
+
+
+
         public final static String NHIF_MEMBER = "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
         public final static String HTN = "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String PROBLEM_ADDED = "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String NEW = "";//1
+        public final static String KNOWN = "";//2
+
+
         public final static String AGE_AT_DIAGNOSIS_YEARS = "160617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String LEVEL_OF_EDUCATION = "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String OCCUPATION = "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String DIAGNOSIS_TYPE = "";
+        public final static String ADMITTED_REFERED = "";
+        public final static String DIAGNOSIS_TYPE_NEW = "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String DIAGNOSIS_TYPE_NOT_NEW = "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String YES = "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String NO = "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+        public final static String SYMPTOM = "1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String TYPE_1_DIABETES = "";//a
+        public final static String TYPE_2_DIABETES = "";//b
+        public final static String GDM = "";//c
+        public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = "";//d
+
+        //complication options
+        public final static String PROBLEM_ADDED = "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String RETONOPATHY = "";//a
+        public final static String NEUROPATHY = "";//b
+        public final static String NEPTHOPATHY = "";//c
+        public final static String CELEBRALVARSULAR_DISEASES = "";//d
+        public final static String COLONARY_HEART_DISEASES = "";//e
+        public final static String PERIPHERAL_VASCULAR_DISEASES = "";//f
+        public final static String DIABETIC_FOOT = "";//g
+        public final static String HEART_FAILURE = "";//h
+        public final static String ERECTILE_DISFUNCTION = "";//i
+        public final static String GASTROPATHY = "";//j
+        public final static String CATARACTS = "";//k
+        public final static String DENTAL_COMPLICATIONS = "";//l
+
+        public final static String HYPERTENSION = "";
+        public final static String DYSLIPIDEMIA = "";
+        public final static String OBESITY = "";
+        public final static String HIV = "";
+        public final static String TB = "";
+
+
     }
     
     public static class Identifier{

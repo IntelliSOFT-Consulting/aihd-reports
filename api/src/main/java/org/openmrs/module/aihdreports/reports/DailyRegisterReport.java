@@ -6,8 +6,7 @@ import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationD
 import org.openmrs.module.aihdreports.reporting.calculation.BmiCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.InitialReturnVisitCalculation;
-import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
-import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
+import org.openmrs.module.aihdreports.reporting.converter.*;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
@@ -95,7 +94,6 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		PatientIdentifierType patientId = CoreUtils.getPatientIdentifierType(Metadata.Identifier.PATIENT_ID);
 		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
 		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
-
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
 
@@ -107,19 +105,22 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
 		dsd.addColumn("fvrv", firstOrRevisit(), "", new CalculationResultConverter());
-		dsd.addColumn("bmi", bmi(), "", new CalculationResultConverter());
-		dsd.addColumn("htn", sdd.obsDataDefinition("htn",  Dictionary.getConcept(Dictionary.HTN)), "", new ObsDataConverter());
+		dsd.addColumn("newlyDiagnosed", sdd.obsDataDefinition("newlyDiagnosed",  Dictionary.getConcept(Dictionary.DIAGNOSIS_TYPE)), "", new NewlyDiagnosedConverter());
+		dsd.addColumn("systolic", sdd.obsDataDefinition("systolic",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+		dsd.addColumn("diastolic", sdd.obsDataDefinition("diastolic",  Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+		dsd.addColumn("htn", sdd.obsDataDefinition("htn",  Dictionary.getConcept(Dictionary.HTN)), "", new HtnDataConverter());
 		dsd.addColumn("wc", sdd.obsDataDefinition("wc",  Dictionary.getConcept(Dictionary.WAIST_CIRCUMFERENCE)), "", new ObsDataConverter());
 		dsd.addColumn("weight", sdd.obsDataDefinition("weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("height", sdd.obsDataDefinition("height",  Dictionary.getConcept(Dictionary.HEIGHT)), "", new ObsDataConverter());
-		dsd.addColumn("systolic", sdd.obsDataDefinition("systolic",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
-		dsd.addColumn("diastolic", sdd.obsDataDefinition("diastolic",  Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+		dsd.addColumn("bmi", bmi(), "", new CalculationResultConverter());
 		dsd.addColumn("rbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
 		dsd.addColumn("fbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
 		dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
-		dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
-		dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
-		dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
+		dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new DiagnosisDataConverter());
+		dsd.addColumn("complications", sdd.obsDataDefinition("complications",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ComplicationsDataConverter());
+		dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.CURRENTLY_TAKING_MEDICATON)), "", new TreatmentDataConveter());
+		dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new NhifDataConverter());
+		dsd.addColumn("admitted_referred", sdd.obsDataDefinition("admitted_referred",  Dictionary.getConcept(Dictionary.ADMITTED_REFERED)), "", new ObsDataConverter());
 		dsd.addColumn("next_appointment", sdd.obsDataDefinition("next_appointment",  Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE)), "", new ObsDataConverter());
 
 		return dsd;
