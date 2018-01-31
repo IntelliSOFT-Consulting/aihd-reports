@@ -13,9 +13,13 @@
  */
 package org.openmrs.module.aihdreports.reports;
 
+import org.openmrs.Concept;
 import org.openmrs.module.aihdreports.reporting.library.dimension.CommonDimension;
 import org.openmrs.module.aihdreports.reporting.library.indicator.MonthlyReporting;
+import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
+import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.ColumnParameters;
+import org.openmrs.module.aihdreports.reporting.utils.EmrReportingUtils;
 import org.openmrs.module.aihdreports.reporting.utils.ReportUtils;
 import org.openmrs.module.reporting.dataset.definition.CohortIndicatorDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
@@ -109,16 +113,54 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		String indParams = "startDate=${startDate},endDate=${endDate}";
 		//add dimensions to the dsd gender is needed
 		dsd.addDimension("gender", ReportUtils.map(commonDimension.gender()));
+		//add dimension for the age bands
+		dsd.addDimension("age", ReportUtils.map(commonDimension.arvAgeBandsInYears()));
 		
-		//bulid the column parameters here
-		ColumnParameters female = new ColumnParameters("female", "Female", "gender=F");
+		//build the column parameters here for gender
+		ColumnParameters female = new ColumnParameters("Female", "Female", "gender=F");
 		ColumnParameters male = new ColumnParameters("Male", "Male", "gender=M");
-		ColumnParameters total = new ColumnParameters("Total", "Total", "");
+		ColumnParameters totals = new ColumnParameters("totals", "Totals", "");
+
+		//build the columns parameters here for type 1 for female
+		ColumnParameters zeroTo18FemaleT1 = new ColumnParameters("0-18FT1", "0-18-F", "age=0-18|gender=F");
+		ColumnParameters ninteenTo35FemaleT1 = new ColumnParameters("19-35FT1", "19-35-F", "age=19-35|gender=F");
+		ColumnParameters thirty6PlusFemaleT1 = new ColumnParameters("36+MT1", "36+F", "age=36+|gender=F");
+
+		//build the columns parameters here for type 1 for male
+		ColumnParameters zeroTo18MaleT1 = new ColumnParameters("0-18MT1", "0-18-M", "age=0-18|gender=M");
+		ColumnParameters ninteenTo35MaleT1 = new ColumnParameters("19-35MT1", "19-35-M", "age=19-35|gender=M");
+		ColumnParameters thirty6PlusMaleT1 = new ColumnParameters("36+MT1", "36+M", "age=36+|gender=M");
+
+		//build the columns parameters for type2 for female
+		ColumnParameters zeroTo18FemaleT2 = new ColumnParameters("0-18FT2", "0-18-F", "age=0-18|gender=F");
+		ColumnParameters ninteenTo35FemaleT2 = new ColumnParameters("19-35FT2", "19-35-F", "age=19-35|gender=F");
+		ColumnParameters thirty6To60FemaleT2 = new ColumnParameters("36-60FT2", "36-60-F", "age=36-60|gender=F");
+		ColumnParameters sixtyPlusFemaleT2 = new ColumnParameters("60+FT2", "60+F", "age=60+|gender=F");
+		//build the columns parameters for type2 for male
+		ColumnParameters zeroTo18MaleT2 = new ColumnParameters("0-18MT2", "0-18-M", "age=0-18|gender=M");
+		ColumnParameters ninteenTo35MaleT2 = new ColumnParameters("19-35MT2", "19-35-M", "age=19-35|gender=M");
+		ColumnParameters thirty6To60MaleT2 = new ColumnParameters("36-60MT2", "36-60-M", "age=36-60|gender=M");
+		ColumnParameters sixtyPlusMaleT2 = new ColumnParameters("60+MT2", "60+M", "age=60+|gender=M");
+
+
 		
 		//form columns as list to be used in the dsd
-		List<ColumnParameters> allColumns = Arrays.asList(female, male, total);
+		List<ColumnParameters> allColumnsGender = Arrays.asList(female, male, totals);
+		List<ColumnParameters> allColumnsT1 = Arrays.asList(zeroTo18FemaleT1, ninteenTo35FemaleT1, thirty6PlusFemaleT1, zeroTo18MaleT1, ninteenTo35MaleT1, thirty6PlusMaleT1, totals);
+		List<ColumnParameters> allColumnsT2 = Arrays.asList(zeroTo18FemaleT2, ninteenTo35FemaleT2, thirty6To60FemaleT2, zeroTo18MaleT2, ninteenTo35MaleT2, thirty6To60MaleT2, sixtyPlusFemaleT2, sixtyPlusMaleT2, totals);
 		
 		//build the design here, all patients in the system with different aggregation
+		//number of patients diabetic patients
+		Concept diabeticType = Dictionary.getConcept(Dictionary.TYPE_OF_DIABETIC);
+		Concept diabeticT1 = Dictionary.getConcept(Dictionary.TYPE_1_DIABETES);
+		Concept diabeticT2 = Dictionary.getConcept(Dictionary.TYPE_2_DIABETES);
+
+		EmrReportingUtils.addRow(dsd, "NDP", "Number of diabetic patients", ReportUtils.map(indicators.numberOfDiabeticPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
+		EmrReportingUtils.addRow(dsd, "FV", "First Visit", ReportUtils.map(indicators.numberOfPatientsWithEncounter(Metadata.EncounterType.DM_INITIAL), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
+		EmrReportingUtils.addRow(dsd, "RV", "Return Visit", ReportUtils.map(indicators.numberOfPatientsWithEncounter(Metadata.EncounterType.DM_FOLLOWUP), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDC", "New diagnosis cases", ReportUtils.map(indicators.numberOfNewDiagnosedPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
+		EmrReportingUtils.addRow(dsd, "TNT1", "Total number with type 1", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT1), indParams), allColumnsT1, Arrays.asList("01", "02", "03", "04", "05", "06", "07"));
+		EmrReportingUtils.addRow(dsd, "TNT2", "Total number with type 2", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
 		
 		return dsd;
 	}

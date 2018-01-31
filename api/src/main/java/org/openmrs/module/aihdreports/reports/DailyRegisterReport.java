@@ -105,10 +105,10 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
 		dsd.addColumn("fvrv", firstOrRevisit(), "", new CalculationResultConverter());
-		dsd.addColumn("newlyDiagnosed", sdd.obsDataDefinition("newlyDiagnosed",  Dictionary.getConcept(Dictionary.DIAGNOSIS_TYPE)), "", new NewlyDiagnosedConverter());
+		dsd.addColumn("newlyDiagnosed", sdd.obsDataDefinition("newlyDiagnosed",  Dictionary.getConcept(Dictionary.DIABETIC_VISIT_TYPE)), "", new NewlyDiagnosedConverter());
 		dsd.addColumn("systolic", sdd.obsDataDefinition("systolic",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
 		dsd.addColumn("diastolic", sdd.obsDataDefinition("diastolic",  Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
-		dsd.addColumn("htn", sdd.obsDataDefinition("htn",  Dictionary.getConcept(Dictionary.HTN)), "", new HtnDataConverter());
+		dsd.addColumn("htn", sdd.obsDataDefinition("htn",  Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE)), "", new HtnDataConverter());
 		dsd.addColumn("wc", sdd.obsDataDefinition("wc",  Dictionary.getConcept(Dictionary.WAIST_CIRCUMFERENCE)), "", new ObsDataConverter());
 		dsd.addColumn("weight", sdd.obsDataDefinition("weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("height", sdd.obsDataDefinition("height",  Dictionary.getConcept(Dictionary.HEIGHT)), "", new ObsDataConverter());

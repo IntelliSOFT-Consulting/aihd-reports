@@ -153,7 +153,7 @@ public class CommonCohortLibrary {
      * @param answers the answers to include
      * @return the cohort definition
      */
-    public CohortDefinition hasCodedObs(List<EncounterType> encounterTypeList, Concept question, List<Concept> answers) {
+    public CohortDefinition hasObs(Concept question, Concept... answers) {
         CodedObsCohortDefinition cd = new CodedObsCohortDefinition();
         cd.setName("has obs between dates");
         cd.setQuestion(question);
@@ -161,20 +161,10 @@ public class CommonCohortLibrary {
         cd.setTimeModifier(BaseObsCohortDefinition.TimeModifier.ANY);
         cd.addParameter(new Parameter("onOrBefore", "Before Date", Date.class));
         cd.addParameter(new Parameter("onOrAfter", "After Date", Date.class));
-        if (answers.size() > 0) {
-            cd.setValueList(answers);
+        if (answers.length > 0) {
+            cd.setValueList(Arrays.asList(answers));
         }
         return cd;
-    }
-    
-    /**
-     * Convenience method to
-     * @param question
-     * @param answers
-     * @return
-     */
-    public CohortDefinition hasCodedObs(List<EncounterType> encounterTypeList, Concept question, Concept ... answers) {
-        return hasCodedObs(encounterTypeList, question, Arrays.asList(answers));
     }
     
     /**

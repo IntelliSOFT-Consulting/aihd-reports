@@ -12,10 +12,10 @@ public class NewlyDiagnosedConverter implements DataConverter {
             return "";
 
         Obs obs = (Obs) o;
-        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DIAGNOSIS_TYPE_NEW))){
+        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NEW_DIABETIC_PATIENT))){
             return "Y";
         }
-        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DIAGNOSIS_TYPE_NOT_NEW))){
+        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.KNOWN_DAIBETIC_PATIENT))){
             return "N";
         }
         return null;

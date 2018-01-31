@@ -33,42 +33,19 @@ public class CommonDimension {
 	}
 	
 	/**
-	 * Dimensions of age for children and adults for quality improvement report
-	 * 
-	 * @return CohortDefinitionDimension
-	 */
-	public CohortDefinitionDimension dimForQualityImprovement() {
-		CohortDefinitionDimension dim = new CohortDefinitionDimension();
-		dim.setName("age groups (0-14, 15+)");
-		dim.addParameter(new Parameter("onDate", "Date", Date.class));
-		dim.addCohortDefinition("0-14", map(commonLibrary.agedAtMost(14), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("15+", map(commonLibrary.agedAtLeast(15), "effectiveDate=${onDate}"));
-		return dim;
-	}
-	
-	/**
 	 * Dimension of age for patients on ARV of different age group in years
 	 * 
 	 * @return CohortDefinitionDimension
 	 */
 	public CohortDefinitionDimension arvAgeBandsInYears() {
 		CohortDefinitionDimension dim = new CohortDefinitionDimension();
-		dim.setName("age group (<1, 1-4, 5-9, 5-14, 10-14, 15-19, 20-24, 25-49, 0-14, 15+, 20+, 50+ )");
+		dim.setName("age group (0-18,19-35, >=36, 36-60, >60)");
 		dim.addParameter(new Parameter("onDate", "Date", Date.class));
-		dim.addCohortDefinition("<1", map(commonLibrary.agedAtMost(0), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("0-14", map(commonLibrary.agedAtLeastAgedAtMost(0, 14), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("1-4", map(commonLibrary.agedAtLeastAgedAtMost(1, 4), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("2-4", map(commonLibrary.agedAtLeastAgedAtMost(2, 3), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("2-5", map(commonLibrary.agedAtLeastAgedAtMost(2, 5), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("5-14", map(commonLibrary.agedAtLeastAgedAtMost(5, 14), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("15+", map(commonLibrary.agedAtLeast(15), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("5-9", map(commonLibrary.agedAtLeastAgedAtMost(5, 9), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("10-14", map(commonLibrary.agedAtLeastAgedAtMost(10, 14), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("15-19", map(commonLibrary.agedAtLeastAgedAtMost(15, 19), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("20-24", map(commonLibrary.agedAtLeastAgedAtMost(20, 24), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("25-49", map(commonLibrary.agedAtLeastAgedAtMost(25, 49), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("50+", map(commonLibrary.agedAtLeast(50), "effectiveDate=${onDate}"));
-		dim.addCohortDefinition("20+", map(commonLibrary.agedAtLeast(20), "effectiveDate=${onDate}"));
+		dim.addCohortDefinition("0-18", map(commonLibrary.agedAtLeastAgedAtMost(0, 18), "effectiveDate=${onDate}"));
+		dim.addCohortDefinition("19-35", map(commonLibrary.agedAtLeastAgedAtMost(19, 35), "effectiveDate=${onDate}"));
+		dim.addCohortDefinition("36+", map(commonLibrary.agedAtLeast(35), "effectiveDate=${onDate}"));
+		dim.addCohortDefinition("36-60", map(commonLibrary.agedAtLeastAgedAtMost(36, 60), "effectiveDate=${onDate}"));
+		dim.addCohortDefinition("61+", map(commonLibrary.agedAtLeast(61), "effectiveDate=${onDate}"));
 		return dim;
 	}
 	

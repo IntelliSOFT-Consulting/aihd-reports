@@ -12,10 +12,10 @@ public class HtnDataConverter implements DataConverter {
         if(o == null)
             return "";
         Obs obs = (Obs) o;
-        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.KNOWN))){
+        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT))){
             return "2";
         }
-        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NEW))){
+        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT))){
             return "1";
         }
         return null;

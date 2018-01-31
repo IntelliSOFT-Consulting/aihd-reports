@@ -41,17 +41,11 @@ public class Metadata {
         public final static String AGE_AT_DIAGNOSIS_YEARS = "160617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String LEVEL_OF_EDUCATION = "1712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String OCCUPATION = "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String DIAGNOSIS_TYPE = "";
         public final static String ADMITTED_REFERED = "";
-        public final static String DIAGNOSIS_TYPE_NEW = "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String DIAGNOSIS_TYPE_NOT_NEW = "1542AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String YES = "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String NO = "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         public final static String SYMPTOM = "1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String TYPE_1_DIABETES = "";//a
-        public final static String TYPE_2_DIABETES = "";//b
-        public final static String GDM = "";//c
         public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = "";//d
 
         //complication options
@@ -74,6 +68,18 @@ public class Metadata {
         public final static String OBESITY = "";
         public final static String HIV = "";
         public final static String TB = "";
+
+        //populating the monthly report indicators concepts here
+        public final static String DIABETIC_VISIT_TYPE = "2d0d45ca-a92f-4fb2-a6af-c53a1c079bf3";
+        public final static String NEW_DIABETIC_PATIENT = "78144858-1452-4b31-af12-fdfd303fc77a";
+        public final static String KNOWN_DAIBETIC_PATIENT = "2e385fe5-2d51-4d86-862e-a7752470c508";
+        public final static String HYPERTENSION_VISIT_TYPE = "02c2e1f7-7f0c-4bd1-b89e-1a1b37855a6a";
+        public final static String NEW_HYPERTENSION_PATIENT = "d88104a5-9126-4b5a-9380-e31a8e7e9442";
+        public final static String KNOWN_HYPERTENSION_PATIENT = "9b3d4986-ab44-41eb-afc8-504ab5bfe6e2";
+        public final static String TYPE_OF_DIABETIC = "c73b9fa8-4ecb-4f34-8506-aa21c6bd5894";
+        public final static String TYPE_1_DIABETES = "142474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//a
+        public final static String TYPE_2_DIABETES = "142473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//b
+        public final static String GDM = "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//c
 
 
     }
