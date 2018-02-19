@@ -124,7 +124,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		//build the columns parameters here for type 1 for female
 		ColumnParameters zeroTo18FemaleT1 = new ColumnParameters("0-18FT1", "0-18-F", "age=0-18|gender=F");
 		ColumnParameters ninteenTo35FemaleT1 = new ColumnParameters("19-35FT1", "19-35-F", "age=19-35|gender=F");
-		ColumnParameters thirty6PlusFemaleT1 = new ColumnParameters("36+MT1", "36+F", "age=36+|gender=F");
+		ColumnParameters thirty6PlusFemaleT1 = new ColumnParameters("36+FT1", "36+F", "age=36+|gender=F");
 
 		//build the columns parameters here for type 1 for male
 		ColumnParameters zeroTo18MaleT1 = new ColumnParameters("0-18MT1", "0-18-M", "age=0-18|gender=M");
