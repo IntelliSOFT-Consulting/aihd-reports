@@ -57,4 +57,43 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsPerDiabetiType(Concept question, Concept answer) {
        return cohortIndicator("Per diabetic", ReportUtils.map(common.hasObs(question, answer), "onOrAfter=${startDate},onOrBefore=${endDate}"));
     }
+
+    /**
+     * The number of GDM
+     * @return
+     */
+    public CohortIndicator numberOfGdm() {
+        Concept question = Dictionary.getConcept(Dictionary.TYPE_OF_DIABETIC);
+        Concept ans = Dictionary.getConcept(Dictionary.GDM);
+        return cohortIndicator("numGdm", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+    }
+
+    /**
+     * numberOfPatientsOnInsulin()
+     */
+    public CohortIndicator numberOfPatientsOnInsulin() {
+        Concept question = Dictionary.getConcept("f5b23ca2-ee78-4fa8-915d-8c81c8c9d8bd");
+        Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return cohortIndicator("onInsulin", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+    }
+
+    /**
+     * numberOfPatientsOnOglas
+     */
+    public CohortIndicator numberOfPatientsOnOglas() {
+
+        Concept question = Dictionary.getConcept("2bac6fca-19d0-4e4b-99a7-4bb30f40470b");
+        Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return cohortIndicator("onoglas", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+    }
+
+    /**
+     * numberOfPatientsOnInsAndOgl
+     */
+    public CohortIndicator numberOfPatientsOnInsAndOgl(){
+        Concept question = Dictionary.getConcept("6b90a512-39a4-4eac-a6dc-12b54932f536");
+        Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return cohortIndicator("onInsulin+Oglas", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
 }

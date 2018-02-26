@@ -14,6 +14,7 @@
 package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.Concept;
+import org.openmrs.Location;
 import org.openmrs.module.aihdreports.reporting.library.dimension.CommonDimension;
 import org.openmrs.module.aihdreports.reporting.library.indicator.MonthlyReporting;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
@@ -161,13 +162,22 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "NDC", "New diagnosis cases", ReportUtils.map(indicators.numberOfNewDiagnosedPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "TNT1", "Total number with type 1", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT1), indParams), allColumnsT1, Arrays.asList("01", "02", "03", "04", "05", "06", "07"));
 		EmrReportingUtils.addRow(dsd, "TNT2", "Total number with type 2", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
+		EmrReportingUtils.addRow(dsd, "GDM", "GESTATIONAL DIABETES MELLITUS", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		//a line will be added here to calculate those patients with diabetes caused by other factors
+		EmrReportingUtils.addRow(dsd, "INS", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnInsulin(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "OGL", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnOglas(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "BOTH", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+
 		
 		return dsd;
 	}
 	
 	@Override
 	public List<Parameter> getParameters() {
-		return Arrays.asList(new Parameter("startDate", "Start Date", Date.class), new Parameter("endDate", "End Date",
-		        Date.class));
+		return Arrays.asList(
+				new Parameter("startDate", "Start Date", Date.class),
+				new Parameter("endDate", "End Date",Date.class),
+				new Parameter("location", "Location", Location.class)
+		);
 	}
 }
