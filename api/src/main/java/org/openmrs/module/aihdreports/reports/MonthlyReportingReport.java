@@ -167,6 +167,15 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "INS", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnInsulin(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "OGL", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnOglas(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "BOTH", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		
+		EmrReportingUtils.addRow(dsd, "NHTN", "Total Number with New HTN ", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "KHTN", "Total Number with Known HTN ", ReportUtils.map(indicators.numberOfKnownHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "SDF", "Total Number Screened For Diabetic Foot ", ReportUtils.map(indicators.numberOfPatientsScreenedForDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "ADF", "Total Number Amputated Due To Diabetic Foot ", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "DFU", "Total Number with Diabetic Foot Ulcer ", ReportUtils.map(indicators.numberOfPatientsWithDiabeticFootUlcer(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "KF", "Total Number with Kidney Failure ", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "EC", "Total Number with Eye Complications", ReportUtils.map(indicators.numberOfPatientsWithVisualImpairment(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "ED", "Total Number Educated On Diabetes ", ReportUtils.map(indicators.numberOfPatientsEducatedOnDiabetes(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 
 		
 		return dsd;

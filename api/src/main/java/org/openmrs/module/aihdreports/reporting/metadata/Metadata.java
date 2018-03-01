@@ -80,6 +80,14 @@ public class Metadata {
         public final static String TYPE_1_DIABETES = "142474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//a
         public final static String TYPE_2_DIABETES = "142473AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//b
         public final static String GDM = "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//c
+        public final static String FOOT_EXAM = "f8e9419e-b319-48c0-a57e-10720710f278";
+        public final static String PHYSICAL_EXAM = "1391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String FOOT_AMPUTATION = "99290a23-7b79-460d-b982-ea9f32486259";
+        public final static String FOOT_ULCER = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String KIDNEY_FAILURE = "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String VISUAL_IMPAIRMENT = "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String EDUCATION_COUNSELING_ORDERS = "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String DIABETES = "2ea479b2-7324-4f03-8e91-d8933a2fa51e";
 
 
     }
