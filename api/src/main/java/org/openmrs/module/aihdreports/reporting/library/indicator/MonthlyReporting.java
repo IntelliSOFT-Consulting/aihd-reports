@@ -96,4 +96,83 @@ public class MonthlyReporting {
         return cohortIndicator("onInsulin+Oglas", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
 
     }
+
+    /**
+     * numberOfNewHtnPatients
+     */
+    public CohortIndicator numberOfNewHtnPatients(){
+        Concept question = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
+        Concept ans = Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT);
+        return cohortIndicator("newHtn", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
+
+    /**
+     * numberOfKnownHtnPatients
+     */
+    public CohortIndicator numberOfKnownHtnPatients(){
+        Concept question = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
+        Concept ans = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
+        return cohortIndicator("knownHtn", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
+    /**
+     * numberOfPatientsScreenedForDiabeticFoot
+     */
+    public CohortIndicator numberOfPatientsScreenedForDiabeticFoot(){
+        Concept question = Dictionary.getConcept(Dictionary.PHYSICAL_EXAM);
+        Concept ans = Dictionary.getConcept(Dictionary.FOOT_EXAM);
+        return cohortIndicator("diabeticFootScreened", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
+
+    /**
+     * numberOfAmputationDueToDiabeticFoot
+     */
+    public CohortIndicator numberOfAmputationDueToDiabeticFoot(){
+        Concept question = Dictionary.getConcept(Dictionary.FOOT_AMPUTATION);
+        Concept ans = Dictionary.getConcept(Dictionary.YES);
+        return cohortIndicator("diabeticFootAmputation", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
+
+    /**
+     * numberOfPatientsWithDiabeticFootUlcer
+     */
+    public CohortIndicator numberOfPatientsWithDiabeticFootUlcer(){
+        Concept question = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
+        Concept ans = Dictionary.getConcept(Dictionary.FOOT_ULCER);
+        return cohortIndicator("diabeticFootUlcer", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
+
+    /**
+     * numberOfPatientsWithKidneyFailure
+     */
+    public CohortIndicator numberOfPatientsWithKidneyFailure(){
+        Concept question = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
+        Concept ans = Dictionary.getConcept(Dictionary.KIDNEY_FAILURE);
+        return cohortIndicator("withKidneyFailure", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
+
+    /**
+     * numberOfPatientsWithVisualImpairment
+     */
+    public CohortIndicator numberOfPatientsWithVisualImpairment(){
+        Concept question = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
+        Concept ans = Dictionary.getConcept(Dictionary.VISUAL_IMPAIRMENT);
+        return cohortIndicator("withEyeComplications", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
+
+    /**
+     * numberOfPatientsEducatedOnDiabetes
+     */
+    public CohortIndicator numberOfPatientsEducatedOnDiabetes(){
+        Concept question = Dictionary.getConcept(Dictionary.EDUCATION_COUNSELING_ORDERS);
+        Concept ans = Dictionary.getConcept(Dictionary.DIABETES);
+        return cohortIndicator("educatedOnDiabetes", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+
+    }
 }
