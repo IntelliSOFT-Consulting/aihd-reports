@@ -176,8 +176,8 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 	public List<Parameter> getParameters() {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
-				new Parameter("endDate", "End Date",Date.class),
-				new Parameter("location", "Location", Location.class)
+				new Parameter("endDate", "End Date",Date.class)
+				//new Parameter("location", "Location", Location.class)
 		);
 	}
 }
