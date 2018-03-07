@@ -175,4 +175,15 @@ public class MonthlyReporting {
         return cohortIndicator("educatedOnDiabetes", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
 
     }
+
+    /**
+     * Number of Hypertension patients
+     * @return CohortIndicator
+     */
+    public CohortIndicator numberOfhypertensionPatients(){
+        Concept htnQuestion = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
+        Concept newHtnPatient = Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT);
+        Concept knownHtnPatient = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
+        return cohortIndicator("HTN Patients", ReportUtils.map(common.hasObs(htnQuestion, newHtnPatient, knownHtnPatient), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+    }
 }
