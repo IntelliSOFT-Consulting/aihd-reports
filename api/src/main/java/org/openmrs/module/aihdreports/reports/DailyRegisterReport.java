@@ -1,6 +1,8 @@
 package org.openmrs.module.aihdreports.reports;
 
+import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
 import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationDataDefinition;
 import org.openmrs.module.aihdreports.reporting.calculation.BmiCalculation;
@@ -8,6 +10,7 @@ import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalcula
 import org.openmrs.module.aihdreports.reporting.calculation.InitialReturnVisitCalculation;
 import org.openmrs.module.aihdreports.reporting.converter.*;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
+import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
@@ -21,12 +24,15 @@ import org.openmrs.module.reporting.data.person.definition.*;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
+import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -35,6 +41,9 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 	@Autowired
 	SharedDataDefinition sdd;
+
+	@Autowired
+	CommonCohortLibrary cohortLibrary;
 	
 	@Override
 	public String getExcelDesignUuid() {
@@ -96,6 +105,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
+		dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}");
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
@@ -139,5 +149,15 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		CalculationDataDefinition cd = new CalculationDataDefinition("bmi", new BmiCalculation());
 		return cd;
 	}
+
+	@Override
+	public List<Parameter> getParameters() {
+		return Arrays.asList(
+				new Parameter("onOrAfter", "Start Date", Date.class),
+				new Parameter("onOrBefore", "End Date",Date.class),
+				new Parameter("locationList", "Location", Location.class)
+		);
+	}
+
 
 }

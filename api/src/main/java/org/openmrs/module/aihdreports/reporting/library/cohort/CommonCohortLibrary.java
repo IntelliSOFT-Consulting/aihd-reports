@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
 import org.openmrs.Program;
 import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.BaseObsCohortDefinition;
@@ -123,6 +124,7 @@ public class CommonCohortLibrary {
         cd.setTimeQualifier(TimeQualifier.ANY);
         cd.addParameter(new Parameter("onOrBefore", "Before Date", Date.class));
         cd.addParameter(new Parameter("onOrAfter", "After Date", Date.class));
+        cd.addParameter(new Parameter("locationList", "Location", Location.class));
         if (types.length > 0) {
             cd.setEncounterTypeList(Arrays.asList(types));
         }
