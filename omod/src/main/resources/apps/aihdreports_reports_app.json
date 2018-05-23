@@ -20,7 +20,7 @@
         "id": "aihdreports.homepageLink",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
-        "label": "AIHD Reports",
+        "label": "Reports",
         "url": "aihdreports/reports.page",
         "icon": "icon-book",
         "order": 110
