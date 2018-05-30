@@ -13,11 +13,8 @@
  */
 package org.openmrs.module.aihdreports.reports;
 
-import org.openmrs.Concept;
 import org.openmrs.module.aihdreports.reporting.library.dimension.CommonDimension;
 import org.openmrs.module.aihdreports.reporting.library.indicator.MonthlyReporting;
-import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
-import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.ColumnParameters;
 import org.openmrs.module.aihdreports.reporting.utils.EmrReportingUtils;
 import org.openmrs.module.aihdreports.reporting.utils.ReportUtils;
