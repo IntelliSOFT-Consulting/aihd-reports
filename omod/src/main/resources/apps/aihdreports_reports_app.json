@@ -21,7 +21,7 @@
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "Reports",
-        "url": "aihdreports/reports.page",
+        "url": "aihdreports/dashboard.page",
         "icon": "icon-book",
         "order": 110
       },

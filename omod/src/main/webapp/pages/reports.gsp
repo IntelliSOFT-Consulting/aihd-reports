@@ -19,7 +19,7 @@
         }
     ];
 </script>
-<h2>AIHD Reports</h2>
+<h2>Reports</h2>
 <div class="dashboard clear">
     <div class="info-container column">
 
