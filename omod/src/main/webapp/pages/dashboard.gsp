@@ -175,12 +175,12 @@
                     <th>Female</th>
                 </tr>
                 <tr>
-                    <td>No.with type 1 DM</td>
+                    <td>No.with type 1</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>No.with type 2 DM</td>
+                    <td>No.with type 2</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -309,8 +309,8 @@
                   <th colspan="2">Waist Circumference</th>
               </tr>
               <tr>
-                 <td>No. of males with</td>
-                 <td>No. with increased risks</td>
+                 <td>Males with</td>
+                 <td>Increased risks</td>
              </tr>
              <tr>
                <td>WC &gt;102 cm</td>
