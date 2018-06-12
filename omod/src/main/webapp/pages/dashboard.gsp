@@ -16,6 +16,12 @@
 
 <h3><a href="reports.page"> Run reports</a></h3>
 <br />
+<div>
+    <fieldset>
+        <legend> Dashboard parameters</legend>
+    </fieldset>
+</div>
+<br />
 <div class="dashboard clear">
 <table border="0">
    <tr>
@@ -105,24 +111,55 @@
                     <td></td>
                 </tr>
             </table>
-        </td>
-        <td valign="top">
+            <br />
             <table border="0">
                 <tr>
-                    <th></th>
+                    <th>BP</th>
                     <th>Male</th>
                     <th>Female</th>
                 </tr>
                 <tr>
-                    <td>Newly diagnosed DM</td>
+                    <td>Bp&gt;140/90</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </td>
+        <td valign="top">
+            <table border="0">
+                <tr>
+                    <th>Newly diagnosed</th>
+                    <th>Male</th>
+                    <th>Female</th>
+                </tr>
+                <tr>
+                    <td>DM</td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Newly diagnosed HTN</td>
+                    <td>HTN</td>
                     <td></td>
                     <td></td>
                 </tr>
+            </table>
+            <br />
+            <table border="0">
+               <tr>
+                   <th>TB</th>
+                   <th>Male</th>
+                   <th>Female</th>
+               </tr>
+               <tr>
+                  <td>Screened for TB</td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                <td>TB positive</td>
+                <td></td>
+                <td></td>
+            </tr>
             </table>
         </td>
    </tr>
@@ -154,6 +191,24 @@
                 </tr>
                 <tr>
                     <td>No. with HTN</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <br />
+            <table border="0">
+                <tr>
+                    <th></th>
+                    <th>Male</th>
+                    <th>Female</th>
+                </tr>
+                <tr>
+                    <td>First visist</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>revisits</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -207,6 +262,64 @@
                 <td></td>
                 <td></td>
             </tr>
+           </table>
+      </td>
+
+        <td valign="top">
+           <table border="0">
+               <tr>
+                   <th>Treatment</th>
+                   <th>Male</th>
+                   <th>Female</th>
+               </tr>
+               <tr>
+                   <td>Diet & Physical Activity</td>
+                   <td></td>
+                   <td></td>
+               </tr>
+               <tr>
+                  <td>OGLAs</td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                <td>Insulin</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Antihypertensives</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Herbal</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Other</td>
+                <td></td>
+                <td></td>
+            </tr>
+           </table>
+           <br />
+           <table border="0">
+              <tr>
+                  <th colspan="2">Waist Circumference</th>
+              </tr>
+              <tr>
+                 <td>No. of males with</td>
+                 <td>No. with increased risks</td>
+             </tr>
+             <tr>
+               <td>WC &gt;102 cm</td>
+               <td></td>
+             </tr>
+             <tr>
+               <td>WC &gt;88 cm</td>
+               <td></td>
+             </tr>
            </table>
       </td>
    </tr>
