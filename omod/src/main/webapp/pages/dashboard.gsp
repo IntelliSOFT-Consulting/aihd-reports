@@ -26,62 +26,7 @@
 <table border="0">
    <tr>
         <td valign="top">
-            <table border="0">
-                <tr>
-                    <th></th>
-                    <th colspan="2">Diabetes</th>
-                    <th colspan="2">Hypertension</th>
-                </tr>
-                <tr>
-                    <th>Age Group</th>
-                    <th>Male</th>
-                    <th>Female</th>
-                    <th>Male</th>
-                    <th>Female</th>
-                </tr>
-                <tr>
-                    <td>0 to 5</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>6 to 18</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>19 to 35</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>36 to 60</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>&gt;60</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Totals</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+            ${ ui.includeFragment("aihdreports", "diabeticHypertension") }
         </td>
         <td valign="top">
             <table border="0">

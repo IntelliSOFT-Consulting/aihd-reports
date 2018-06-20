@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Component
+//@Component
 public class SummaryReport extends AIHDDataExportManager {
 
     @Autowired
