@@ -13,12 +13,10 @@
         }
     ];
 </script>
-
-<h3><a href="reports.page"> Run reports</a></h3>
-<br />
 <div>
     <fieldset>
-        <legend> Dashboard parameters</legend>
+        <legend>Individual Facility Reports</legend>
+        <center><h2><a href="reports.page"> Run individual reports per facility</a></h2></center>
     </fieldset>
 </div>
 <br />
@@ -29,87 +27,18 @@
             ${ ui.includeFragment("aihdreports", "diabeticHypertension") }
         </td>
         <td valign="top">
-            <table border="0">
-                <tr>
-                    <th>BMI</th>
-                    <th>Male</th>
-                    <th>Female</th>
-                </tr>
-                <tr>
-                    <td>&lt;=18</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>18.5 - 24.9</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>25 - 29.9</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>&gt;= 30</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+            ${ ui.includeFragment("aihdreports", "bmiSummary") }
             <br />
-            <table border="0">
-                <tr>
-                    <th>BP</th>
-                    <th>Male</th>
-                    <th>Female</th>
-                </tr>
-                <tr>
-                    <td>Bp&gt;140/90</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+            ${ ui.includeFragment("aihdreports", "bpSummary") }
         </td>
         <td valign="top">
-            <table border="0">
-                <tr>
-                    <th>Newly diagnosed</th>
-                    <th>Male</th>
-                    <th>Female</th>
-                </tr>
-                <tr>
-                    <td>DM</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>HTN</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+            ${ ui.includeFragment("aihdreports", "dmhtnSummary") }
             <br />
-            <table border="0">
-               <tr>
-                   <th>TB</th>
-                   <th>Male</th>
-                   <th>Female</th>
-               </tr>
-               <tr>
-                  <td>Screened for TB</td>
-                  <td></td>
-                  <td></td>
-              </tr>
-              <tr>
-                <td>TB positive</td>
-                <td></td>
-                <td></td>
-            </tr>
-            </table>
+            ${ ui.includeFragment("aihdreports", "tbSummary") }
         </td>
    </tr>
 </table>
-<p></p>
+<br />
 <table>
    <tr>
        <td valign="top">
