@@ -6,7 +6,7 @@
     </tr>
     <tr>
         <td>Bp&gt;140/90</td>
-        <td></td>
-        <td></td>
+        <td>${above14090M}</td>
+        <td>${above14090F}</td>
     </tr>
 </table>
