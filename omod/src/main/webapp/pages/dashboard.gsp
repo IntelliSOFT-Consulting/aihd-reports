@@ -42,33 +42,7 @@
 <table>
    <tr>
        <td valign="top">
-            <table border="0">
-                <tr>
-                    <th>Types of diabetes</th>
-                    <th>Male</th>
-                    <th>Female</th>
-                </tr>
-                <tr>
-                    <td>No.with type 1</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>No.with type 2</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>No. with GDM</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>No. with HTN</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+           ${ ui.includeFragment("aihdreports", "diabeticTypes") }
             <br />
             <table border="0">
                 <tr>
