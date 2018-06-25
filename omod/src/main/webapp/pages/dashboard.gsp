@@ -44,23 +44,7 @@
        <td valign="top">
            ${ ui.includeFragment("aihdreports", "diabeticTypes") }
             <br />
-            <table border="0">
-                <tr>
-                    <th></th>
-                    <th>Male</th>
-                    <th>Female</th>
-                </tr>
-                <tr>
-                    <td>First visist</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>revisits</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
+           ${ ui.includeFragment("aihdreports", "visitRevisit") }
        </td>
        <td valign="top">
            <table border="0">
