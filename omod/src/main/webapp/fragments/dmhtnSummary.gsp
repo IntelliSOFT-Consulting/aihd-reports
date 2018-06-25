@@ -6,12 +6,12 @@
     </tr>
     <tr>
         <td>DM</td>
-        <td></td>
-        <td></td>
+        <td>${dmM}</td>
+        <td>${dmF}</td>
     </tr>
     <tr>
         <td>HTN</td>
-        <td></td>
-        <td></td>
+        <td>${htnM}</td>
+        <td>${htnF}</td>
     </tr>
 </table>

@@ -6,12 +6,12 @@
     </tr>
     <tr>
         <td>Screened for TB</td>
-        <td></td>
-        <td></td>
+        <td>${srnM}</td>
+        <td>${srnF}</td>
     </tr>
     <tr>
         <td>TB positive</td>
-        <td></td>
-        <td></td>
+        <td>${ptvM}</td>
+        <td>${ptvF}</td>
     </tr>
 </table>

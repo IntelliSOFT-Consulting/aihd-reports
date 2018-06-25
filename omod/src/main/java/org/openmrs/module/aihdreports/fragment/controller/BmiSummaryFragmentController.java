@@ -1,7 +1,6 @@
 package org.openmrs.module.aihdreports.fragment.controller;
 
 import org.openmrs.Concept;
-import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
@@ -13,7 +12,11 @@ import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.utils.Filters;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class BmiSummaryFragmentController {
 
