@@ -7,7 +7,7 @@
     <tr>
         <td>Screened for TB</td>
         <td>${srnM}</td>
-        <td>${srnF}</td>
+        <td>${scrF}</td>
     </tr>
     <tr>
         <td>TB positive</td>

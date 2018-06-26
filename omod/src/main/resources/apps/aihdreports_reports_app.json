@@ -64,16 +64,7 @@
         "label": "Monthly DHIS2 Reporting Form",
         "url": "reportingui/runReport.page?reportDefinition=6cd0b441-d644-487c-8466-5820a73f9ce5",
         "order": 5
-      },
-      {
-        "id": "Summary",
-        "extensionPointId": "org.openmrs.module.aihdreports.reports.monthly",
-        "type": "link",
-        "label": "Summary report",
-        "url": "reportingui/runReport.page?reportDefinition=7c1b2be8-63f7-11e8-9100-0f889edcb83a",
-        "order": 4
       }
-
     ]
   }
 ]
