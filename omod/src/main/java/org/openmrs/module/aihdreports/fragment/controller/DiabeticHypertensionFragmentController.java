@@ -37,9 +37,6 @@ import java.util.Set;
 
 public class DiabeticHypertensionFragmentController {
 
-    @Autowired
-    private CommonCohortLibrary common;
-
     public void controller(FragmentModel model) {
 
         //set context

@@ -92,6 +92,14 @@ public class Metadata {
         public final static String VISUAL_IMPAIRMENT = "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String EDUCATION_COUNSELING_ORDERS = "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIABETES = "2ea479b2-7324-4f03-8e91-d8933a2fa51e";
+        public final static String STROKE = "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String Ischemic_heart_disease = "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String Peripheral_Vascular_disease = "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String Heart_failure = "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String Neuropathy = "118983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String Retinopathy = "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String Nephropathy = "";
+        public final static String Diabetic_foot = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
     }

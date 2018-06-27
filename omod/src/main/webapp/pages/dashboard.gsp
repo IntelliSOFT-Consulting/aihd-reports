@@ -47,54 +47,7 @@
            ${ ui.includeFragment("aihdreports", "visitRevisit") }
        </td>
        <td valign="top">
-           <table border="0">
-               <tr>
-                   <th>Complications</th>
-                   <th>Male</th>
-                   <th>Female</th>
-               </tr>
-               <tr>
-                   <td>Stroke</td>
-                   <td></td>
-                   <td></td>
-               </tr>
-               <tr>
-                   <td>Ischemic <br />heart Disease</td>
-                   <td></td>
-                   <td></td>
-               </tr>
-               <tr>
-                   <td>Peripheral <br />Vascular disease</td>
-                   <td></td>
-                   <td></td>
-               </tr>
-               <tr>
-                   <td>Heart failure</td>
-                   <td></td>
-                   <td></td>
-               </tr>
-               <tr>
-                  <td>Neuropathy(b, k, l)</td>
-                  <td></td>
-                  <td></td>
-              </tr>
-              <tr>
-              <tr>
-                  <td>Retinopathy</td>
-                  <td></td>
-                  <td></td>
-              </tr>
-              <tr>
-                <td>Nephropathy</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Diabetic foot</td>
-                <td></td>
-                <td></td>
-            </tr>
-           </table>
+           ${ ui.includeFragment("aihdreports", "complications") }
       </td>
 
         <td valign="top">
