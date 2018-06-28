@@ -37,8 +37,8 @@
     </tr>
     <tr>
         <td>Nephropathy</td>
-        <td></td>
-        <td></td>
+        <td>${neM}</td>
+        <td>${neF}</td>
     </tr>
     <tr>
         <td>Diabetic foot</td>

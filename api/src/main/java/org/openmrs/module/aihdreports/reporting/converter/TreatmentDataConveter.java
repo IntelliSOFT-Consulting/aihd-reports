@@ -10,13 +10,13 @@ public class TreatmentDataConveter implements DataConverter {
         if(o == null)
             return "";
         Obs obs = (Obs) o;
-        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DIET_AND_PHYSICAL_ACTIVITY))){
+        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DIET))){
             return "a";
         }
-        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.OGLAS))){
+        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.OGLAS_METFORMIN))){
             return "b";
         }
-        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.INSULIN))){
+        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_1))){
             return "c";
         }
         else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.ANT_HYPETENSIVE))){
@@ -25,7 +25,7 @@ public class TreatmentDataConveter implements DataConverter {
         else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.HERBAL))){
             return "e";
         }
-        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.OTHER))){
+        else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.OTHER_NON_CODED))){
             return "f";
         }
         else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.OGLAS_AND_INSULIN))){

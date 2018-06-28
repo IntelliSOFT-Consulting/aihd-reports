@@ -24,12 +24,19 @@ public class Metadata {
         public final static String MEDICATION_HISTORY = "160741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String MEDICATION_ORDERED = "1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String CURRENTLY_TAKING_MEDICATON = "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String DIET_AND_PHYSICAL_ACTIVITY = "";//a
-        public final static String OGLAS = "";//b
-        public final static String INSULIN = "";//c
+        public final static String DIET= "185c3281-058c-4f07-89cd-04417e18b3c7";//a
+        public final static String PHYSICAL_EXERCISE= "159364AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//a
+        public final static String OGLAS_METFORMIN = "79651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//b
+        public final static String OGLAS_GILBERCLAMIDE = "77071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//b
+        public final static String OGLAS_OTHER = "3c6865e4-a473-4fe6-8467-838d52a2c27a";//b
+        public final static String INSULIN_70_30 = "159459AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//c
+        public final static String INSULIN_SOLUBLE = "282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String INSULIN_NPH_TYPE_1 = "e4f96288-5a75-4259-a610-fa380d469f1f";
+        public final static String INSULIN_NPH_TYPE_2 = "ee5647b4-3ebf-48ae-9428-2558118de260";
+        public final static String INSULIN_OTHER_MEDICATION = "ee5647b4-3ebf-48ae-9428-2558118de260";
         public final static String ANT_HYPETENSIVE = "";//d
-        public final static String HERBAL = "";//e
-        public final static String OTHER = "";//f
+        public final static String HERBAL = "c2769cb4-6f2a-476b-b8a1-8a7a7cb7d62e";//e
+        public final static String OTHER_NON_CODED = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//f
         public final static String OGLAS_AND_INSULIN = "";//g
 
 
@@ -98,7 +105,7 @@ public class Metadata {
         public final static String Heart_failure = "139069AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String Neuropathy = "118983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String Retinopathy = "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String Nephropathy = "";
+        public final static String Nephropathy = "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String Diabetic_foot = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 

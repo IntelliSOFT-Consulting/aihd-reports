@@ -51,61 +51,9 @@
       </td>
 
         <td valign="top">
-           <table border="0">
-               <tr>
-                   <th>Treatment</th>
-                   <th>Male</th>
-                   <th>Female</th>
-               </tr>
-               <tr>
-                   <td>Diet & Physical Activity</td>
-                   <td></td>
-                   <td></td>
-               </tr>
-               <tr>
-                  <td>OGLAs</td>
-                  <td></td>
-                  <td></td>
-              </tr>
-              <tr>
-                <td>Insulin</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Antihypertensives</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Herbal</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Other</td>
-                <td></td>
-                <td></td>
-            </tr>
-           </table>
+            ${ ui.includeFragment("aihdreports", "treatment") }
            <br />
-           <table border="0">
-              <tr>
-                  <th colspan="2">Waist Circumference</th>
-              </tr>
-              <tr>
-                 <td>Males with</td>
-                 <td>Increased risks</td>
-             </tr>
-             <tr>
-               <td>WC &gt;102 cm</td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>WC &gt;88 cm</td>
-               <td></td>
-             </tr>
-           </table>
+            ${ ui.includeFragment("aihdreports", "weight") }
       </td>
    </tr>
 </table>

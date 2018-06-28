@@ -49,6 +49,7 @@ public class ComplicationsFragmentController {
         Concept Neuropathy = Dictionary.getConcept(Dictionary.Neuropathy);
         Concept Retinopathy = Dictionary.getConcept(Dictionary.Retinopathy);
         Concept Diabetic_foot = Dictionary.getConcept(Dictionary.Diabetic_foot);
+        Concept nephropathy = Dictionary.getConcept(Dictionary.Nephropathy);
 
         //add maps
         model.addAttribute("sM", getCount(problem_added, stroke, male, context));
@@ -58,6 +59,7 @@ public class ComplicationsFragmentController {
         model.addAttribute("nM", getCount(problem_added, Neuropathy, male, context));
         model.addAttribute("rM", getCount(problem_added, Retinopathy, male, context));
         model.addAttribute("dM", getCount(problem_added, Diabetic_foot, male, context));
+        model.addAttribute("neM", getCount(problem_added, nephropathy, male, context));
 
         model.addAttribute("sF", getCount(problem_added, stroke, female, context));
         model.addAttribute("isF", getCount(problem_added, ischemic_heart_disease, female, context));
@@ -66,6 +68,7 @@ public class ComplicationsFragmentController {
         model.addAttribute("nF", getCount(problem_added, Neuropathy, female, context));
         model.addAttribute("rF", getCount(problem_added, Retinopathy, female, context));
         model.addAttribute("dF", getCount(problem_added, Diabetic_foot, female, context));
+        model.addAttribute("neF", getCount(problem_added, nephropathy, female, context));
 
         }
 
