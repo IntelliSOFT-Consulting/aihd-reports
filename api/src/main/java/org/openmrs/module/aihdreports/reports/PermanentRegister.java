@@ -112,7 +112,7 @@ public class PermanentRegister extends AIHDDataExportManager {
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
         EncounterType initial = Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12");
         EncounterType followUp = Context.getEncounterService().getEncounterTypeByUuid("bf3f3108-f87c-11e7-913d-5f679b8fdacb");
-		dsd.addRowFilter(cohortLibrary.hasEncounter(initial, followUp), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}");
+		dsd.addRowFilter(cohortLibrary.hasEncounter(initial, followUp), "onOrAfter=${startDate},onOrBefore=${endDate}");
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
@@ -135,14 +135,15 @@ public class PermanentRegister extends AIHDDataExportManager {
     
 	private DataDefinition encounterDate(){
 		CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
+        cd.addParameter(new Parameter("endDate", "End Date", Date.class));
 		return cd;
 	}
 
     @Override
     public List<Parameter> getParameters() {
         return Arrays.asList(
-                new Parameter("onOrAfter", "Start Date", Date.class),
-                new Parameter("onOrBefore", "End Date",Date.class),
+                new Parameter("startDate", "Start Date", Date.class),
+                new Parameter("endDate", "End Date",Date.class),
                 new Parameter("locationList", "Location", Location.class)
         );
     }
