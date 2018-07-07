@@ -67,7 +67,39 @@ public class TreatmentFragmentController {
         List<Concept> herbals = Arrays.asList(herbal);
         List<Concept> other = Arrays.asList(other_non_coded);
         List<Concept> anthypertensive = new ArrayList<>();
-
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Captopril));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Enalapril));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Lisinopril));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Perindopril));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Ramipril));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.other_ace));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Candesartan));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Irbesartan));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Losartan));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Telmisartan));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Valsartan));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Olmesartan));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.other_arb));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Atenolol));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Labetolol));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Propranolol));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Carvedilol));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Metoprolol));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Bisoprolol));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.other_b));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Amlodipine));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Felodipine));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Nifedipine));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Chlorthalidone));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.HydrochlorothiazideHCTZ));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Indapamide));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.other_d1));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.other_d2));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Methyldopa));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Hydralazine));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Prazocin));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.other_z));
+        anthypertensive.add(Dictionary.getConcept(Dictionary.Nebivolol));
 
         //map the models and keys to be used on the UI
         model.addAttribute("dpM", getCount(medicaiton, diet_and_physical_activities, male, context));
@@ -82,7 +114,7 @@ public class TreatmentFragmentController {
         model.addAttribute("insF", getCount(medicaiton, insulin, female, context));
         model.addAttribute("hF", getCount(medicaiton, herbals, female, context));
         model.addAttribute("otF", getCount(medicaiton, other, female, context));
-        model.addAttribute("antHm", getCount(medicaiton, anthypertensive, female, context));
+        model.addAttribute("antHf", getCount(medicaiton, anthypertensive, female, context));
 
         
     }

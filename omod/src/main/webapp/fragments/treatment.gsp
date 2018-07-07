@@ -21,8 +21,8 @@
     </tr>
     <tr>
         <td>Antihypertensives</td>
-        <td></td>
-        <td></td>
+        <td>${antHm}</td>
+        <td>${antHf}</td>
     </tr>
     <tr>
         <td>Herbal</td>
