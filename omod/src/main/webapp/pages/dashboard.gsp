@@ -53,7 +53,7 @@
         <td valign="top">
             ${ ui.includeFragment("aihdreports", "treatment") }
            <br />
-            ${ ui.includeFragment("aihdreports", "weight") }
+            ${ ui.includeFragment("aihdreports", "waistCircumference") }
       </td>
    </tr>
 </table>

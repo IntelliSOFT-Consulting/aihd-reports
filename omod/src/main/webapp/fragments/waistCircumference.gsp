@@ -8,10 +8,10 @@
     </tr>
     <tr>
         <td>WC &gt;102 cm</td>
-        <td></td>
+        <td>${over102}</td>
     </tr>
     <tr>
         <td>WC &gt;88 cm</td>
-        <td></td>
+        <td>${over88}</td>
     </tr>
 </table>
