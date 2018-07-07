@@ -57,12 +57,17 @@ public class TreatmentFragmentController {
         Concept herbal = Dictionary.getConcept(Dictionary.HERBAL);
         Concept other_non_coded = Dictionary.getConcept(Dictionary.OTHER_NON_CODED);
 
+        //anthypertensive drugs listed here
+
+
         //create lists for possible answers per category
         List<Concept> diet_and_physical_activities = Arrays.asList(diet, physical_exercise);
         List<Concept> oglas = Arrays.asList(oglas_metformin, oglas_gilberclamide, oglas_other);
         List<Concept> insulin = Arrays.asList(insulins_70_30, insulins_soluble, insulins_nph_type_1, insulins_nph_type_2, insulins_other_medication);
         List<Concept> herbals = Arrays.asList(herbal);
         List<Concept> other = Arrays.asList(other_non_coded);
+        List<Concept> anthypertensive = new ArrayList<>();
+
 
         //map the models and keys to be used on the UI
         model.addAttribute("dpM", getCount(medicaiton, diet_and_physical_activities, male, context));
@@ -70,12 +75,14 @@ public class TreatmentFragmentController {
         model.addAttribute("insM", getCount(medicaiton, insulin, male, context));
         model.addAttribute("hM", getCount(medicaiton, herbals, male, context));
         model.addAttribute("otM", getCount(medicaiton, other, male, context));
+        model.addAttribute("antHm", getCount(medicaiton, anthypertensive, male, context));
 
         model.addAttribute("dpF", getCount(medicaiton, diet_and_physical_activities, female, context));
         model.addAttribute("ogF", getCount(medicaiton, oglas, female, context));
         model.addAttribute("insF", getCount(medicaiton, insulin, female, context));
         model.addAttribute("hF", getCount(medicaiton, herbals, female, context));
-        model.addAttribute("otF", getCount(medicaiton, other, male, context));
+        model.addAttribute("otF", getCount(medicaiton, other, female, context));
+        model.addAttribute("antHm", getCount(medicaiton, anthypertensive, female, context));
 
         
     }
