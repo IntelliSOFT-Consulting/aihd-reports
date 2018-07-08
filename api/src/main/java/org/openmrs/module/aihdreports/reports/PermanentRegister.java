@@ -101,6 +101,7 @@ public class PermanentRegister extends AIHDDataExportManager {
 
     private DataSetDefinition dataSetDefinition() {
         PatientDataSetDefinition dsd = new PatientDataSetDefinition();
+        dsd.addParameters(getParameters());
         PatientIdentifierType patientId = CoreUtils.getPatientIdentifierType(Metadata.Identifier.PATIENT_ID);
 		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
 		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
@@ -112,7 +113,7 @@ public class PermanentRegister extends AIHDDataExportManager {
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
         EncounterType initial = Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12");
         EncounterType followUp = Context.getEncounterService().getEncounterTypeByUuid("bf3f3108-f87c-11e7-913d-5f679b8fdacb");
-		dsd.addRowFilter(cohortLibrary.hasEncounter(initial, followUp), "onOrAfter=${startDate},onOrBefore=${endDate}");
+		dsd.addRowFilter(cohortLibrary.hasEncounter(initial, followUp), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}");
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");

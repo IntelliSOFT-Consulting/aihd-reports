@@ -107,7 +107,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-        dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${startDate},onOrBefore=${endDate}");
+        dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}");
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
