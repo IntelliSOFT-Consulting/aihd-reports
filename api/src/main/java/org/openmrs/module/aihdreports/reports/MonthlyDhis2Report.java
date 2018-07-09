@@ -134,7 +134,7 @@ public class MonthlyDhis2Report extends AIHDDataExportManager {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date",Date.class),
-				new Parameter("location", "Facility", Location.class)
+				new Parameter("locationList", "Facility", Location.class)
 		);
 	}
 }
