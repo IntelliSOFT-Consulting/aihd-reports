@@ -12,12 +12,10 @@ public class ComplicationsDataConverter implements DataConverter {
     public Object convert(Object o) {
         if(o == null)
             return "";
+            
         String value = "";
 
-        Set<Obs> obss = (Set<Obs>) o;
-        if(obss != null && obss.size() > 0) {
-
-            for(Obs obs : obss) {
+        Obs obs = (Obs) o;
 
                 if (obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.RETONOPATHY))) {
                     value = "a";
@@ -55,8 +53,7 @@ public class ComplicationsDataConverter implements DataConverter {
                 if (obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DENTAL_COMPLICATIONS))) {
                     value = value + " l";
                 }
-            }
-        }
+
         return value;
     }
 
