@@ -157,7 +157,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date",Date.class),
-				new Parameter("locationList", "Location", Location.class)
+				new Parameter("locationList", "Facility", Location.class)
 		);
 	}
 
