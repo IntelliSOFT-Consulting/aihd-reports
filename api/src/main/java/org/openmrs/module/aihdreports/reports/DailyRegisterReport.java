@@ -100,12 +100,13 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 	private DataSetDefinition dataSetDefinition() {
 		PatientDataSetDefinition dsd = new PatientDataSetDefinition();
+		dsd.addParameters(getParameters());
 		PatientIdentifierType patientId = CoreUtils.getPatientIdentifierType(Metadata.Identifier.PATIENT_ID);
 		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
 		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-		dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}");
+		dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}");
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
@@ -138,6 +139,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 	private DataDefinition encounterDate(){
 		CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
+		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
 		return cd;
 	}
 	private DataDefinition firstOrRevisit(){
@@ -153,9 +155,9 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	@Override
 	public List<Parameter> getParameters() {
 		return Arrays.asList(
-				new Parameter("onOrAfter", "Start Date", Date.class),
-				new Parameter("onOrBefore", "End Date",Date.class),
-				new Parameter("locationList", "Location", Location.class)
+				new Parameter("startDate", "Start Date", Date.class),
+				new Parameter("endDate", "End Date",Date.class),
+				new Parameter("locationList", "Facility", Location.class)
 		);
 	}
 
