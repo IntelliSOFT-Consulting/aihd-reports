@@ -28,7 +28,7 @@ public class EncounterDateCalculation extends AbstractPatientCalculation {
             }
             else if(initialEncounter != null) {
 
-                encounterDate = followUpEncounter.getEncounterDatetime();
+                encounterDate = initialEncounter.getEncounterDatetime();
             }
 
             ret.put(ptId, new SimpleResult(encounterDate, this));
