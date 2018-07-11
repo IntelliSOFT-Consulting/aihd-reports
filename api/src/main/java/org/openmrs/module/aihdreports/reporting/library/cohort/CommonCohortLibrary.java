@@ -124,7 +124,7 @@ public class CommonCohortLibrary {
         cd.setTimeQualifier(TimeQualifier.ANY);
         cd.addParameter(new Parameter("onOrBefore", "Before Date", Date.class));
         cd.addParameter(new Parameter("onOrAfter", "After Date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Location", Location.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
         if (types.length > 0) {
             cd.setEncounterTypeList(Arrays.asList(types));
         }

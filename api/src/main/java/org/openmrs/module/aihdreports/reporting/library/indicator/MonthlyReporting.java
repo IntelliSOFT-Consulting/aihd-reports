@@ -30,7 +30,7 @@ public class MonthlyReporting {
         Concept diabeticQuestion = Dictionary.getConcept(Dictionary.DIABETIC_VISIT_TYPE);
         Concept newDmPatient = Dictionary.getConcept(Dictionary.NEW_DIABETIC_PATIENT);
         Concept knownDmPatient = Dictionary.getConcept(Dictionary.KNOWN_DAIBETIC_PATIENT);
-        return cohortIndicator("Diabetic Patients", ReportUtils.map(common.hasObs(diabeticQuestion, newDmPatient, knownDmPatient), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("Diabetic Patients", ReportUtils.map(cohorts.hasObsOnLocation(diabeticQuestion, newDmPatient, knownDmPatient), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
@@ -39,7 +39,7 @@ public class MonthlyReporting {
      */
     public CohortIndicator numberOfPatientsWithEncounter(String uuid){
         EncounterType type = CoreUtils.getEncounterType(uuid);
-        return cohortIndicator("Patients with encounter", ReportUtils.map(common.hasEncounter(type), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("Patients with encounter", ReportUtils.map(common.hasEncounter(type), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
@@ -47,7 +47,7 @@ public class MonthlyReporting {
      * @return CohortIndicator
      */
     public CohortIndicator numberOfNewDiagnosedPatients(){
-        return cohortIndicator("New diagnosed patients", ReportUtils.map(cohorts.newDiagnosedCases(), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("New diagnosed patients", ReportUtils.map(cohorts.newDiagnosedCases(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
@@ -55,7 +55,7 @@ public class MonthlyReporting {
      * @return CohortIndicator
      */
     public CohortIndicator numberOfPatientsPerDiabetiType(Concept question, Concept answer) {
-       return cohortIndicator("Per diabetic", ReportUtils.map(common.hasObs(question, answer), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+       return cohortIndicator("Per diabetic", ReportUtils.map(cohorts.hasObsOnLocation(question, answer), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
@@ -65,7 +65,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfGdm() {
         Concept question = Dictionary.getConcept(Dictionary.TYPE_OF_DIABETIC);
         Concept ans = Dictionary.getConcept(Dictionary.GDM);
-        return cohortIndicator("numGdm", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("numGdm", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
@@ -74,7 +74,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsOnInsulin() {
         Concept question = Dictionary.getConcept("f5b23ca2-ee78-4fa8-915d-8c81c8c9d8bd");
         Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return cohortIndicator("onInsulin", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("onInsulin", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
@@ -84,7 +84,7 @@ public class MonthlyReporting {
 
         Concept question = Dictionary.getConcept("2bac6fca-19d0-4e4b-99a7-4bb30f40470b");
         Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return cohortIndicator("onoglas", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("onoglas", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
@@ -93,7 +93,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsOnInsAndOgl(){
         Concept question = Dictionary.getConcept("6b90a512-39a4-4eac-a6dc-12b54932f536");
         Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return cohortIndicator("onInsulin+Oglas", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("onInsulin+Oglas", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -103,7 +103,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfNewHtnPatients(){
         Concept question = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
         Concept ans = Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT);
-        return cohortIndicator("newHtn", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("newHtn", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -113,7 +113,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfKnownHtnPatients(){
         Concept question = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
         Concept ans = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
-        return cohortIndicator("knownHtn", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("knownHtn", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
     /**
@@ -122,7 +122,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsScreenedForDiabeticFoot(){
         Concept question = Dictionary.getConcept(Dictionary.PHYSICAL_EXAM);
         Concept ans = Dictionary.getConcept(Dictionary.FOOT_EXAM);
-        return cohortIndicator("diabeticFootScreened", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("diabeticFootScreened", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -132,7 +132,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfAmputationDueToDiabeticFoot(){
         Concept question = Dictionary.getConcept(Dictionary.FOOT_AMPUTATION);
         Concept ans = Dictionary.getConcept(Dictionary.YES);
-        return cohortIndicator("diabeticFootAmputation", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("diabeticFootAmputation", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -142,7 +142,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsWithDiabeticFootUlcer(){
         Concept question = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
         Concept ans = Dictionary.getConcept(Dictionary.FOOT_ULCER);
-        return cohortIndicator("diabeticFootUlcer", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("diabeticFootUlcer", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -152,7 +152,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsWithKidneyFailure(){
         Concept question = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
         Concept ans = Dictionary.getConcept(Dictionary.KIDNEY_FAILURE);
-        return cohortIndicator("withKidneyFailure", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("withKidneyFailure", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -162,7 +162,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsWithVisualImpairment(){
         Concept question = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
         Concept ans = Dictionary.getConcept(Dictionary.VISUAL_IMPAIRMENT);
-        return cohortIndicator("withEyeComplications", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("withEyeComplications", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -172,7 +172,7 @@ public class MonthlyReporting {
     public CohortIndicator numberOfPatientsEducatedOnDiabetes(){
         Concept question = Dictionary.getConcept(Dictionary.EDUCATION_COUNSELING_ORDERS);
         Concept ans = Dictionary.getConcept(Dictionary.DIABETES);
-        return cohortIndicator("educatedOnDiabetes", ReportUtils.map(common.hasObs(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("educatedOnDiabetes", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -184,6 +184,6 @@ public class MonthlyReporting {
         Concept htnQuestion = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
         Concept newHtnPatient = Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT);
         Concept knownHtnPatient = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
-        return cohortIndicator("HTN Patients", ReportUtils.map(common.hasObs(htnQuestion, newHtnPatient, knownHtnPatient), "onOrAfter=${startDate},onOrBefore=${endDate}"));
+        return cohortIndicator("HTN Patients", ReportUtils.map(cohorts.hasObsOnLocation(htnQuestion, newHtnPatient, knownHtnPatient), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 }
