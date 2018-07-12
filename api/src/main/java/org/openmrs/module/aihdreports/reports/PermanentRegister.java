@@ -3,8 +3,10 @@ package org.openmrs.module.aihdreports.reports;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.aihdreports.reporting.calculation.TreatmentCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.address.AddressCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.address.PersonAttributeCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.ComplicationsCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.DiagnosisCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.YearOfDiagnosisCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.followup.PatientStatusCalculation;
@@ -137,8 +139,8 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis_year", diagnosis_year(), "", new CalculationResultConverter());
-        //dsd.addColumn("complications");
-        //dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
+        dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
+        dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
         dsd.addColumn("status", patientStatus(), "", new CalculationResultConverter());
 
@@ -173,6 +175,14 @@ public class PermanentRegister extends AIHDDataExportManager {
     }
     private DataDefinition patientStatus(){
         CalculationDataDefinition cd = new CalculationDataDefinition("status", new PatientStatusCalculation());
+        return cd;
+    }
+    private DataDefinition treatment(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("treatment", new TreatmentCalculation());
+        return cd;
+    }
+    private DataDefinition complications(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
         return cd;
     }
 
