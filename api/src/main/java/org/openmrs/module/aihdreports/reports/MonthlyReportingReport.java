@@ -108,10 +108,10 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 	
 	private DataSetDefinition dataSetDefinition() {
 		CohortIndicatorDataSetDefinition dsd = new CohortIndicatorDataSetDefinition();
-		dsd.setParameters(getParameters());
+		dsd.addParameters(getParameters());
 		dsd.setName("M");
 		
-		String indParams = "startDate=${startDate},endDate=${endDate}";
+		String indParams = "startDate=${startDate},endDate=${endDate},locationList=${locationList}";
 		//add dimensions to the dsd gender is needed
 		dsd.addDimension("gender", ReportUtils.map(commonDimension.gender()));
 		//add dimension for the age bands
@@ -186,7 +186,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date",Date.class),
-				new Parameter("location", "Location", Location.class)
+				new Parameter("locationList", "Facility", Location.class)
 		);
 	}
 }
