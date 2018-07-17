@@ -52,8 +52,9 @@ public class Metadata {
         public final static String NHIF_MEMBER = "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         public final static String HTN = "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String NEW = "";//1
-        public final static String KNOWN = "";//2
+        public final static String HDL = "1007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//1
+        public final static String LDL = "1008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//2
+        public final static String TG =  "1009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
         public final static String AGE_AT_DIAGNOSIS_YEARS = "160617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -76,11 +77,9 @@ public class Metadata {
         public final static String DIABETIC_FOOT = "";//g
         public final static String HEART_FAILURE = "";//h
         public final static String ERECTILE_DISFUNCTION = "156162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String GASTROPATHY = "";//j
-        public final static String CATARACTS = "";//k
-        public final static String DENTAL_COMPLICATIONS = "";//l
-        public final static String DYSLIPIDEMIA = "";
-        public final static String OBESITY = "";
+        public final static String GASTROPATHY = "145339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//j
+        public final static String CATARACTS = "120860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//k
+        public final static String DENTAL_COMPLICATIONS = "0e34f15a-0f94-4c3e-bdcd-4576b7e4d3d5";//l
         public final static String HIV_STATUS = "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String NEGATIVE="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String HIV_POSTIVE = "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
