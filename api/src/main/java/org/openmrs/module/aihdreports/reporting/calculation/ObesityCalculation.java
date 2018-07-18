@@ -17,9 +17,9 @@ public class ObesityCalculation extends AbstractPatientCalculation {
         for(Integer ptId: cohort){
             boolean isObese = false;
             SimpleResult bmiResults = (SimpleResult) bmi.get(ptId);
-            if(bmiResults != null){
-                double result = (double) bmiResults.getValue();
-                if(result > 29.0){
+            if(bmiResults != null && bmiResults.getValue() != null){
+                Double result = (Double) bmiResults.getValue();
+                if(result != null && result > 29.0){
                     isObese = true;
                 }
             }
