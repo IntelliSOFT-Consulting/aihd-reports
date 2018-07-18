@@ -62,8 +62,11 @@ public class ObsDataConverter implements DataConverter {
             else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NEGATIVE))){
                 return "Negative";
             }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.UNDER_TREATMENT))){
+                return "Y";
+            }
             else {
-                return obs.getValueCoded().getName().getName();
+                return "";
             }
         }
 
