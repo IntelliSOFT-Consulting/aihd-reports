@@ -4,6 +4,7 @@ import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.aihdreports.reporting.calculation.address.AddressCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.address.PersonAttributeCalculation;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
@@ -129,16 +130,14 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("subcounty", address("subcounty"), "", new CalculationResultConverter());
         dsd.addColumn("village", address("village"), "", new CalculationResultConverter());
         dsd.addColumn("landmark", address("landmark"), "", new CalculationResultConverter());
-        dsd.addColumn("tsn");
-        dsd.addColumn("cts");
+        dsd.addColumn("tsn", personAttributes("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
+        dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
         dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
         dsd.addColumn("complications");
         dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
         dsd.addColumn("status");
-        //remarks to be poppulated here if there is an algorithim
-        
 
         return dsd;
     }
@@ -152,6 +151,12 @@ public class PermanentRegister extends AIHDDataExportManager {
 	private DataDefinition address(String which){
         CalculationDataDefinition cd = new CalculationDataDefinition("address"+which, new AddressCalculation());
         cd.addCalculationParameter("which", which);
+        return cd;
+    }
+
+    private DataDefinition personAttributes(String uuid){
+        CalculationDataDefinition cd = new CalculationDataDefinition("attributes"+uuid, new PersonAttributeCalculation());
+        cd.addCalculationParameter("uuid", uuid);
         return cd;
     }
 
