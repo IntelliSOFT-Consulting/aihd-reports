@@ -6,6 +6,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.aihdreports.reporting.calculation.address.AddressCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.address.PersonAttributeCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.DiagnosisCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.YearOfDiagnosisCalculation;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
@@ -134,7 +135,7 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("tsn", personAttributes("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
         dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
-        //dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
+        dsd.addColumn("diagnosis_year", diagnosis_year(), "", new CalculationResultConverter());
         //dsd.addColumn("complications");
         //dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
         //dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
@@ -163,6 +164,10 @@ public class PermanentRegister extends AIHDDataExportManager {
 
     private DataDefinition diagnosis(){
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis", new DiagnosisCalculation());
+        return cd;
+    }
+    private DataDefinition diagnosis_year(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
         return cd;
     }
 

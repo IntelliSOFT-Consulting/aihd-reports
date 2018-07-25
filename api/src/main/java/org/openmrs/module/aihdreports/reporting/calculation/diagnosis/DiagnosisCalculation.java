@@ -16,7 +16,7 @@ public class DiagnosisCalculation extends AbstractPatientCalculation {
         CalculationResultMap ret = new CalculationResultMap();
 
         CalculationResultMap diabeticPatients = calculate(new DiabetesTypesCalculation(), cohort, context);
-        CalculationResultMap hypertensionPatients = calculate(new DiabetesTypesCalculation(), cohort, context);
+        CalculationResultMap hypertensionPatients = calculate(new HypertensionTypeCalculation(), cohort, context);
         for(Integer ptId:cohort){
             String value = "";
             SimpleResult diabeticResults = (SimpleResult) diabeticPatients.get(ptId);

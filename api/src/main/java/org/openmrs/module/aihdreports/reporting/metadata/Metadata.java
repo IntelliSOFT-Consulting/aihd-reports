@@ -113,6 +113,8 @@ public class Metadata {
         public final static String MODERATE_HYPERTENSION ="51879821-770d-4ba1-8cfe-e358c9209dab";
         public final static String SEVERE_HYPERTENSION ="fa3b33e0-bbd6-4d1a-b74b-26d411a928da";
         public final static String PREECLAMSIA ="c9614f94-cf50-4ed4-b0cd-58e06c6266d6";
+        public final static String DIABETIC_YEAR_OF_DIAGNOSIS = "95d4aa36-05ee-44cb-823b-35a62f07ce49";
+        public final static String HYPERTENSION_YEAR_OF_DIAGNOSIS = "b863e568-1491-42d0-b881-04df389ad0de";
 
         //concepts uuids for anti hypertensive drugs
         //ACE  inhibitor
