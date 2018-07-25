@@ -3,10 +3,8 @@ package org.openmrs.module.aihdreports.reports;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.aihdreports.reporting.calculation.address.AddressCalculation;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
-import org.openmrs.module.reporting.data.converter.BirthdateConverter;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
@@ -122,22 +120,15 @@ public class PermanentRegister extends AIHDDataExportManager {
 		dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
 		dsd.addColumn("Patient No", identifierDef, "");
 		dsd.addColumn("Names", nameDef, "");
-		dsd.addColumn("dob", new BirthdateDataDefinition(), "", new BirthdateConverter());
+		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
         dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
         dsd.addColumn("occupation", sdd.obsDataDefinition("occupation",  Dictionary.getConcept(Dictionary.OCCUPATION)), "", new ObsDataConverter());
+        dsd.addColumn("level_of_education", sdd.obsDataDefinition("level_of_education",  Dictionary.getConcept(Dictionary.LEVEL_OF_EDUCATION)), "", new ObsDataConverter());
         dsd.addColumn("telephone", phoneNumberDef, "");
-        dsd.addColumn("subcounty", address("subcounty"), "", new CalculationResultConverter());
-        dsd.addColumn("village", address("village"), "", new CalculationResultConverter());
-        dsd.addColumn("landmark", address("landmark"), "", new CalculationResultConverter());
-        dsd.addColumn("tsn");
-        dsd.addColumn("cts");
         dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
         dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
-        dsd.addColumn("complications");
         dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
-        dsd.addColumn("status");
-        //remarks to be poppulated here if there is an algorithim
         
 
         return dsd;
@@ -148,12 +139,6 @@ public class PermanentRegister extends AIHDDataExportManager {
         cd.addParameter(new Parameter("endDate", "End Date", Date.class));
 		return cd;
 	}
-
-	private DataDefinition address(String which){
-        CalculationDataDefinition cd = new CalculationDataDefinition("address"+which, new AddressCalculation());
-        cd.addCalculationParameter("which", which);
-        return cd;
-    }
 
     @Override
     public List<Parameter> getParameters() {
