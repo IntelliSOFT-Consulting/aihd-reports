@@ -170,6 +170,7 @@ public class PermanentRegister extends AIHDDataExportManager {
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis", new DiagnosisCalculation());
         return cd;
     }
+
     private DataDefinition diagnosis_year(){
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
         return cd;
@@ -186,7 +187,6 @@ public class PermanentRegister extends AIHDDataExportManager {
         CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
         return cd;
     }
-
 
     @Override
     public List<Parameter> getParameters() {
