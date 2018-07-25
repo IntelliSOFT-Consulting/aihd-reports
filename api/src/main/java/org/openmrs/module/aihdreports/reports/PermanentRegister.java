@@ -174,6 +174,10 @@ public class PermanentRegister extends AIHDDataExportManager {
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
         return cd;
     }
+    private DataDefinition patientStatus(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("status", new PatientStatusCalculation());
+        return cd;
+    }
 
     private DataDefinition diagnosis_year(){
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
