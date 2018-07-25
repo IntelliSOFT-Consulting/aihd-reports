@@ -135,21 +135,14 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("subcounty", address("subcounty"), "", new CalculationResultConverter());
         dsd.addColumn("village", address("village"), "", new CalculationResultConverter());
         dsd.addColumn("landmark", address("landmark"), "", new CalculationResultConverter());
-<<<<<<< b8da722fa4cd7cfde92bf9880b5b6e392259a94a
         dsd.addColumn("tsn", personAttributes("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
         dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis_year", diagnosis_year(), "", new CalculationResultConverter());
         dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
         dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
-=======
-        dsd.addColumn("tsn");
-        dsd.addColumn("cts");
-        dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
-        dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
-        dsd.addColumn("complications");
-        dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
->>>>>>> Added calculations for columns subcounty, village and nearest landmark
+        dsd.addColumn("tsn", personAttributes("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
+        dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
         dsd.addColumn("status", patientStatus(), "", new CalculationResultConverter());
 
@@ -194,6 +187,7 @@ public class PermanentRegister extends AIHDDataExportManager {
         CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
         return cd;
     }
+
 
     @Override
     public List<Parameter> getParameters() {
