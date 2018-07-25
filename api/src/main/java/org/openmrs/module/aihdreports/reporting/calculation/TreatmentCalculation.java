@@ -35,17 +35,36 @@ public class TreatmentCalculation extends AbstractPatientCalculation {
                         if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.oglas().contains(obs.getValueCoded())){
                             treatment += ",b";
                         }
+                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.oglas().contains(obs.getValueCoded())){
+                            treatment = "b";
+                        }
+
                         if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.insulin().contains(obs.getValueCoded())){
                             treatment += ",c";
                         }
+                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.insulin().contains(obs.getValueCoded())){
+                            treatment = "c";
+                        }
+
                         if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.hypertensive().contains(obs.getValueCoded())){
                             treatment += ",d";
                         }
+                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.hypertensive().contains(obs.getValueCoded())){
+                            treatment = "d";
+                        }
+
                         if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.herbal().contains(obs.getValueCoded())){
                             treatment += ",e";
                         }
+                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.herbal().contains(obs.getValueCoded())){
+                            treatment = "e";
+                        }
+
                         if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.other().contains(obs.getValueCoded())){
                             treatment += ",f";
+                        }
+                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.other().contains(obs.getValueCoded())){
+                            treatment += "f";
                         }
                     }
                 }

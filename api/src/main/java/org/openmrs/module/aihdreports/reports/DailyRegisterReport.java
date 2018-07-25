@@ -9,6 +9,7 @@ import org.openmrs.module.aihdreports.reporting.calculation.BmiCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.InitialReturnVisitCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.TreatmentCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.ComplicationsCalculation;
 import org.openmrs.module.aihdreports.reporting.converter.*;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
@@ -129,7 +130,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("fbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
 		dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
 		dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new DiagnosisDataConverter());
-		dsd.addColumn("complications", sdd.obsDataDefinition("complications",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ComplicationsDataConverter());
+		dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
 		dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
 		dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new NhifDataConverter());
 		dsd.addColumn("admitted_referred", sdd.obsDataDefinition("admitted_referred",  Dictionary.getConcept(Dictionary.ADMITTED_REFERED)), "", new ObsDataConverter());
@@ -155,6 +156,10 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 	private DataDefinition treatment(){
 		CalculationDataDefinition cd = new CalculationDataDefinition("treatment", new TreatmentCalculation());
+		return cd;
+	}
+	private DataDefinition complications(){
+		CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
 		return cd;
 	}
 

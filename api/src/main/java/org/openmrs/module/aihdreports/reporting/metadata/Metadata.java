@@ -3,6 +3,7 @@ package org.openmrs.module.aihdreports.reporting.metadata;
 import org.openmrs.Concept;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -72,19 +73,18 @@ public class Metadata {
         public final static String NEPTHOPATHY = "";//c
         public final static String CELEBRALVARSULAR_DISEASES = "";//d
         public final static String COLONARY_HEART_DISEASES = "";//e
-        public final static String PERIPHERAL_VASCULAR_DISEASES = "";//f
         public final static String DIABETIC_FOOT = "";//g
         public final static String HEART_FAILURE = "";//h
-        public final static String ERECTILE_DISFUNCTION = "";//i
+        public final static String ERECTILE_DISFUNCTION = "156162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String GASTROPATHY = "";//j
         public final static String CATARACTS = "";//k
         public final static String DENTAL_COMPLICATIONS = "";//l
-
-        public final static String HYPERTENSION = "";
         public final static String DYSLIPIDEMIA = "";
         public final static String OBESITY = "";
-        public final static String HIV = "";
-        public final static String TB = "";
+        public final static String HIV_STATUS = "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String NEGATIVE="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String HIV_POSTIVE = "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String ONTREATMENT = "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         //populating the monthly report indicators concepts here
         public final static String DIABETIC_VISIT_TYPE = "2d0d45ca-a92f-4fb2-a6af-c53a1c079bf3";
@@ -102,7 +102,7 @@ public class Metadata {
         public final static String FOOT_AMPUTATION = "99290a23-7b79-460d-b982-ea9f32486259";
         public final static String FOOT_ULCER = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String KIDNEY_FAILURE = "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String VISUAL_IMPAIRMENT = "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String VISUAL_IMPAIRMENT = "97f8c173-af0d-4b4e-b107-a4243b6176e0";
         public final static String EDUCATION_COUNSELING_ORDERS = "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIABETES = "2ea479b2-7324-4f03-8e91-d8933a2fa51e";
         public final static String STROKE = "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -252,6 +252,14 @@ public class Metadata {
             list.add(Dictionary.getConcept(Dictionary.other_z));
             list.add(Dictionary.getConcept(Dictionary.Nebivolol));
             return list;
+        }
+
+        public final static List<Concept> heartDisease(){
+            return Arrays.asList(Dictionary.getConcept(Dictionary.Ischemic_heart_disease),
+                                Dictionary.getConcept(Dictionary.Heart_failure),
+                                Dictionary.getConcept(Dictionary.Peripheral_Vascular_disease)
+            );
+
         }
 
 
