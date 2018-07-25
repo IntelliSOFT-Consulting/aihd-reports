@@ -7,6 +7,7 @@ import org.openmrs.module.aihdreports.reporting.calculation.address.AddressCalcu
 import org.openmrs.module.aihdreports.reporting.calculation.address.PersonAttributeCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.DiagnosisCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.YearOfDiagnosisCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.followup.PatientStatusCalculation;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
@@ -138,8 +139,8 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("diagnosis_year", diagnosis_year(), "", new CalculationResultConverter());
         //dsd.addColumn("complications");
         //dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
-        //dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
-        //dsd.addColumn("status");
+        dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
+        dsd.addColumn("status", patientStatus(), "", new CalculationResultConverter());
 
         return dsd;
     }
@@ -168,6 +169,10 @@ public class PermanentRegister extends AIHDDataExportManager {
     }
     private DataDefinition diagnosis_year(){
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
+        return cd;
+    }
+    private DataDefinition patientStatus(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("status", new PatientStatusCalculation());
         return cd;
     }
 
