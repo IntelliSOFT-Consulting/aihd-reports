@@ -145,7 +145,6 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
         dsd.addColumn("status", patientStatus(), "", new CalculationResultConverter());
-
         return dsd;
     }
     
