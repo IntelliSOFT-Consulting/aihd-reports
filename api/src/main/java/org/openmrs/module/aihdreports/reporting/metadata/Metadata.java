@@ -1,11 +1,16 @@
 package org.openmrs.module.aihdreports.reporting.metadata;
 
+import org.openmrs.Concept;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Metadata for reporting functionality
  */
 public class Metadata {
 
-    public static class Concept{
+    public static class Concepts {
 		public final static String WEIGHT = "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 		public final static String HEIGHT = "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIASTOLIC_BLOOD_PRESSURE = "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -39,7 +44,6 @@ public class Metadata {
         public final static String ANT_HYPETENSIVE = "";//d
         public final static String HERBAL = "c2769cb4-6f2a-476b-b8a1-8a7a7cb7d62e";//e
         public final static String OTHER_NON_CODED = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//f
-        public final static String OGLAS_AND_INSULIN = "";//g
 
 
 
@@ -175,6 +179,81 @@ public class Metadata {
     }
     
     public static class Program{
+
+    }
+    public static class ListsofConcepts{
+        public final static List<Concept> dietAndExercise(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.DIET));
+            list.add(Dictionary.getConcept(Dictionary.PHYSICAL_EXERCISE));
+            return list;
+        }
+
+        public final static List<Concept> oglas(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_GILBERCLAMIDE));
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_METFORMIN));
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_OTHER));
+            return list;
+        }
+        public final static List<Concept> insulin(){
+            List<Concept> listInsulin = new ArrayList<Concept>();
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_70_30));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_1));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_2));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_OTHER_MEDICATION));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_SOLUBLE));
+            return listInsulin;
+        }
+        public final static List<Concept> herbal(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.HERBAL));
+            return list;
+        }
+
+        public final static List<Concept> other(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.OTHER_NON_CODED));
+            return list;
+        }
+        public final static List<Concept> hypertensive(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.Captopril));
+            list.add(Dictionary.getConcept(Dictionary.Enalapril));
+            list.add(Dictionary.getConcept(Dictionary.Lisinopril));
+            list.add(Dictionary.getConcept(Dictionary.Perindopril));
+            list.add(Dictionary.getConcept(Dictionary.Ramipril));
+            list.add(Dictionary.getConcept(Dictionary.other_ace));
+            list.add(Dictionary.getConcept(Dictionary.Candesartan));
+            list.add(Dictionary.getConcept(Dictionary.Irbesartan));
+            list.add(Dictionary.getConcept(Dictionary.Losartan));
+            list.add(Dictionary.getConcept(Dictionary.Telmisartan));
+            list.add(Dictionary.getConcept(Dictionary.Valsartan));
+            list.add(Dictionary.getConcept(Dictionary.Olmesartan));
+            list.add(Dictionary.getConcept(Dictionary.other_arb));
+            list.add(Dictionary.getConcept(Dictionary.Atenolol));
+            list.add(Dictionary.getConcept(Dictionary.Labetolol));
+            list.add(Dictionary.getConcept(Dictionary.Propranolol));
+            list.add(Dictionary.getConcept(Dictionary.Carvedilol));
+            list.add(Dictionary.getConcept(Dictionary.Metoprolol));
+            list.add(Dictionary.getConcept(Dictionary.Bisoprolol));
+            list.add(Dictionary.getConcept(Dictionary.other_b));
+            list.add(Dictionary.getConcept(Dictionary.Amlodipine));
+            list.add(Dictionary.getConcept(Dictionary.Felodipine));
+            list.add(Dictionary.getConcept(Dictionary.Nifedipine));
+            list.add(Dictionary.getConcept(Dictionary.Chlorthalidone));
+            list.add(Dictionary.getConcept(Dictionary.HydrochlorothiazideHCTZ));
+            list.add(Dictionary.getConcept(Dictionary.Indapamide));
+            list.add(Dictionary.getConcept(Dictionary.other_d1));
+            list.add(Dictionary.getConcept(Dictionary.other_d2));
+            list.add(Dictionary.getConcept(Dictionary.Methyldopa));
+            list.add(Dictionary.getConcept(Dictionary.Hydralazine));
+            list.add(Dictionary.getConcept(Dictionary.Prazocin));
+            list.add(Dictionary.getConcept(Dictionary.other_z));
+            list.add(Dictionary.getConcept(Dictionary.Nebivolol));
+            return list;
+        }
+
 
     }
 }
