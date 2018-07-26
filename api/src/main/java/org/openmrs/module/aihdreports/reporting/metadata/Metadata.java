@@ -19,6 +19,8 @@ public class Metadata {
         public final static String SCREENED_FOR_TB = "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String TB_STATUS = "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String ON_TREATMENT = "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String DISCONTINUE_REASON = "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String TRANSFER_OUT = "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
         public final static String MEDICATION_HISTORY = "160741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -57,7 +59,7 @@ public class Metadata {
         public final static String NO = "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         public final static String SYMPTOM = "1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = "";//d
+        //public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = Diabetes_Secondary_to_other_causes;//d
 
         //complication options
         public final static String PROBLEM_ADDED = "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -107,6 +109,14 @@ public class Metadata {
         public final static String Retinopathy = "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String Nephropathy = "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String Diabetic_foot = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = "44a5bd2a-e0c9-43f5-b96b-de00fad98bf0";
+        public final static String HYPETENSION_TYPE = "d4678d10-c650-4a2b-87ad-6e3d3283c06d";
+        public final static String MILD_HYPERTENSION = "c447006f-9923-4840-8a56-6b7ad8cb55a1";
+        public final static String MODERATE_HYPERTENSION ="51879821-770d-4ba1-8cfe-e358c9209dab";
+        public final static String SEVERE_HYPERTENSION ="fa3b33e0-bbd6-4d1a-b74b-26d411a928da";
+        public final static String PREECLAMSIA ="c9614f94-cf50-4ed4-b0cd-58e06c6266d6";
+        public final static String DIABETIC_YEAR_OF_DIAGNOSIS = "95d4aa36-05ee-44cb-823b-35a62f07ce49";
+        public final static String HYPERTENSION_YEAR_OF_DIAGNOSIS = "b863e568-1491-42d0-b881-04df389ad0de";
 
         //concepts uuids for anti hypertensive drugs
         //ACE  inhibitor

@@ -3,7 +3,13 @@ package org.openmrs.module.aihdreports.reports;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.aihdreports.reporting.calculation.TreatmentCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.address.AddressCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.address.PersonAttributeCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.ComplicationsCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.DiagnosisCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.YearOfDiagnosisCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.followup.PatientStatusCalculation;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
@@ -129,16 +135,14 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("subcounty", address("subcounty"), "", new CalculationResultConverter());
         dsd.addColumn("village", address("village"), "", new CalculationResultConverter());
         dsd.addColumn("landmark", address("landmark"), "", new CalculationResultConverter());
-        dsd.addColumn("tsn");
-        dsd.addColumn("cts");
-        dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
-        dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
-        dsd.addColumn("complications");
-        dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
+        dsd.addColumn("tsn", personAttributes("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
+        dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
+        dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
+        dsd.addColumn("diagnosis_year", diagnosis_year(), "", new CalculationResultConverter());
+        dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
+        dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
-        dsd.addColumn("status");
-        //remarks to be poppulated here if there is an algorithim
-        
+        dsd.addColumn("status", patientStatus(), "", new CalculationResultConverter());
 
         return dsd;
     }
@@ -152,6 +156,33 @@ public class PermanentRegister extends AIHDDataExportManager {
 	private DataDefinition address(String which){
         CalculationDataDefinition cd = new CalculationDataDefinition("address"+which, new AddressCalculation());
         cd.addCalculationParameter("which", which);
+        return cd;
+    }
+
+    private DataDefinition personAttributes(String uuid){
+        CalculationDataDefinition cd = new CalculationDataDefinition("attributes"+uuid, new PersonAttributeCalculation());
+        cd.addCalculationParameter("uuid", uuid);
+        return cd;
+    }
+
+    private DataDefinition diagnosis(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis", new DiagnosisCalculation());
+        return cd;
+    }
+    private DataDefinition diagnosis_year(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
+        return cd;
+    }
+    private DataDefinition patientStatus(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("status", new PatientStatusCalculation());
+        return cd;
+    }
+    private DataDefinition treatment(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("treatment", new TreatmentCalculation());
+        return cd;
+    }
+    private DataDefinition complications(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
         return cd;
     }
 

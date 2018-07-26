@@ -14,6 +14,7 @@
 package org.openmrs.module.aihdreports.data.converter;
 
 import org.openmrs.Obs;
+import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 
@@ -28,7 +29,15 @@ public class ObsDataConverter implements DataConverter {
         Obs obs = ((Obs) obj);
 
         if (obs.getValueCoded() != null) {
-            return obs.getValueCoded().getName().getName();
+            if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.YES))){
+                return "Y";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NO))){
+                return "N";
+            }
+            else {
+                return obs.getValueCoded().getName().getName();
+            }
         }
 
         else if (obs.getValueDate() != null) {

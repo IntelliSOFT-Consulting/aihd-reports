@@ -12,7 +12,6 @@ public class ComplicationsDataConverter implements DataConverter {
     public Object convert(Object o) {
         if(o == null)
             return "";
-            
         String value = "";
 
         Obs obs = (Obs) o;
