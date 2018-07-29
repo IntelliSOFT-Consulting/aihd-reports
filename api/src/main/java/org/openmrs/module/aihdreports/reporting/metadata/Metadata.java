@@ -1,5 +1,7 @@
 package org.openmrs.module.aihdreports.reporting.metadata;
 
+import org.apache.commons.lang3.StringUtils;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openmrs.Concept;
 
 import java.util.ArrayList;
@@ -50,11 +52,13 @@ public class Metadata {
 
 
         public final static String NHIF_MEMBER = "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-
         public final static String HTN = "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String HDL = "1007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//1
         public final static String LDL = "1008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//2
         public final static String TG =  "1009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String VISIT_TYPE = "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String NEW_VISIT = "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String REVISIT = "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
         public final static String AGE_AT_DIAGNOSIS_YEARS = "160617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -74,7 +78,7 @@ public class Metadata {
         public final static String NEPTHOPATHY = "";//c
         public final static String CELEBRALVARSULAR_DISEASES = "";//d
         public final static String COLONARY_HEART_DISEASES = "";//e
-        public final static String DIABETIC_FOOT = "";//g
+        public final static String DIABETIC_FOOT = "1cb3fefb-e44a-4092-adbc-b33cf068a37a";//g
         public final static String HEART_FAILURE = "";//h
         public final static String ERECTILE_DISFUNCTION = "156162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String GASTROPATHY = "145339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//j
@@ -82,6 +86,7 @@ public class Metadata {
         public final static String DENTAL_COMPLICATIONS = "0e34f15a-0f94-4c3e-bdcd-4576b7e4d3d5";//l
         public final static String HIV_STATUS = "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String NEGATIVE="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String POSITIVE = "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String HIV_POSTIVE = "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String ONTREATMENT = "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
@@ -120,6 +125,14 @@ public class Metadata {
         public final static String PREECLAMSIA ="c9614f94-cf50-4ed4-b0cd-58e06c6266d6";
         public final static String DIABETIC_YEAR_OF_DIAGNOSIS = "95d4aa36-05ee-44cb-823b-35a62f07ce49";
         public final static String HYPERTENSION_YEAR_OF_DIAGNOSIS = "b863e568-1491-42d0-b881-04df389ad0de";
+        public final static String UNDER_TREATMENT = "160749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String FOOT_RISK_ASSESSMENT = "db47c759-d53e-4057-a2d7-e54d074276fd";
+        public final static String LOW_CURRENT_RISK = "0d2aa75a-3903-45ed-a040-c948842479ba";
+        public final static String AT_RISK = "a3758dd9-b172-40fb-b78a-8697aa9abe9a";
+        public final static String HIGH_RISK = "e39ac969-5f99-4674-9cfa-8e0439a5eea8";
+        public final static String ULCERATED_FOOT = "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String FOOT_EMERGENCY = "f8f1dae8-9674-4957-b93e-d842832d7416";
+        public final static String RESSOLVED = "6097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         //concepts uuids for anti hypertensive drugs
         //ACE  inhibitor

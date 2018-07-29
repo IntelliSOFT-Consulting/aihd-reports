@@ -1,6 +1,5 @@
 package org.openmrs.module.aihdreports.reporting.calculation.diagnosis;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.Obs;
 import org.openmrs.calculation.patient.PatientCalculationContext;
@@ -17,6 +16,7 @@ import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.CalculationUtils;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +33,8 @@ public class ComplicationsCalculation  extends AbstractPatientCalculation {
         Set<Integer> obese = CalculationUtils.patientsThatPass(calculate(new ObesityCalculation(), cohort, context));
         Set<Integer> dyslipidemia = CalculationUtils.patientsThatPass(calculate(new DyslipidemiaCalculation(), cohort, context));
         for(Integer ptId: cohort){
-            String value = "";
+            Set<String> value = new HashSet<>();
+            StringBuilder computedValue = new StringBuilder();
             Concept hivStatus = EmrCalculationUtils.codedObsResultForPatient(hiv, ptId);
             Concept tbStatus = EmrCalculationUtils.codedObsResultForPatient(tb, ptId);
             ListResult listResult = (ListResult) complications.get(ptId);
@@ -42,100 +43,71 @@ public class ComplicationsCalculation  extends AbstractPatientCalculation {
                 if(loads.size() > 0){
                     for(Obs obs:loads){
                         if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.VISUAL_IMPAIRMENT))){
-                            value = "a";
+                            value.add("a");
                         }
 
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.Neuropathy))){
-                            value += ",b";
-                        }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.Neuropathy))){
-                            value = "b";
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.Neuropathy))){
+                            value.add("b");
                         }
 
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.KIDNEY_FAILURE))){
-                            value += ",c";
-                        }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.KIDNEY_FAILURE))){
-                            value = "c";
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.KIDNEY_FAILURE))){
+                            value.add("c");
                         }
 
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.STROKE))){
-                            value += ",d";
-                        }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.STROKE))){
-                            value = "d";
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.STROKE))){
+                            value.add("d");
                         }
 
-                        if(StringUtils.isNotEmpty(value) && Metadata.ListsofConcepts.heartDisease().contains(obs.getValueCoded())){
-                            value += ",f";
-                        }
-                        else if(StringUtils.isEmpty(value) && Metadata.ListsofConcepts.heartDisease().contains(obs.getValueCoded())){
-                            value = "f";
+
+                        if(Metadata.ListsofConcepts.heartDisease().contains(obs.getValueCoded())){
+                            value.add("f");
                         }
 
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.Diabetic_foot))){
-                            value += ",h";
-                        }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.Diabetic_foot))){
-                            value = "h";
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.Diabetic_foot))){
+                            value.add("h");
                         }
 
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.ERECTILE_DISFUNCTION))){
-                            value += ",i";
-                        }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.ERECTILE_DISFUNCTION))){
-                            value = "i";
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.ERECTILE_DISFUNCTION))){
+                            value.add("i");
                         }
 
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.GASTROPATHY))){
-                            value += ",j";
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.GASTROPATHY))){
+                            value.add("j");
                         }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.GASTROPATHY))){
-                            value = "j";
+
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.CATARACTS))){
+                            value.add("k");
                         }
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.CATARACTS))){
-                            value += ",k";
+
+                        if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DENTAL_COMPLICATIONS))){
+                            value.add("l");
                         }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.CATARACTS))){
-                            value = "k";
+
+                        if(dyslipidemia != null && dyslipidemia.contains(ptId)){
+                            value.add("m");
                         }
-                        if(StringUtils.isNotEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DENTAL_COMPLICATIONS))){
-                            value += ",l";
-                        }
-                        else if(StringUtils.isEmpty(value) && obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.DENTAL_COMPLICATIONS))){
-                            value = "l";
-                        }
-                        if(StringUtils.isNotEmpty(value) && dyslipidemia != null && dyslipidemia.contains(ptId)){
-                            value += ",m";
-                        }
-                        else if(StringUtils.isEmpty(value) && dyslipidemia != null && dyslipidemia.contains(ptId)){
-                            value = "m";
-                        }
-                        if(StringUtils.isNotEmpty(value) && obese != null && obese.contains(ptId)){
-                            value += ",n";
-                        }
-                        else if(StringUtils.isEmpty(value) && obese != null && obese.contains(ptId)){
-                            value = "n";
+
+                        if(obese != null && obese.contains(ptId)){
+                            value.add("n");
                         }
 
                     }
                 }
             }
-            if(StringUtils.isNotEmpty(value) && hivStatus != null && hivStatus.equals(Dictionary.getConcept(Dictionary.HIV_POSTIVE))){
-                value += ",o";
-            }
-            else if(StringUtils.isEmpty(value) && hivStatus != null && hivStatus.equals(Dictionary.getConcept(Dictionary.HIV_POSTIVE))){
-                value = "o";
+            if(hivStatus != null && hivStatus.equals(Dictionary.getConcept(Dictionary.HIV_POSTIVE))){
+                value.add("o");
             }
 
-            if(StringUtils.isNotEmpty(value) && tbStatus != null && tbStatus.equals(Dictionary.getConcept(Dictionary.ON_TREATMENT))){
-                value += ",o";
+            if(tbStatus != null && tbStatus.equals(Dictionary.getConcept(Dictionary.ON_TREATMENT))){
+                value.add("p");
             }
-            else if(StringUtils.isEmpty(value) && tbStatus != null && tbStatus.equals(Dictionary.getConcept(Dictionary.ON_TREATMENT))){
-                value = "o";
+            if(value.size() > 0){
+                for(String s: value){
+                    computedValue.append(s);
+                }
             }
 
-            ret.put(ptId, new SimpleResult(value, this));
+            ret.put(ptId, new SimpleResult(computedValue.toString().replaceAll(".(?!$)", "$0 "), this));
 
         }
 

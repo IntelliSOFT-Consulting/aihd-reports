@@ -7,9 +7,11 @@ import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
 import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationDataDefinition;
 import org.openmrs.module.aihdreports.reporting.calculation.BmiCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.FootCareOutcomeCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.InitialReturnVisitCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.TreatmentCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.ComplicationsCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.diagnosis.DiagnosisCalculation;
 import org.openmrs.module.aihdreports.reporting.converter.*;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
@@ -115,26 +117,30 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
 		dsd.addColumn("Patient No", identifierDef, "");
 		dsd.addColumn("Names", nameDef, "");
-		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
+		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
 		dsd.addColumn("fvrv", firstOrRevisit(), "", new CalculationResultConverter());
-		dsd.addColumn("newlyDiagnosed", sdd.obsDataDefinition("newlyDiagnosed",  Dictionary.getConcept(Dictionary.DIABETIC_VISIT_TYPE)), "", new NewlyDiagnosedConverter());
-		dsd.addColumn("systolic", sdd.obsDataDefinition("systolic",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
-		dsd.addColumn("diastolic", sdd.obsDataDefinition("diastolic",  Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
-		dsd.addColumn("htn", sdd.obsDataDefinition("htn",  Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE)), "", new HtnDataConverter());
-		dsd.addColumn("wc", sdd.obsDataDefinition("wc",  Dictionary.getConcept(Dictionary.WAIST_CIRCUMFERENCE)), "", new ObsDataConverter());
 		dsd.addColumn("weight", sdd.obsDataDefinition("weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("height", sdd.obsDataDefinition("height",  Dictionary.getConcept(Dictionary.HEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("bmi", bmi(), "", new CalculationResultConverter());
+		dsd.addColumn("wc", sdd.obsDataDefinition("wc",  Dictionary.getConcept(Dictionary.WAIST_CIRCUMFERENCE)), "", new ObsDataConverter());
+		dsd.addColumn("systolic", sdd.obsDataDefinition("systolic",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+		dsd.addColumn("diastolic", sdd.obsDataDefinition("diastolic",  Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
+		dsd.addColumn("htn", sdd.obsDataDefinition("htn",  Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE)), "", new HtnDataConverter());
+		dsd.addColumn("newlyDiagnosed", sdd.obsDataDefinition("newlyDiagnosed",  Dictionary.getConcept(Dictionary.DIABETIC_VISIT_TYPE)), "", new NewlyDiagnosedConverter());
 		dsd.addColumn("rbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
-		dsd.addColumn("fbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
+		dsd.addColumn("fbs", sdd.obsDataDefinition("fbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
 		dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
-		dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new DiagnosisDataConverter());
+		dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
 		dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
 		dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
-		dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new NhifDataConverter());
-		dsd.addColumn("admitted_referred", sdd.obsDataDefinition("admitted_referred",  Dictionary.getConcept(Dictionary.ADMITTED_REFERED)), "", new ObsDataConverter());
-		dsd.addColumn("next_appointment", sdd.obsDataDefinition("next_appointment",  Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE)), "", new ObsDataConverter());
+		dsd.addColumn("footclinic", sdd.obsDataDefinition("footclinic",  Dictionary.getConcept(Dictionary.VISIT_TYPE)), "", new ObsDataConverter());
+		dsd.addColumn("dfoot", sdd.obsDataDefinition("dfoot",  Dictionary.getConcept(Dictionary.DIABETIC_FOOT)), "", new ObsDataConverter());
+		dsd.addColumn("friskass", sdd.obsDataDefinition("friskass",  Dictionary.getConcept(Dictionary.FOOT_RISK_ASSESSMENT)), "", new ObsDataConverter());
+		dsd.addColumn("fcare", footCareOutcomes(), "", new CalculationResultConverter());
+		dsd.addColumn("tbscreen", sdd.obsDataDefinition("tbscreen",  Dictionary.getConcept(Dictionary.SCREENED_FOR_TB)), "", new ObsDataConverter());
+		dsd.addColumn("tbstatus", sdd.obsDataDefinition("tbstatus",  Dictionary.getConcept(Dictionary.TB_STATUS)), "", new ObsDataConverter());
+		dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
 
 		return dsd;
 	}
@@ -160,6 +166,15 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	}
 	private DataDefinition complications(){
 		CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
+		return cd;
+	}
+
+	private DataDefinition diagnosis(){
+		CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis", new DiagnosisCalculation());
+		return cd;
+	}
+	private DataDefinition footCareOutcomes(){
+		CalculationDataDefinition cd = new CalculationDataDefinition("fcare", new FootCareOutcomeCalculation());
 		return cd;
 	}
 

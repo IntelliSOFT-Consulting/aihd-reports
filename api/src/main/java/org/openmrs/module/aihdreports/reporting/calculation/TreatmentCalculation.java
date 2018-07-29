@@ -11,8 +11,10 @@ import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.CalculationUtils;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TreatmentCalculation extends AbstractPatientCalculation {
 
@@ -22,54 +24,47 @@ public class TreatmentCalculation extends AbstractPatientCalculation {
         CalculationResultMap ret = new CalculationResultMap();
         CalculationResultMap map = Calculations.allObs(Dictionary.getConcept(Dictionary.MEDICATION_ORDERED), cohort, context);
         for(Integer ptId:cohort){
-            String treatment = "";
+            Set<String> treat = new HashSet<>();
+            StringBuilder treatment = new StringBuilder();
             ListResult listResult = (ListResult) map.get(ptId);
             if(listResult != null) {
                 List<Obs> loads = CalculationUtils.extractResultValues(listResult);
                 if(loads.size() > 0){
                     for(Obs obs:loads){
                         if(Metadata.ListsofConcepts.dietAndExercise().contains(obs.getValueCoded())){
-                            treatment = "a";
+                            treat.add("a");
                         }
 
-                        if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.oglas().contains(obs.getValueCoded())){
-                            treatment += ",b";
-                        }
-                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.oglas().contains(obs.getValueCoded())){
-                            treatment = "b";
+                        if(Metadata.ListsofConcepts.oglas().contains(obs.getValueCoded())){
+                            treat.add("b");
                         }
 
-                        if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.insulin().contains(obs.getValueCoded())){
-                            treatment += ",c";
-                        }
-                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.insulin().contains(obs.getValueCoded())){
-                            treatment = "c";
+                        if(Metadata.ListsofConcepts.insulin().contains(obs.getValueCoded())){
+                            treat.add("c");
                         }
 
-                        if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.hypertensive().contains(obs.getValueCoded())){
-                            treatment += ",d";
+                        if(Metadata.ListsofConcepts.hypertensive().contains(obs.getValueCoded())){
+                            treat.add("d");
                         }
-                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.hypertensive().contains(obs.getValueCoded())){
-                            treatment = "d";
-                        }
+
 
                         if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.herbal().contains(obs.getValueCoded())){
-                            treatment += ",e";
-                        }
-                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.herbal().contains(obs.getValueCoded())){
-                            treatment = "e";
+                            treat.add("e");
                         }
 
-                        if(StringUtils.isNotEmpty(treatment) && Metadata.ListsofConcepts.other().contains(obs.getValueCoded())){
-                            treatment += ",f";
+                        if(Metadata.ListsofConcepts.other().contains(obs.getValueCoded())){
+                            treat.add("f");
                         }
-                        else if(StringUtils.isEmpty(treatment) && Metadata.ListsofConcepts.other().contains(obs.getValueCoded())){
-                            treatment += "f";
-                        }
+
+                    }
+                }
+                if(treat.size() > 0){
+                    for (String s:treat){
+                        treatment.append(s);
                     }
                 }
             }
-            ret.put(ptId, new SimpleResult(treatment, this));
+            ret.put(ptId, new SimpleResult(treatment.toString().replaceAll(".(?!$)", "$0 "), this));
         }
 
         return ret;
