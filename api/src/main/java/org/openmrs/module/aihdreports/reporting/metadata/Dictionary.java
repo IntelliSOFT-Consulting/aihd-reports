@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Dictionary for concepts used by aihd reports
  */
-public class Dictionary extends Metadata.Concept {
+public class Dictionary extends Metadata.Concepts {
 
 	/**
 	 * Gets a concept by an identifier (mapping or UUID)

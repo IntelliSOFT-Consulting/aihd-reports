@@ -1,5 +1,6 @@
 package org.openmrs.module.aihdreports.reporting.calculation.diagnosis;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.calculation.result.SimpleResult;
@@ -22,12 +23,14 @@ public class DiagnosisCalculation extends AbstractPatientCalculation {
             SimpleResult diabeticResults = (SimpleResult) diabeticPatients.get(ptId);
             SimpleResult hypertensionResults = (SimpleResult) hypertensionPatients.get(ptId);
             if(diabeticResults != null && hypertensionResults != null){
-                value = diabeticResults.getValue()+","+hypertensionResults.getValue();
+                if(StringUtils.isNotEmpty(diabeticResults.getValue().toString()) && StringUtils.isNotEmpty(hypertensionResults.getValue().toString())) {
+                    value = diabeticResults.getValue() + "," + hypertensionResults.getValue();
+                }
             }
-            else if(diabeticResults != null){
+            else if(diabeticResults != null && StringUtils.isNotEmpty(diabeticResults.getValue().toString())){
                 value = diabeticResults.getValue().toString();
             }
-            else if(hypertensionResults != null){
+            else if(hypertensionResults != null && StringUtils.isNotEmpty(hypertensionResults.getValue().toString())){
                 value = hypertensionResults.getValue().toString();
             }
             ret.put(ptId, new SimpleResult(value, this));

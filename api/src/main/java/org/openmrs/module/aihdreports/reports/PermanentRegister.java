@@ -141,9 +141,10 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("diagnosis_year", diagnosis_year(), "", new CalculationResultConverter());
         dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
         dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
+        dsd.addColumn("tsn", personAttributes("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
+        dsd.addColumn("cts", personAttributes("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
         dsd.addColumn("status", patientStatus(), "", new CalculationResultConverter());
-
         return dsd;
     }
     
@@ -169,6 +170,23 @@ public class PermanentRegister extends AIHDDataExportManager {
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis", new DiagnosisCalculation());
         return cd;
     }
+    private DataDefinition diagnosis_year(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
+        return cd;
+    }
+    private DataDefinition patientStatus(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("status", new PatientStatusCalculation());
+        return cd;
+    }
+    private DataDefinition treatment(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("treatment", new TreatmentCalculation());
+        return cd;
+    }
+    private DataDefinition complications(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
+        return cd;
+    }
+
     private DataDefinition diagnosis_year(){
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
         return cd;

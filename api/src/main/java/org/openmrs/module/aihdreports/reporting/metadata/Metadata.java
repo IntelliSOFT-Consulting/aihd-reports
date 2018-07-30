@@ -1,11 +1,17 @@
 package org.openmrs.module.aihdreports.reporting.metadata;
 
+import org.openmrs.Concept;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Metadata for reporting functionality
  */
 public class Metadata {
 
-    public static class Concept{
+    public static class Concepts {
 		public final static String WEIGHT = "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 		public final static String HEIGHT = "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIASTOLIC_BLOOD_PRESSURE = "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -39,7 +45,6 @@ public class Metadata {
         public final static String ANT_HYPETENSIVE = "";//d
         public final static String HERBAL = "c2769cb4-6f2a-476b-b8a1-8a7a7cb7d62e";//e
         public final static String OTHER_NON_CODED = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//f
-        public final static String OGLAS_AND_INSULIN = "";//g
 
 
 
@@ -47,8 +52,9 @@ public class Metadata {
         public final static String NHIF_MEMBER = "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         public final static String HTN = "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String NEW = "";//1
-        public final static String KNOWN = "";//2
+        public final static String HDL = "1007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//1
+        public final static String LDL = "1008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//2
+        public final static String TG =  "1009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
         public final static String AGE_AT_DIAGNOSIS_YEARS = "160617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -68,19 +74,16 @@ public class Metadata {
         public final static String NEPTHOPATHY = "";//c
         public final static String CELEBRALVARSULAR_DISEASES = "";//d
         public final static String COLONARY_HEART_DISEASES = "";//e
-        public final static String PERIPHERAL_VASCULAR_DISEASES = "";//f
         public final static String DIABETIC_FOOT = "";//g
         public final static String HEART_FAILURE = "";//h
-        public final static String ERECTILE_DISFUNCTION = "";//i
-        public final static String GASTROPATHY = "";//j
-        public final static String CATARACTS = "";//k
-        public final static String DENTAL_COMPLICATIONS = "";//l
-
-        public final static String HYPERTENSION = "";
-        public final static String DYSLIPIDEMIA = "";
-        public final static String OBESITY = "";
-        public final static String HIV = "";
-        public final static String TB = "";
+        public final static String ERECTILE_DISFUNCTION = "156162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String GASTROPATHY = "145339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//j
+        public final static String CATARACTS = "120860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//k
+        public final static String DENTAL_COMPLICATIONS = "0e34f15a-0f94-4c3e-bdcd-4576b7e4d3d5";//l
+        public final static String HIV_STATUS = "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String NEGATIVE="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String HIV_POSTIVE = "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String ONTREATMENT = "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         //populating the monthly report indicators concepts here
         public final static String DIABETIC_VISIT_TYPE = "2d0d45ca-a92f-4fb2-a6af-c53a1c079bf3";
@@ -98,7 +101,7 @@ public class Metadata {
         public final static String FOOT_AMPUTATION = "99290a23-7b79-460d-b982-ea9f32486259";
         public final static String FOOT_ULCER = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String KIDNEY_FAILURE = "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String VISUAL_IMPAIRMENT = "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String VISUAL_IMPAIRMENT = "97f8c173-af0d-4b4e-b107-a4243b6176e0";
         public final static String EDUCATION_COUNSELING_ORDERS = "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIABETES = "2ea479b2-7324-4f03-8e91-d8933a2fa51e";
         public final static String STROKE = "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -175,6 +178,89 @@ public class Metadata {
     }
     
     public static class Program{
+
+    }
+    public static class ListsofConcepts{
+        public final static List<Concept> dietAndExercise(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.DIET));
+            list.add(Dictionary.getConcept(Dictionary.PHYSICAL_EXERCISE));
+            return list;
+        }
+
+        public final static List<Concept> oglas(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_GILBERCLAMIDE));
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_METFORMIN));
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_OTHER));
+            return list;
+        }
+        public final static List<Concept> insulin(){
+            List<Concept> listInsulin = new ArrayList<Concept>();
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_70_30));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_1));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_2));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_OTHER_MEDICATION));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_SOLUBLE));
+            return listInsulin;
+        }
+        public final static List<Concept> herbal(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.HERBAL));
+            return list;
+        }
+
+        public final static List<Concept> other(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.OTHER_NON_CODED));
+            return list;
+        }
+        public final static List<Concept> hypertensive(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.Captopril));
+            list.add(Dictionary.getConcept(Dictionary.Enalapril));
+            list.add(Dictionary.getConcept(Dictionary.Lisinopril));
+            list.add(Dictionary.getConcept(Dictionary.Perindopril));
+            list.add(Dictionary.getConcept(Dictionary.Ramipril));
+            list.add(Dictionary.getConcept(Dictionary.other_ace));
+            list.add(Dictionary.getConcept(Dictionary.Candesartan));
+            list.add(Dictionary.getConcept(Dictionary.Irbesartan));
+            list.add(Dictionary.getConcept(Dictionary.Losartan));
+            list.add(Dictionary.getConcept(Dictionary.Telmisartan));
+            list.add(Dictionary.getConcept(Dictionary.Valsartan));
+            list.add(Dictionary.getConcept(Dictionary.Olmesartan));
+            list.add(Dictionary.getConcept(Dictionary.other_arb));
+            list.add(Dictionary.getConcept(Dictionary.Atenolol));
+            list.add(Dictionary.getConcept(Dictionary.Labetolol));
+            list.add(Dictionary.getConcept(Dictionary.Propranolol));
+            list.add(Dictionary.getConcept(Dictionary.Carvedilol));
+            list.add(Dictionary.getConcept(Dictionary.Metoprolol));
+            list.add(Dictionary.getConcept(Dictionary.Bisoprolol));
+            list.add(Dictionary.getConcept(Dictionary.other_b));
+            list.add(Dictionary.getConcept(Dictionary.Amlodipine));
+            list.add(Dictionary.getConcept(Dictionary.Felodipine));
+            list.add(Dictionary.getConcept(Dictionary.Nifedipine));
+            list.add(Dictionary.getConcept(Dictionary.Chlorthalidone));
+            list.add(Dictionary.getConcept(Dictionary.HydrochlorothiazideHCTZ));
+            list.add(Dictionary.getConcept(Dictionary.Indapamide));
+            list.add(Dictionary.getConcept(Dictionary.other_d1));
+            list.add(Dictionary.getConcept(Dictionary.other_d2));
+            list.add(Dictionary.getConcept(Dictionary.Methyldopa));
+            list.add(Dictionary.getConcept(Dictionary.Hydralazine));
+            list.add(Dictionary.getConcept(Dictionary.Prazocin));
+            list.add(Dictionary.getConcept(Dictionary.other_z));
+            list.add(Dictionary.getConcept(Dictionary.Nebivolol));
+            return list;
+        }
+
+        public final static List<Concept> heartDisease(){
+            return Arrays.asList(Dictionary.getConcept(Dictionary.Ischemic_heart_disease),
+                                Dictionary.getConcept(Dictionary.Heart_failure),
+                                Dictionary.getConcept(Dictionary.Peripheral_Vascular_disease)
+            );
+
+        }
+
 
     }
 }
