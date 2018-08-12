@@ -8,6 +8,7 @@ import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 
 import java.util.Date;
+import java.util.Set;
 
 public class CalculationResultConverter implements DataConverter {
 
