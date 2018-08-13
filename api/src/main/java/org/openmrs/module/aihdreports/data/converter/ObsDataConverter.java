@@ -29,14 +29,44 @@ public class ObsDataConverter implements DataConverter {
         Obs obs = ((Obs) obj);
 
         if (obs.getValueCoded() != null) {
-            if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.YES))){
+            if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.YES)) || obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.UNDER_TREATMENT))){
                 return "Y";
             }
             else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NO))){
                 return "N";
             }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NEW_VISIT))){
+                return "F";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.REVISIT))){
+                return "R";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.LOW_CURRENT_RISK))){
+                return "Low current risk";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.AT_RISK))){
+                return "At risk";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.HIGH_RISK))){
+                return "High risk";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.ULCERATED_FOOT))){
+                return "Ulcerated foot";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.FOOT_EMERGENCY))){
+                return "Foot emergency";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.POSITIVE))){
+                return "Positive";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.NEGATIVE))){
+                return "Negative";
+            }
+            else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.UNDER_TREATMENT))){
+                return "Y";
+            }
             else {
-                return obs.getValueCoded().getName().getName();
+                return "";
             }
         }
 
