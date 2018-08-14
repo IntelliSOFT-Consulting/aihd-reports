@@ -117,7 +117,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
         dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
         dsd.addColumn("rbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
-		dsd.addColumn("fbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
+		dsd.addColumn("fbs", sdd.obsDataDefinition("fbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
         dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
         dsd.addColumn("abi", sdd.obsDataDefinition("abi",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
         dsd.addColumn("complains", sdd.obsDataDefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ObsDataConverter());

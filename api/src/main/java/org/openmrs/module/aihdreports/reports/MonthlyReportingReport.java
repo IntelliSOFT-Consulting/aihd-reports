@@ -143,41 +143,76 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		ColumnParameters thirty6To60MaleT2 = new ColumnParameters("36-60MT2", "36-60-M", "age=36-60|gender=M");
 		ColumnParameters sixtyPlusMaleT2 = new ColumnParameters("60+MT2", "60+M", "age=60+|gender=M");
 
+		//columns specific for type 1 diabetes
+		//female
+		ColumnParameters zeroTo5FemaleT1 = new ColumnParameters("0-5FT1", "0-5-F", "age=0-5|gender=F");
+		ColumnParameters sixTo18FemaleT1 = new ColumnParameters("6-18FT1", "6-18-F", "age=6-18|gender=F");
+		ColumnParameters thirty5PlusFemaleT1 = new ColumnParameters("35+FT1", "35+F", "age=35+|gender=F");
+		//male
+		ColumnParameters zeroTo5MaleT1 = new ColumnParameters("0-5MT1", "0-5-M", "age=0-5|gender=M");
+		ColumnParameters sixTo18MaleT1 = new ColumnParameters("6-18MT1", "6-18-M", "age=6-18|gender=M");
+		ColumnParameters thirty5PlusMaleT1 = new ColumnParameters("35+MT1", "35+M", "age=35+|gender=M");
+
+
+
 
 		
 		//form columns as list to be used in the dsd
-		List<ColumnParameters> allColumnsGender = Arrays.asList(female, male, totals);
-		List<ColumnParameters> allColumnsT1 = Arrays.asList(zeroTo18FemaleT1, ninteenTo35FemaleT1, thirty6PlusFemaleT1, zeroTo18MaleT1, ninteenTo35MaleT1, thirty6PlusMaleT1, totals);
-		List<ColumnParameters> allColumnsT2 = Arrays.asList(zeroTo18FemaleT2, ninteenTo35FemaleT2, thirty6To60FemaleT2, zeroTo18MaleT2, ninteenTo35MaleT2, thirty6To60MaleT2, sixtyPlusFemaleT2, sixtyPlusMaleT2, totals);
+		List<ColumnParameters> allColumnsGender = Arrays.asList(male, female, totals);
+		List<ColumnParameters> allColumnsT1 = Arrays.asList(zeroTo5MaleT1, sixTo18MaleT1, ninteenTo35MaleT1, thirty5PlusMaleT1, zeroTo5FemaleT1, sixTo18FemaleT1, ninteenTo35FemaleT1, thirty5PlusFemaleT1, totals);
+		List<ColumnParameters> allColumnsT2 = Arrays.asList(zeroTo18MaleT2, ninteenTo35MaleT2, thirty6To60MaleT2, sixtyPlusMaleT2, zeroTo18FemaleT2, ninteenTo35FemaleT2, thirty6To60FemaleT2, sixtyPlusFemaleT2, totals);
 		
 		//build the design here, all patients in the system with different aggregation
 		//number of patients diabetic patients
 		Concept diabeticType = Dictionary.getConcept(Dictionary.TYPE_OF_DIABETIC);
 		Concept diabeticT1 = Dictionary.getConcept(Dictionary.TYPE_1_DIABETES);
 		Concept diabeticT2 = Dictionary.getConcept(Dictionary.TYPE_2_DIABETES);
+		//concepts for CVD
+		Concept stroke = Dictionary.getConcept(Dictionary.STROKE);
+		Concept ischemic_heart_disease = Dictionary.getConcept(Dictionary.Ischemic_heart_disease);
+		Concept peripheral_vascular_or_artery_disease = Dictionary.getConcept(Dictionary.Peripheral_Vascular_disease);
+		Concept heart_failure = Dictionary.getConcept(Dictionary.Heart_failure);
+		Concept problem_added = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
+
 
 		EmrReportingUtils.addRow(dsd, "NDP", "Number of diabetic patients", ReportUtils.map(indicators.numberOfDiabeticPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDC", "New diagnosis cases", ReportUtils.map(indicators.numberOfNewDiagnosedPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "FV", "First Visit", ReportUtils.map(indicators.numberOfPatientsWithEncounter(Metadata.EncounterType.DM_INITIAL), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "RV", "Return Visit", ReportUtils.map(indicators.numberOfPatientsWithEncounter(Metadata.EncounterType.DM_FOLLOWUP), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
-		EmrReportingUtils.addRow(dsd, "NDC", "New diagnosis cases", ReportUtils.map(indicators.numberOfNewDiagnosedPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
-		EmrReportingUtils.addRow(dsd, "TNT1", "Total number with type 1", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT1), indParams), allColumnsT1, Arrays.asList("01", "02", "03", "04", "05", "06", "07"));
+		EmrReportingUtils.addRow(dsd, "TNT1", "Total number with type 1", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT1), indParams), allColumnsT1, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
 		EmrReportingUtils.addRow(dsd, "TNT2", "Total number with type 2", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
-		EmrReportingUtils.addRow(dsd, "GDM", "GESTATIONAL DIABETES MELLITUS", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		//a line will be added here to calculate those patients with diabetes caused by other factors
+		EmrReportingUtils.addRow(dsd, "GDMS", "Total No. screened for Gestational Diabetes Mellitus", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "GDMD", "Total No. diagnosed for Gestational Diabetes Mellitus", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "DSOC", "Total No. of Diabetes secondary to other causes", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "INS", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnInsulin(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "OGL", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnOglas(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "BOTH", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		
-		EmrReportingUtils.addRow(dsd, "NHTN", "Total Number with New HTN ", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "KHTN", "Total Number with Known HTN ", ReportUtils.map(indicators.numberOfKnownHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "SDF", "Total Number Screened For Diabetic Foot ", ReportUtils.map(indicators.numberOfPatientsScreenedForDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "ADF", "Total Number Amputated Due To Diabetic Foot ", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "DFU", "Total Number with Diabetic Foot Ulcer ", ReportUtils.map(indicators.numberOfPatientsWithDiabeticFootUlcer(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "KF", "Total Number with Kidney Failure ", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "EC", "Total Number with Eye Complications", ReportUtils.map(indicators.numberOfPatientsWithVisualImpairment(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "ED", "Total Number Educated On Diabetes ", ReportUtils.map(indicators.numberOfPatientsEducatedOnDiabetes(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "OGL", "No. of patients on OGLAs", ReportUtils.map(indicators.numberOfPatientsOnOglas(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "BOTH", "No. of patients on both", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "DAEO", "No. of patients on diet and exercise only", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NPOH", "No. of patients done HbA1c", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "PHT7", "% that met HbA1c target (< 7%)", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NOHPOC", "No. of hypertensive patients on care", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
+		EmrReportingUtils.addRow(dsd, "NHTN", "Total Number with New HTN", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NWHBP", "No. with high BP (>= 140/90)", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NPWCVDS", "No. of patients with CVD - Stroke", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, stroke), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NPWCVDI", "No. of patients with CVD - Heart Disease", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, ischemic_heart_disease), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NPWCVDP", "No. of patients with CVD - Peripheral Vascular", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, peripheral_vascular_or_artery_disease), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NPWCVDH", "No. of patients with CVD - Heart failure", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, heart_failure), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 
-		
+		EmrReportingUtils.addRow(dsd, "NPWN", "No. of Patients with neuropathies", ReportUtils.map(indicators.numberOfKnownHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NSFDF", "Total Number Screened For Diabetic Foot", ReportUtils.map(indicators.numberOfPatientsScreenedForDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDFU", "Total Number with Diabetic Foot Ulcer", ReportUtils.map(indicators.numberOfPatientsWithDiabeticFootUlcer(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NFSTT", "No. of feet saved through treatment", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NADF", "Total Number Amputated Due To Diabetic Foot ", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NWKC", "No. with kidney complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NWDR", "No. with diabetic retinopathy", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NSFT", "No. Screened for Tuberculosis", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NSPFT", "No. Screened Positive for Tuberculosis", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NTA", "Total admitted", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NAWDKA", "No. admitted with DKA", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NAWH", "No. admitted with Hypoglycemia", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDDC", "Total deaths due to diabetes complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDHC", "Total deaths due to hypertension complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NEWNHIF", "No. enrolled with NHIF", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		return dsd;
 	}
 	

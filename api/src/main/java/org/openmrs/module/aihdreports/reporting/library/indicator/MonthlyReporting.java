@@ -186,4 +186,14 @@ public class MonthlyReporting {
         Concept knownHtnPatient = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
         return cohortIndicator("HTN Patients", ReportUtils.map(cohorts.hasObsOnLocation(htnQuestion, newHtnPatient, knownHtnPatient), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
+
+    /**
+     * Number of patients that match a given question and number of possible answers
+     * @return CohortIndicator
+     */
+    public CohortIndicator numberOfPatientsPerQuestionAndSetOfAnswers(Concept q, Concept ... a){
+
+        return cohortIndicator("Question "+q.getName().getName(), ReportUtils.map(cohorts.hasObsOnLocation(q, a), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+
+    }
 }
