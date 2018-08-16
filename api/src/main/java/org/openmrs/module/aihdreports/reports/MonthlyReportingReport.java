@@ -174,6 +174,14 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		Concept heart_failure = Dictionary.getConcept(Dictionary.Heart_failure);
 		Concept problem_added = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
 
+		//
+		Concept gdm = Dictionary.getConcept(Dictionary.GDM);
+		Concept secondary = Dictionary.getConcept(Dictionary.DIABETES_SECONDARY_TO_OTHER_CAUSES);
+
+		//
+		Concept medication_ordered = Dictionary.getConcept(Dictionary.MEDICATION_ORDERED);
+
+
 
 		EmrReportingUtils.addRow(dsd, "NDP", "Number of diabetic patients", ReportUtils.map(indicators.numberOfDiabeticPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "NDC", "New diagnosis cases", ReportUtils.map(indicators.numberOfNewDiagnosedPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
@@ -181,13 +189,12 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "RV", "Return Visit", ReportUtils.map(indicators.numberOfPatientsWithEncounter(Metadata.EncounterType.DM_FOLLOWUP), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "TNT1", "Total number with type 1", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT1), indParams), allColumnsT1, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
 		EmrReportingUtils.addRow(dsd, "TNT2", "Total number with type 2", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
-		EmrReportingUtils.addRow(dsd, "GDMS", "Total No. screened for Gestational Diabetes Mellitus", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "GDMD", "Total No. diagnosed for Gestational Diabetes Mellitus", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "DSOC", "Total No. of Diabetes secondary to other causes", ReportUtils.map(indicators.numberOfGdm(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "GDMD", "Total No. diagnosed for Gestational Diabetes Mellitus", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType,gdm), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "DSOC", "Total No. of Diabetes secondary to other causes", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, secondary), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "INS", "Number of patients on insulin", ReportUtils.map(indicators.numberOfPatientsOnInsulin(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "OGL", "No. of patients on OGLAs", ReportUtils.map(indicators.numberOfPatientsOnOglas(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "BOTH", "No. of patients on both", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "DAEO", "No. of patients on diet and exercise only", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		/*EmrReportingUtils.addRow(dsd, "DAEO", "No. of patients on diet and exercise only", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NPOH", "No. of patients done HbA1c", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "PHT7", "% that met HbA1c target (< 7%)", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NOHPOC", "No. of hypertensive patients on care", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
@@ -213,7 +220,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "NDDC", "Total deaths due to diabetes complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NDHC", "Total deaths due to hypertension complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NEWNHIF", "No. enrolled with NHIF", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		return dsd;
+		*/return dsd;
 	}
 	
 	@Override

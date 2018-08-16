@@ -155,7 +155,7 @@ public class CommonCohortLibrary {
      * @param answers the answers to include
      * @return the cohort definition
      */
-    public CohortDefinition hasObs(Concept question, Concept... answers) {
+    public CohortDefinition hasCodedObs(Concept question, Concept... answers) {
         CodedObsCohortDefinition cd = new CodedObsCohortDefinition();
         cd.setName("has obs between dates");
         cd.setQuestion(question);

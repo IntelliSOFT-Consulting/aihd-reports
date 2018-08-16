@@ -43,8 +43,8 @@ public class Metadata {
         public final static String INSULIN_SOLUBLE = "282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String INSULIN_NPH_TYPE_1 = "e4f96288-5a75-4259-a610-fa380d469f1f";
         public final static String INSULIN_NPH_TYPE_2 = "ee5647b4-3ebf-48ae-9428-2558118de260";
-        public final static String INSULIN_OTHER_MEDICATION = "ee5647b4-3ebf-48ae-9428-2558118de260";
-        public final static String ANT_HYPETENSIVE = "";//d
+        public final static String INSULIN_OTHER_MEDICATION = "5fdb89e1-d6f5-484d-abaa-ff2a18e12621";
+        public final static String BOTH_OGLAS_INSULIN = "287e075d-61d6-4273-89a7-e9bcb3d925e5";//d
         public final static String HERBAL = "c2769cb4-6f2a-476b-b8a1-8a7a7cb7d62e";//e
         public final static String OTHER_NON_CODED = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//f
 

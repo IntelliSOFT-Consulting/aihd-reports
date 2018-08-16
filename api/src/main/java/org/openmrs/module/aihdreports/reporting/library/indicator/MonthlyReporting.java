@@ -59,41 +59,26 @@ public class MonthlyReporting {
     }
 
     /**
-     * The number of GDM
-     * @return
-     */
-    public CohortIndicator numberOfGdm() {
-        Concept question = Dictionary.getConcept(Dictionary.TYPE_OF_DIABETIC);
-        Concept ans = Dictionary.getConcept(Dictionary.GDM);
-        return cohortIndicator("numGdm", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
-    }
-
-    /**
      * numberOfPatientsOnInsulin()
      */
     public CohortIndicator numberOfPatientsOnInsulin() {
-        Concept question = Dictionary.getConcept("f5b23ca2-ee78-4fa8-915d-8c81c8c9d8bd");
-        Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return cohortIndicator("onInsulin", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+        return cohortIndicator("onInsulin", ReportUtils.map(cohorts.onInsulinOnly(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
      * numberOfPatientsOnOglas
      */
     public CohortIndicator numberOfPatientsOnOglas() {
-
-        Concept question = Dictionary.getConcept("2bac6fca-19d0-4e4b-99a7-4bb30f40470b");
-        Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return cohortIndicator("onoglas", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+        return cohortIndicator("onoglas", ReportUtils.map(cohorts.onOglasOnly(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**
      * numberOfPatientsOnInsAndOgl
      */
     public CohortIndicator numberOfPatientsOnInsAndOgl(){
-        Concept question = Dictionary.getConcept("6b90a512-39a4-4eac-a6dc-12b54932f536");
-        Concept ans = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return cohortIndicator("onInsulin+Oglas", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+        Concept question = Dictionary.getConcept(Dictionary.MEDICATION_ORDERED);
+        Concept both = Dictionary.getConcept(Dictionary.BOTH_OGLAS_INSULIN);
+        return cohortIndicator("onInsulin+Oglas", ReportUtils.map(cohorts.hasObsOnLocation(question, both), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
