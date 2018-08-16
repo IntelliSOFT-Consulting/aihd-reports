@@ -152,4 +152,32 @@ public class MonthlyReportingCohort {
         return cd;
     }
 
+    public CohortDefinition havingValueNumericWithBoundaries(Concept q1, Double val){
+        NumericObsCohortDefinition cd = new NumericObsCohortDefinition();
+        cd.setName("");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.setQuestion(q1);
+        cd.setTimeModifier(BaseObsCohortDefinition.TimeModifier.ANY);
+        cd.setOperator1(RangeComparator.GREATER_EQUAL);
+        if(val != null) {
+            cd.setValue1(val);
+        }
+        return cd;
+    }
+
+    public CohortDefinition havingValueNumericObsPressure(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("pressure");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+
+        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("gt140", ReportUtils.map(havingValueNumericWithBoundaries(Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE), 140.0), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("gt90", ReportUtils.map(havingValueNumericWithBoundaries(Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE), 90.0), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("loc AND gt140 AND gt90");
+        return cd;
+    }
+
 }

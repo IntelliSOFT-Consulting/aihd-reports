@@ -205,5 +205,13 @@ public class MonthlyReporting {
 
     }
 
+    /**
+     * havingValueNumericObsPressure
+     */
+    public CohortIndicator havingValueNumericObsPressure(){
+        return cohortIndicator("highPressure", ReportUtils.map(cohorts.havingValueNumericObsPressure(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+
+    }
+
 
 }
