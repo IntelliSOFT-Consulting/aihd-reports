@@ -11,6 +11,7 @@ import org.openmrs.module.reporting.cohort.definition.BaseObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.NumericObsCohortDefinition;
+import org.openmrs.module.reporting.common.RangeComparator;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -123,6 +124,31 @@ public class MonthlyReportingCohort {
         cd.addSearch("location", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
         cd.addSearch("hba1c", ReportUtils.map(havingValueNumericObsHbA1c(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("location AND hba1c");
+        return cd;
+    }
+
+    public CohortDefinition havingValueNumericObsHbA1cLess7(){
+        NumericObsCohortDefinition cd = new NumericObsCohortDefinition();
+        cd.setName("HbA1c<7");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.setQuestion(Dictionary.getConcept(Dictionary.HBA1C));
+        cd.setTimeModifier(BaseObsCohortDefinition.TimeModifier.ANY);
+        cd.setOperator1(RangeComparator.LESS_THAN);
+        cd.setValue1(7.0);
+        return cd;
+    }
+
+    public CohortDefinition havingValueNumericObsHbA1cWithLocationLes7(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("HbA1cLess7");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+
+        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("less7", ReportUtils.map(havingValueNumericObsHbA1cLess7(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("loc AND less7");
         return cd;
     }
 

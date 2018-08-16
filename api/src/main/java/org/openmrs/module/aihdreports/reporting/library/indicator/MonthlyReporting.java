@@ -197,5 +197,13 @@ public class MonthlyReporting {
 
     }
 
+    /**
+     * havingValueNumericObsHbA1cWithLocationLes7
+     */
+    public CohortIndicator havingValueNumericObsHbA1cWithLocationLes7(){
+        return cohortIndicator("HbA1cLess7", ReportUtils.map(cohorts.havingValueNumericObsHbA1cWithLocationLes7(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+
+    }
+
 
 }
