@@ -181,6 +181,9 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		//
 		Concept medication_ordered = Dictionary.getConcept(Dictionary.MEDICATION_ORDERED);
 		Concept exercise = Dictionary.getConcept(Dictionary.PHYSICAL_EXERCISE);
+		Concept hypertension = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
+		Concept newHypertension = Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT);
+		Concept knownHypertension = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
 
 
 
@@ -198,9 +201,9 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "DAEO", "No. of patients on diet and exercise only", ReportUtils.map(indicators.numberOfPatientsWithCodedValuesAndAnswer(medication_ordered, exercise ), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NPOH", "No. of patients done HbA1c", ReportUtils.map(indicators.havingValueNumericObsHbA1cWithLocation(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "PHT7", "% that met HbA1c target (< 7%)", ReportUtils.map(indicators.havingValueNumericObsHbA1cWithLocationLes7(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		/*EmrReportingUtils.addRow(dsd, "NOHPOC", "No. of hypertensive patients on care", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
-		EmrReportingUtils.addRow(dsd, "NHTN", "Total Number with New HTN", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NWHBP", "No. with high BP (>= 140/90)", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NOHPOC", "No. of hypertensive patients on care", ReportUtils.map(indicators.numberOfPatientsWithCodedValuesAndAnswer(hypertension, newHypertension, knownHypertension), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
+		EmrReportingUtils.addRow(dsd, "NHTN", "Total Number with New HTN", ReportUtils.map(indicators.numberOfPatientsWithCodedValuesAndAnswer(hypertension, newHypertension), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		/*EmrReportingUtils.addRow(dsd, "NWHBP", "No. with high BP (>= 140/90)", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NPWCVDS", "No. of patients with CVD - Stroke", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, stroke), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NPWCVDI", "No. of patients with CVD - Heart Disease", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, ischemic_heart_disease), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NPWCVDP", "No. of patients with CVD - Peripheral Vascular", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, peripheral_vascular_or_artery_disease), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));

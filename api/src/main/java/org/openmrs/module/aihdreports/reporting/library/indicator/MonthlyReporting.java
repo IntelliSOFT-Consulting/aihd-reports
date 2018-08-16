@@ -185,7 +185,7 @@ public class MonthlyReporting {
      * numberOfPatientsWithCodedValuesAndAnswer
      */
     public CohortIndicator numberOfPatientsWithCodedValuesAndAnswer(Concept question, Concept ... ans){
-        return cohortIndicator("onInsulin+Oglas", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+        return cohortIndicator("", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
