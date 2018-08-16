@@ -180,5 +180,13 @@ public class MonthlyReporting {
 
         return cohortIndicator("Question "+q.getName().getName(), ReportUtils.map(cohorts.hasObsOnLocation(q, a), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
+    }/**
+     * numberOfPatientsOnInsAndOgl
+     */
+    public CohortIndicator numberOfPatientsWithCodedValuesAndAnswer(Concept question, Concept ... ans){
+        return cohortIndicator("onInsulin+Oglas", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+
     }
+
+
 }
