@@ -180,11 +180,20 @@ public class MonthlyReporting {
 
         return cohortIndicator("Question "+q.getName().getName(), ReportUtils.map(cohorts.hasObsOnLocation(q, a), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
-    }/**
-     * numberOfPatientsOnInsAndOgl
+    }
+    /**
+     * numberOfPatientsWithCodedValuesAndAnswer
      */
     public CohortIndicator numberOfPatientsWithCodedValuesAndAnswer(Concept question, Concept ... ans){
         return cohortIndicator("onInsulin+Oglas", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+
+    }
+
+    /**
+     * havingValueNumericObsHbA1cWithLocation
+     */
+    public CohortIndicator havingValueNumericObsHbA1cWithLocation(){
+        return cohortIndicator("HbA1c", ReportUtils.map(cohorts.havingValueNumericObsHbA1cWithLocation(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 

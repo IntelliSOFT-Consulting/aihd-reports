@@ -196,8 +196,8 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "OGL", "No. of patients on OGLAs", ReportUtils.map(indicators.numberOfPatientsOnOglas(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "BOTH", "No. of patients on both", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "DAEO", "No. of patients on diet and exercise only", ReportUtils.map(indicators.numberOfPatientsWithCodedValuesAndAnswer(medication_ordered, exercise ), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		/*EmrReportingUtils.addRow(dsd, "NPOH", "No. of patients done HbA1c", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "PHT7", "% that met HbA1c target (< 7%)", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NPOH", "No. of patients done HbA1c", ReportUtils.map(indicators.havingValueNumericObsHbA1cWithLocation(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		/*EmrReportingUtils.addRow(dsd, "PHT7", "% that met HbA1c target (< 7%)", ReportUtils.map(indicators.numberOfPatientsOnInsAndOgl(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NOHPOC", "No. of hypertensive patients on care", ReportUtils.map(indicators.numberOfPatientsPerDiabetiType(diabeticType, diabeticT2), indParams), allColumnsT2, Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09"));
 		EmrReportingUtils.addRow(dsd, "NHTN", "Total Number with New HTN", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NWHBP", "No. with high BP (>= 140/90)", ReportUtils.map(indicators.numberOfNewHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));

@@ -7,8 +7,10 @@ import org.openmrs.module.aihdreports.reporting.calculation.ValueTextObsCalculat
 import org.openmrs.module.aihdreports.reporting.cohort.definition.CalculationCohortDefinition;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.utils.ReportUtils;
+import org.openmrs.module.reporting.cohort.definition.BaseObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.NumericObsCohortDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -98,6 +100,29 @@ public class MonthlyReportingCohort {
         CalculationCohortDefinition cd = new CalculationCohortDefinition("value", new ValueTextObsCalculation());
         cd.addParameter(new Parameter("onDate", "On Date", Date.class));
         cd.addCalculationParameter("concept", concept);
+        return cd;
+    }
+
+    public CohortDefinition havingValueNumericObsHbA1c(){
+        NumericObsCohortDefinition cd = new NumericObsCohortDefinition();
+        cd.setName("HbA1c");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.setQuestion(Dictionary.getConcept(Dictionary.HBA1C));
+        cd.setTimeModifier(BaseObsCohortDefinition.TimeModifier.ANY);
+        return cd;
+    }
+
+    public CohortDefinition havingValueNumericObsHbA1cWithLocation(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("HbA1c");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+
+        cd.addSearch("location", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("hba1c", ReportUtils.map(havingValueNumericObsHbA1c(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("location AND hba1c");
         return cd;
     }
 
