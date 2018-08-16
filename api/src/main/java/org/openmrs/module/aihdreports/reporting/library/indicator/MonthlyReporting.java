@@ -213,5 +213,13 @@ public class MonthlyReporting {
 
     }
 
+    /**
+     * footUlcers
+     */
+    public CohortIndicator footUlcers(){
+        return cohortIndicator("footUlcers", ReportUtils.map(cohorts.footUlcers(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+
+    }
+
 
 }

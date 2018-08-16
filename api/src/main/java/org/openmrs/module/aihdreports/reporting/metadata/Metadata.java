@@ -133,6 +133,7 @@ public class Metadata {
         public final static String ULCERATED_FOOT = "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String FOOT_EMERGENCY = "f8f1dae8-9674-4957-b93e-d842832d7416";
         public final static String RESSOLVED = "6097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String FOOT_ULCERS_FOOT = "1cb3fefb-e44a-4092-adbc-b33cf068a37a";
 
         //concepts uuids for anti hypertensive drugs
         //ACE  inhibitor

@@ -180,4 +180,17 @@ public class MonthlyReportingCohort {
         return cd;
     }
 
+    public CohortDefinition footUlcers(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("Foot Ulcers");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("initial", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.PROBLEM_ADDED), Dictionary.getConcept(Dictionary.FOOT_ULCER)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("foot", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_ULCERS_FOOT), Dictionary.getConcept(Dictionary.UNDER_TREATMENT)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("loc AND (initial OR foot)");
+        return cd;
+    }
+
 }

@@ -184,6 +184,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		Concept hypertension = Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE);
 		Concept newHypertension = Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT);
 		Concept knownHypertension = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
+		Concept peripheral_nueropathy = Dictionary.getConcept(Dictionary.Neuropathy);
 
 
 
@@ -209,10 +210,10 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "NPWCVDP", "No. of patients with CVD - Peripheral Vascular", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, peripheral_vascular_or_artery_disease), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NPWCVDH", "No. of patients with CVD - Heart failure", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, heart_failure), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 
-		/*EmrReportingUtils.addRow(dsd, "NPWN", "No. of Patients with neuropathies", ReportUtils.map(indicators.numberOfKnownHtnPatients(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NSFDF", "Total Number Screened For Diabetic Foot", ReportUtils.map(indicators.numberOfPatientsScreenedForDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NDFU", "Total Number with Diabetic Foot Ulcer", ReportUtils.map(indicators.numberOfPatientsWithDiabeticFootUlcer(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NFSTT", "No. of feet saved through treatment", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NPWN", "No. of Patients with neuropathies", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, peripheral_nueropathy), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		//EmrReportingUtils.addRow(dsd, "NSFDF", "Total Number Screened For Diabetic Foot", ReportUtils.map(indicators.numberOfPatientsScreenedForDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDFU", "Total Number with Diabetic Foot Ulcer", ReportUtils.map(indicators.footUlcers(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		/*EmrReportingUtils.addRow(dsd, "NFSTT", "No. of feet saved through treatment", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NADF", "Total Number Amputated Due To Diabetic Foot ", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NWKC", "No. with kidney complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NWDR", "No. with diabetic retinopathy", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
