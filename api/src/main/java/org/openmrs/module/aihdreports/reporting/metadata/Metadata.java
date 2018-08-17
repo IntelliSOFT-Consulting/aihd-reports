@@ -26,6 +26,7 @@ public class Metadata {
         public final static String RETURN_VISIT_DATE = "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String SCREENED_FOR_TB = "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String TB_STATUS = "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String TB_STATUS_1 = "8bbf58d8-ab67-4601-95e6-7cd2f400d60d";
         public final static String ON_TREATMENT = "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String DISCONTINUE_REASON = "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String TRANSFER_OUT = "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
