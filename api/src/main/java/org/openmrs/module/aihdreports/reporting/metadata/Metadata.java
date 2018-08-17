@@ -50,6 +50,9 @@ public class Metadata {
         public final static String OTHER_NON_CODED = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//f
         public final static String DIABETIC_COMPLICATIONS = "c3d7f917-4eb8-466e-8175-e82d4405a6a8";
         public final static String HYPERTENSION_COMPLICATIONS = "f12649c9-14ea-4de1-b9eb-db411b48cd85";
+        public final static String REASON_FOR_ADMISION = "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String ADMITTED_KDA = "21afa89c-6a33-4317-bc19-efec95d0716a";
+        public final static String HYPOGLYCEMIA = "138061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
 
