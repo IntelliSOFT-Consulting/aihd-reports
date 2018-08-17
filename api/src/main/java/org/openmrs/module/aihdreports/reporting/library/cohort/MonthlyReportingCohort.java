@@ -193,4 +193,68 @@ public class MonthlyReportingCohort {
         return cd;
     }
 
+    //foot saved options
+    private CohortDefinition peripheralNeuropathyDeformityFootUlcer(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("peripheralNeuropathyDeformityFootUlcer");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addSearch("peripheral", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_PHERIPHERAL), Dictionary.getConcept(Dictionary.FOOT_SAVED)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("deformity", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.DEFORMITY), Dictionary.getConcept(Dictionary.FOOT_SAVED)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("footUlcer", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_ULCERS_FOOT), Dictionary.getConcept(Dictionary.FOOT_SAVED)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("peripheral OR deformity OR footUlcer");
+        return cd;
+    }
+    private CohortDefinition amputationAcuteJointLossOfSensation(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("amputationAcuteJointLossOfSensation");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addSearch("amp", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_AMPUTATION), Dictionary.getConcept(Dictionary.FOOT_SAVED)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("aj", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.ACUTE_JOINTS), Dictionary.getConcept(Dictionary.FOOT_SAVED)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("los", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.LOSS_OF_SENSATION), Dictionary.getConcept(Dictionary.FOOT_SAVED)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("amp OR aj OR los");
+        return cd;
+    }
+
+    public CohortDefinition combinedFootOptionsWithLocation(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("amputationAcuteJointLossOfSensation");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("pndfu", ReportUtils.map(peripheralNeuropathyDeformityFootUlcer(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("aajlos", ReportUtils.map(amputationAcuteJointLossOfSensation(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("loc AND (pndfu OR aajlos)");
+        return cd;
+    }
+    //
+    //foot amputation options due to diabetic foot
+    private CohortDefinition diabeticFootOptions(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("diabeticFootOptions");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addSearch("past", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_PAST_CONDITION), Dictionary.getConcept(Dictionary.FOOT_AMPUTATION)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("fa", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_ASSESSMENT), Dictionary.getConcept(Dictionary.FOOT_AMPUTATION)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.addSearch("yes", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_AMPUTATION), Dictionary.getConcept(Dictionary.YES)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("past OR fa OR yes");
+        return cd;
+    }
+
+    public CohortDefinition diabeticFootOptionsWithLocation(){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("diabeticFootOptionsWithLocation");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("dfo", ReportUtils.map(diabeticFootOptions(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+        cd.setCompositionString("loc AND dfo");
+        return cd;
+
+    }
+
+
 }

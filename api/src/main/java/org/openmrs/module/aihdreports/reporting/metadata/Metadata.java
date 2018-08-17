@@ -134,6 +134,13 @@ public class Metadata {
         public final static String FOOT_EMERGENCY = "f8f1dae8-9674-4957-b93e-d842832d7416";
         public final static String RESSOLVED = "6097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String FOOT_ULCERS_FOOT = "1cb3fefb-e44a-4092-adbc-b33cf068a37a";
+        public final static String DEFORMITY = "da9de57f-0f8f-468b-afbb-06c1537c6f44";
+        public final static String FOOT_PHERIPHERAL = "f99ef1c4-7d2b-445d-82f6-729c3de4b149";
+        public final static String FOOT_SAVED = "79121359-20e6-4431-9117-34beab9bd193";
+        public final static String ACUTE_JOINTS = "be3b8237-1818-4adc-b2d4-eb9a727ca20b";
+        public final static String LOSS_OF_SENSATION = "fadecc5f-f848-4240-8bb7-0a617c088bfe";
+        public final static String FOOT_PAST_CONDITION = "09569a18-ac73-47e1-b77f-a10544bf053e";
+        public final static String FOOT_ASSESSMENT = "39922aa9-e1b6-4036-9f6a-4c840351cfad";
 
         //concepts uuids for anti hypertensive drugs
         //ACE  inhibitor

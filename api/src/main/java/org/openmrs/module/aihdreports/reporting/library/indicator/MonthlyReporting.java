@@ -115,9 +115,7 @@ public class MonthlyReporting {
      * numberOfAmputationDueToDiabeticFoot
      */
     public CohortIndicator numberOfAmputationDueToDiabeticFoot(){
-        Concept question = Dictionary.getConcept(Dictionary.FOOT_AMPUTATION);
-        Concept ans = Dictionary.getConcept(Dictionary.YES);
-        return cohortIndicator("diabeticFootAmputation", ReportUtils.map(cohorts.hasObsOnLocation(question, ans), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+        return cohortIndicator("diabeticFootAmputation", ReportUtils.map(cohorts.diabeticFootOptionsWithLocation(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 
@@ -218,6 +216,14 @@ public class MonthlyReporting {
      */
     public CohortIndicator footUlcers(){
         return cohortIndicator("footUlcers", ReportUtils.map(cohorts.footUlcers(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+
+    }
+
+    /**
+     * foot options
+     */
+    public CohortIndicator combinedFootOptionsWithLocation(){
+        return cohortIndicator("combinedFootOptionsWithLocation", ReportUtils.map(cohorts.combinedFootOptionsWithLocation(), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
 
     }
 

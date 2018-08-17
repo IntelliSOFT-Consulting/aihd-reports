@@ -211,11 +211,10 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "NPWCVDH", "No. of patients with CVD - Heart failure", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, heart_failure), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 
 		EmrReportingUtils.addRow(dsd, "NPWN", "No. of Patients with neuropathies", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(problem_added, peripheral_nueropathy), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		//EmrReportingUtils.addRow(dsd, "NSFDF", "Total Number Screened For Diabetic Foot", ReportUtils.map(indicators.numberOfPatientsScreenedForDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NDFU", "Total Number with Diabetic Foot Ulcer", ReportUtils.map(indicators.footUlcers(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		/*EmrReportingUtils.addRow(dsd, "NFSTT", "No. of feet saved through treatment", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NFSTT", "No. of feet saved through treatment", ReportUtils.map(indicators.combinedFootOptionsWithLocation(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NADF", "Total Number Amputated Due To Diabetic Foot ", ReportUtils.map(indicators.numberOfAmputationDueToDiabeticFoot(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NWKC", "No. with kidney complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		/*EmrReportingUtils.addRow(dsd, "NWKC", "No. with kidney complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NWDR", "No. with diabetic retinopathy", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NSFT", "No. Screened for Tuberculosis", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NSPFT", "No. Screened Positive for Tuberculosis", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
@@ -225,7 +224,8 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "NDDC", "Total deaths due to diabetes complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NDHC", "Total deaths due to hypertension complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NEWNHIF", "No. enrolled with NHIF", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		*/return dsd;
+		*/
+		return dsd;
 	}
 	
 	@Override
