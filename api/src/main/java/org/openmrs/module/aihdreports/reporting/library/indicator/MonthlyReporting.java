@@ -55,7 +55,7 @@ public class MonthlyReporting {
      * @return CohortIndicator
      */
     public CohortIndicator numberOfPatientsPerDiabetiType(Concept question, Concept answer) {
-       return cohortIndicator("Per diabetic", ReportUtils.map(cohorts.hasObsOnLocation(question, answer), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
+        return cohortIndicator("Per diabetic", ReportUtils.map(cohorts.hasObsOnLocation(question, answer), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}"));
     }
 
     /**

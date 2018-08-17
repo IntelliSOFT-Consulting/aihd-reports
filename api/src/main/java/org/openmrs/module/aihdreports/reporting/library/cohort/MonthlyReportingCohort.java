@@ -1,6 +1,5 @@
 package org.openmrs.module.aihdreports.reporting.library.cohort;
 
-import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.module.aihdreports.reporting.calculation.CauseOfDeathCalculation;

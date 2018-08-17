@@ -1,7 +1,5 @@
 package org.openmrs.module.aihdreports.reporting.metadata;
 
-import org.apache.commons.lang3.StringUtils;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openmrs.Concept;
 
 import java.util.ArrayList;
@@ -14,8 +12,8 @@ import java.util.List;
 public class Metadata {
 
     public static class Concepts {
-		public final static String WEIGHT = "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-		public final static String HEIGHT = "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String WEIGHT = "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String HEIGHT = "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIASTOLIC_BLOOD_PRESSURE = "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String SYSTOLIC_BLOOD_PRESSURE = "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String WAIST_CIRCUMFERENCE = "163080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -192,18 +190,18 @@ public class Metadata {
         public static final String other_z = "88680685-27ee-4a6f-a3b9-f0fa8ef3cb8b";
 
     }
-    
+
     public static class Identifier{
-		public final static String PATIENT_ID = "b9ba3418-7108-450c-bcff-7bc1ed5c42d1";
-		public final static String PHONE_NUMBER = "d0929ad2-f87a-11e7-80ee-672bf941f754";
+        public final static String PATIENT_ID = "b9ba3418-7108-450c-bcff-7bc1ed5c42d1";
+        public final static String PHONE_NUMBER = "d0929ad2-f87a-11e7-80ee-672bf941f754";
     }
-    
+
     public static class EncounterType{
 
-		public final static String DM_FOLLOWUP = "2da542a4-f87d-11e7-8eb4-37dc291c1b12";
-		public final static String DM_INITIAL ="bf3f3108-f87c-11e7-913d-5f679b8fdacb";
+        public final static String DM_FOLLOWUP = "2da542a4-f87d-11e7-8eb4-37dc291c1b12";
+        public final static String DM_INITIAL ="bf3f3108-f87c-11e7-913d-5f679b8fdacb";
     }
-    
+
     public static class Program{
 
     }
@@ -282,8 +280,8 @@ public class Metadata {
 
         public final static List<Concept> heartDisease(){
             return Arrays.asList(Dictionary.getConcept(Dictionary.Ischemic_heart_disease),
-                                Dictionary.getConcept(Dictionary.Heart_failure),
-                                Dictionary.getConcept(Dictionary.Peripheral_Vascular_disease)
+                    Dictionary.getConcept(Dictionary.Heart_failure),
+                    Dictionary.getConcept(Dictionary.Peripheral_Vascular_disease)
             );
 
         }
