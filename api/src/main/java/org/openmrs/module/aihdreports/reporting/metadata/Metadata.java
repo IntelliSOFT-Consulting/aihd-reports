@@ -48,6 +48,8 @@ public class Metadata {
         public final static String BOTH_OGLAS_INSULIN = "287e075d-61d6-4273-89a7-e9bcb3d925e5";//d
         public final static String HERBAL = "c2769cb4-6f2a-476b-b8a1-8a7a7cb7d62e";//e
         public final static String OTHER_NON_CODED = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//f
+        public final static String DIABETIC_COMPLICATIONS = "c3d7f917-4eb8-466e-8175-e82d4405a6a8";
+        public final static String HYPERTENSION_COMPLICATIONS = "f12649c9-14ea-4de1-b9eb-db411b48cd85";
 
 
 

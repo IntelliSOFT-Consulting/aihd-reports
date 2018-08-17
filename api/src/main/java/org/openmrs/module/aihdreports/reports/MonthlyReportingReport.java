@@ -188,6 +188,9 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		Concept screened_for_tb = Dictionary.getConcept(Dictionary.SCREENED_FOR_TB);
 		Concept yes = Dictionary.getConcept(Dictionary.YES);
 		Concept tb_status_1 = Dictionary.getConcept(Dictionary.TB_STATUS_1);
+		Concept nhif_status = Dictionary.getConcept(Dictionary.NHIF_MEMBER);
+		Concept diabetic_complication = Dictionary.getConcept(Dictionary.DIABETIC_COMPLICATIONS);
+		Concept hypertension_complication = Dictionary.getConcept(Dictionary.HYPERTENSION_COMPLICATIONS);
 
 
 
@@ -220,13 +223,13 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		EmrReportingUtils.addRow(dsd, "NWDR", "No. with diabetic retinopathy", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NSFT", "No. Screened for Tuberculosis", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(screened_for_tb, yes), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
 		EmrReportingUtils.addRow(dsd, "NSPFT", "No. Screened Positive for Tuberculosis", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(tb_status_1, yes), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		/*EmrReportingUtils.addRow(dsd, "NTA", "Total admitted", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NAWDKA", "No. admitted with DKA", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NAWH", "No. admitted with Hypoglycemia", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NDDC", "Total deaths due to diabetes complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NDHC", "Total deaths due to hypertension complications", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		EmrReportingUtils.addRow(dsd, "NEWNHIF", "No. enrolled with NHIF", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
-		*/
+		//EmrReportingUtils.addRow(dsd, "NTA", "Total admitted", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		//EmrReportingUtils.addRow(dsd, "NAWDKA", "No. admitted with DKA", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		//EmrReportingUtils.addRow(dsd, "NAWH", "No. admitted with Hypoglycemia", ReportUtils.map(indicators.numberOfPatientsWithKidneyFailure(), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDDC", "Total deaths due to diabetes complications", ReportUtils.map(indicators.CauseOfDeath(diabetic_complication), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NDHC", "Total deaths due to hypertension complications", ReportUtils.map(indicators.CauseOfDeath(hypertension_complication), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+		EmrReportingUtils.addRow(dsd, "NEWNHIF", "No. enrolled with NHIF", ReportUtils.map(indicators.numberOfPatientsPerQuestionAndSetOfAnswers(nhif_status, yes), indParams), allColumnsGender, Arrays.asList("01", "02", "03"));
+
 		return dsd;
 	}
 	

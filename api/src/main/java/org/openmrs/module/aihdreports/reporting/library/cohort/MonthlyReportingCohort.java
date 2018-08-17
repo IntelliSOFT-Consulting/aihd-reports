@@ -3,6 +3,7 @@ package org.openmrs.module.aihdreports.reporting.library.cohort;
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.Location;
+import org.openmrs.module.aihdreports.reporting.calculation.CauseOfDeathCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.ValueTextObsCalculation;
 import org.openmrs.module.aihdreports.reporting.cohort.definition.CalculationCohortDefinition;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
@@ -254,6 +255,13 @@ public class MonthlyReportingCohort {
         cd.setCompositionString("loc AND dfo");
         return cd;
 
+    }
+
+    public CohortDefinition causeOfDeathCalculation(Concept concept){
+        CalculationCohortDefinition cd = new CalculationCohortDefinition("value", new CauseOfDeathCalculation());
+        cd.addParameter(new Parameter("onDate", "On Date", Date.class));
+        cd.addCalculationParameter("concept", concept);
+        return cd;
     }
 
 

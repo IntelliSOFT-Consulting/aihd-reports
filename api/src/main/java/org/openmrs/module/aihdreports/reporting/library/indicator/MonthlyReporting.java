@@ -227,5 +227,13 @@ public class MonthlyReporting {
 
     }
 
+    /**
+     * cause of death for a patient
+     */
+    public CohortIndicator CauseOfDeath(Concept concept){
+        return cohortIndicator("causeOfDeath", ReportUtils.map(cohorts.causeOfDeathCalculation(concept), "onDate=${endDate}"));
+
+    }
+
 
 }
