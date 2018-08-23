@@ -2,6 +2,7 @@ package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.aihdreports.data.converter.DiabeticFootComplainsDataConverter;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
@@ -67,7 +68,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
     @Override
     public String getName() {
-        return "Diabetic Foot Register";
+        return "Diabetic Foot Care Daily Register";
     }
 
     @Override
@@ -119,7 +120,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 		dsd.addColumn("fbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
         dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
         dsd.addColumn("abi", sdd.obsDataDefinition("abi",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
-        dsd.addColumn("complains", sdd.obsDataDefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ObsDataConverter());
+        dsd.addColumn("complains", sdd.obsDataDefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new DiabeticFootComplainsDataConverter());
         return dsd;
     }
 

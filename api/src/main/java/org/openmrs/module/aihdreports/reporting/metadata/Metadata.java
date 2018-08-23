@@ -151,6 +151,10 @@ public class Metadata {
         public static final String Prazocin = "77985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String other_z = "88680685-27ee-4a6f-a3b9-f0fa8ef3cb8b";
 
+        //Diabetic foot register concepts
+        public static final String LEG_SWEALING = "135966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String OTHER_CHIEF_COMPLAINT_TEXT = "3e9366c4-f93e-4f90-9ab7-b473f26d4169";
+
     }
     
     public static class Identifier{
