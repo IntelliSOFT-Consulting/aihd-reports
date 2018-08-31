@@ -20,6 +20,39 @@
     </fieldset>
 </div>
 <br />
+<div>
+    <fieldset>
+        <legend>Report Parameters</legend>
+        <table>
+            <tr>
+                <td>Start Date:</td>
+                <td><input type="text" id="startDate" name="startDate"  onclick="startDate() "/></td>
+            </tr>
+            <tr>
+                <td>End date</td>
+                <td><input type="text" id="endDate" name="endDate"  onclick="endDate() "/></td>
+            </tr>
+            <tr>
+                <td>Health Facility</td>
+                <td>
+                    <select name="chosenLocation" id="chosenLocation">
+                        <% if(facilities.size() > 0) {%>
+                            <% facilities.each{%>
+                            <option value="${it.locationId}">${it.name}</option>
+                            <%}%>
+                        <%}%>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Filter</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+<br />
 <div class="dashboard clear">
 <table border="0">
    <tr>
@@ -58,3 +91,23 @@
    </tr>
 </table>
 </div>
+
+<script type="text/javascript">
+    function startDate() {
+        jQuery("#startDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+            gotoCurrent: true
+        });
+    }
+    function endDate() {
+        jQuery("#endDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+            gotoCurrent: true
+        });
+    }
+    jQuery(function () {
+        startDate();
+        endDate();
+    });
+
+</script>
