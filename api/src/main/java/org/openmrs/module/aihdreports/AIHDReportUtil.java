@@ -7,6 +7,9 @@ import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -85,5 +88,17 @@ public class AIHDReportUtil {
             paramMap.put(param, value);
         }
         return new Mapped<T>(parameterizable, paramMap);
+    }
+
+    public static String formatDates(Date date){
+
+        Format formatter;
+        formatter = new SimpleDateFormat("dd-MM-yyyy");
+        if(date == null){
+            return "";
+        }
+
+        return formatter.format(date);
+
     }
 }

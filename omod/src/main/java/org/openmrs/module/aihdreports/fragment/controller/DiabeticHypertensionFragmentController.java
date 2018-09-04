@@ -13,20 +13,25 @@
  */
 package org.openmrs.module.aihdreports.fragment.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
+import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.PersonAttribute;
+import org.openmrs.User;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.module.aihdreports.reporting.calculation.Calculations;
 import org.openmrs.module.aihdreports.reporting.calculation.EmrCalculationUtils;
-import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.utils.Filters;
+import org.openmrs.ui.framework.annotation.FragmentParam;
+import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,8 +42,11 @@ import java.util.Set;
 
 public class DiabeticHypertensionFragmentController {
 
-    public void controller(FragmentModel model) {
-
+    public void controller(FragmentModel model,
+                           @FragmentParam(value = "location", required= false) Integer location,
+                           @FragmentParam(value = "startDate", required= false) String startDate,
+                           @FragmentParam(value = "endDate", required= false) String endDate,
+                           @SpringBean("locationService") LocationService locationService) {
         //set context
         PatientCalculationService patientCalculationService = Context.getService(PatientCalculationService.class);
         PatientCalculationContext context = patientCalculationService.createCalculationContext();
@@ -52,6 +60,13 @@ public class DiabeticHypertensionFragmentController {
                 cohort.add(patient.getPatientId());
             }
         }
+        //get the location logged in
+        User user = Context.getAuthenticatedUser();
+        PersonAttribute attribute = user.getPerson().getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid("8930b69a-8e7c-11e8-9599-337483600ed7"));
+        Location loggedInLocation = locationService.getLocation(1);
+        if(attribute != null && StringUtils.isNotEmpty(attribute.getValue())){
+            loggedInLocation = locationService.getLocation(Integer.parseInt(attribute.getValue()));
+        }
         //exclude dead patients
         Set<Integer> alivePatients = Filters.alive(cohort, context);
         Set<Integer> male = Filters.male(alivePatients, context);
@@ -64,44 +79,44 @@ public class DiabeticHypertensionFragmentController {
         Concept newHypertension = Dictionary.getConcept(Dictionary.NEW_HYPERTENSION_PATIENT);
         Concept knownHypertension = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
         //start formulating the values to be displayed on the viewer for diabetes
-        model.addAttribute("diabeticMaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 0, 5));
-        model.addAttribute("diabeticMale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 6, 18));
-        model.addAttribute("diabeticMale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 19, 35));
-        model.addAttribute("diabeticMale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 36, 60));
-        model.addAttribute("diabeticMale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 60, 120));
-        model.addAttribute("diabeticMaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, male, context));
+        model.addAttribute("diabeticMaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 0, 5, loggedInLocation));
+        model.addAttribute("diabeticMale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 6, 18, loggedInLocation));
+        model.addAttribute("diabeticMale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 19, 35, loggedInLocation));
+        model.addAttribute("diabeticMale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 36, 60, loggedInLocation));
+        model.addAttribute("diabeticMale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 60, 120, loggedInLocation));
+        model.addAttribute("diabeticMaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, male, context, loggedInLocation));
 
-        model.addAttribute("diabeticFemaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 0, 5));
-        model.addAttribute("diabeticFemale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 6, 18));
-        model.addAttribute("diabeticFemale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 19, 35));
-        model.addAttribute("diabeticFemale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 36, 60));
-        model.addAttribute("diabeticFemale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 60, 120));
-        model.addAttribute("diabeticFemaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, female, context));
+        model.addAttribute("diabeticFemaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 0, 5, loggedInLocation));
+        model.addAttribute("diabeticFemale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 6, 18, loggedInLocation));
+        model.addAttribute("diabeticFemale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 19, 35, loggedInLocation));
+        model.addAttribute("diabeticFemale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 36, 60, loggedInLocation));
+        model.addAttribute("diabeticFemale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 60, 120, loggedInLocation));
+        model.addAttribute("diabeticFemaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, female, context, loggedInLocation));
 
         //hypertension
-        model.addAttribute("hypertensionMaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 0, 5));
-        model.addAttribute("hypertensionMale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 6, 18));
-        model.addAttribute("hypertensionMale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 19, 35));
-        model.addAttribute("hypertensionMale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 36, 60));
-        model.addAttribute("hypertensionMale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 60, 120));
-        model.addAttribute("hypertensionMaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, male, context));
+        model.addAttribute("hypertensionMaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 0, 5, loggedInLocation));
+        model.addAttribute("hypertensionMale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 6, 18, loggedInLocation));
+        model.addAttribute("hypertensionMale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 19, 35, loggedInLocation));
+        model.addAttribute("hypertensionMale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 36, 60, loggedInLocation));
+        model.addAttribute("hypertensionMale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 60, 120, loggedInLocation));
+        model.addAttribute("hypertensionMaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, male, context, loggedInLocation));
 
-        model.addAttribute("hypertensionFemaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 0, 5));
-        model.addAttribute("hypertensionFemale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 6, 18));
-        model.addAttribute("hypertensionFemale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 19, 35));
-        model.addAttribute("hypertensionFemale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 36, 60));
-        model.addAttribute("hypertensionFemale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 60, 120));
-        model.addAttribute("hypertensionFemaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, female, context));
+        model.addAttribute("hypertensionFemaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 0, 5, loggedInLocation));
+        model.addAttribute("hypertensionFemale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 6, 18, loggedInLocation));
+        model.addAttribute("hypertensionFemale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 19, 35, loggedInLocation));
+        model.addAttribute("hypertensionFemale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 36, 60, loggedInLocation));
+        model.addAttribute("hypertensionFemale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 60, 120, loggedInLocation));
+        model.addAttribute("hypertensionFemaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, female, context, loggedInLocation));
 
     }
 
-    private Integer getDiabeticPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context, int minAge, int maxAge){
+    private Integer getDiabeticPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context, int minAge, int maxAge, Location location){
         Set<Integer> allSet = new HashSet<>();
         CalculationResultMap diabeticMap = Calculations.lastObs(q, cohort, context);
 
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(diabeticMap, pId);
-            if(obs != null && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))){
+            if(obs != null && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2)) && obs.getLocation().equals(location)){
                 if(obs.getPerson().getAge() >= minAge && obs.getPerson().getAge() <= maxAge) {
                     allSet.add(pId);
                 }
@@ -110,13 +125,13 @@ public class DiabeticHypertensionFragmentController {
         }
         return allSet.size();
     }
-    private Integer getDiabeticTotalPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context){
+    private Integer getDiabeticTotalPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context, Location location){
         Set<Integer> allSet = new HashSet<>();
         CalculationResultMap diabeticMap = Calculations.lastObs(q, cohort, context);
 
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(diabeticMap, pId);
-            if(obs != null && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))){
+            if(obs != null && obs.getLocation().equals(location) && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))){
                 allSet.add(pId);
             }
         }
