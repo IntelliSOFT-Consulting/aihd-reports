@@ -16,6 +16,7 @@ import org.openmrs.module.aihdreports.reporting.calculation.Calculations;
 import org.openmrs.module.aihdreports.reporting.calculation.EmrCalculationUtils;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.utils.Filters;
+import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
@@ -29,27 +30,20 @@ import java.util.Set;
 public class TreatmentFragmentController {
 
     public void controller(FragmentModel model,
-                           @SpringBean("locationService") LocationService locationService) {
+                           @FragmentParam(value = "requiredLocations", required = false) List<Integer> overral_location,
+                           @FragmentParam(value = "allPatients", required = false) List<Patient> allPatients) {
 
-        //set context
         PatientCalculationService patientCalculationService = Context.getService(PatientCalculationService.class);
         PatientCalculationContext context = patientCalculationService.createCalculationContext();
         context.setNow(new Date());
+
         //get a collection of all patients
-        List<Patient> allPatients = Context.getPatientService().getAllPatients();
         List<Integer> cohort = new ArrayList<>();
         //loop through all and get their patient ids
         if (allPatients.size() > 0) {
             for (Patient patient : allPatients) {
                 cohort.add(patient.getPatientId());
             }
-        }
-        //get the location logged in
-        User user = Context.getAuthenticatedUser();
-        PersonAttribute attribute = user.getPerson().getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid("8930b69a-8e7c-11e8-9599-337483600ed7"));
-        Location loggedInLocation = locationService.getLocation(1);
-        if(attribute != null && StringUtils.isNotEmpty(attribute.getValue())){
-            loggedInLocation = locationService.getLocation(Integer.parseInt(attribute.getValue()));
         }
         //exclude dead patients
         Set<Integer> alivePatients = Filters.alive(cohort, context);
@@ -116,29 +110,29 @@ public class TreatmentFragmentController {
         anthypertensive.add(Dictionary.getConcept(Dictionary.Nebivolol));
 
         //map the models and keys to be used on the UI
-        model.addAttribute("dpM", getCount(medicaiton, diet_and_physical_activities, male, context, loggedInLocation));
-        model.addAttribute("ogM", getCount(medicaiton, oglas, male, context, loggedInLocation));
-        model.addAttribute("insM", getCount(medicaiton, insulin, male, context, loggedInLocation));
-        model.addAttribute("hM", getCount(medicaiton, herbals, male, context, loggedInLocation));
-        model.addAttribute("otM", getCount(medicaiton, other, male, context, loggedInLocation));
-        model.addAttribute("antHm", getCount(medicaiton, anthypertensive, male, context, loggedInLocation));
+        model.addAttribute("dpM", getCount(medicaiton, diet_and_physical_activities, male, context, overral_location));
+        model.addAttribute("ogM", getCount(medicaiton, oglas, male, context, overral_location));
+        model.addAttribute("insM", getCount(medicaiton, insulin, male, context, overral_location));
+        model.addAttribute("hM", getCount(medicaiton, herbals, male, context, overral_location));
+        model.addAttribute("otM", getCount(medicaiton, other, male, context, overral_location));
+        model.addAttribute("antHm", getCount(medicaiton, anthypertensive, male, context, overral_location));
 
-        model.addAttribute("dpF", getCount(medicaiton, diet_and_physical_activities, female, context, loggedInLocation));
-        model.addAttribute("ogF", getCount(medicaiton, oglas, female, context, loggedInLocation));
-        model.addAttribute("insF", getCount(medicaiton, insulin, female, context, loggedInLocation));
-        model.addAttribute("hF", getCount(medicaiton, herbals, female, context, loggedInLocation));
-        model.addAttribute("otF", getCount(medicaiton, other, female, context, loggedInLocation));
-        model.addAttribute("antHf", getCount(medicaiton, anthypertensive, female, context, loggedInLocation));
+        model.addAttribute("dpF", getCount(medicaiton, diet_and_physical_activities, female, context, overral_location));
+        model.addAttribute("ogF", getCount(medicaiton, oglas, female, context, overral_location));
+        model.addAttribute("insF", getCount(medicaiton, insulin, female, context, overral_location));
+        model.addAttribute("hF", getCount(medicaiton, herbals, female, context, overral_location));
+        model.addAttribute("otF", getCount(medicaiton, other, female, context, overral_location));
+        model.addAttribute("antHf", getCount(medicaiton, anthypertensive, female, context, overral_location));
 
         
     }
 
-    private Integer getCount(Concept q, List<Concept> options, Set<Integer> cohort, PatientCalculationContext context, Location location){
+    private Integer getCount(Concept q, List<Concept> options, Set<Integer> cohort, PatientCalculationContext context, List<Integer> loc){
         Set<Integer> allSet = new HashSet<>();
         CalculationResultMap problem_added = Calculations.lastObs(q, cohort, context);
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(problem_added, pId);
-            if(obs != null && (options.contains(obs.getValueCoded())) && obs.getLocation().equals(location)){
+            if(obs != null && (options.contains(obs.getValueCoded())) && loc.contains(obs.getLocation().getLocationId())){
                 allSet.add(pId);
             }
         }

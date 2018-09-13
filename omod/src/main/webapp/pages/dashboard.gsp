@@ -55,17 +55,17 @@
 <table border="0">
    <tr>
         <td valign="top">
-            ${ ui.includeFragment("aihdreports", "diabeticHypertension") }
+            ${ ui.includeFragment("aihdreports", "diabeticHypertension", [requiredLocations:requiredLocations, allPatients:allPatients]) }
         </td>
         <td valign="top">
-            ${ ui.includeFragment("aihdreports", "bmiSummary") }
+            ${ ui.includeFragment("aihdreports", "bmiSummary", [requiredLocations:requiredLocations, allPatients:allPatients,]) }
             <br />
-            ${ ui.includeFragment("aihdreports", "bpSummary") }
+            ${ ui.includeFragment("aihdreports", "bpSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
         </td>
         <td valign="top">
-            ${ ui.includeFragment("aihdreports", "dmhtnSummary") }
+            ${ ui.includeFragment("aihdreports", "dmhtnSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
             <br />
-            ${ ui.includeFragment("aihdreports", "tbSummary") }
+            ${ ui.includeFragment("aihdreports", "tbSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
         </td>
    </tr>
 </table>
@@ -73,18 +73,18 @@
 <table>
    <tr>
        <td valign="top">
-           ${ ui.includeFragment("aihdreports", "diabeticTypes") }
+           ${ ui.includeFragment("aihdreports", "diabeticTypes", [requiredLocations:requiredLocations, allPatients:allPatients]) }
             <br />
-           ${ ui.includeFragment("aihdreports", "visitRevisit") }
+           ${ ui.includeFragment("aihdreports", "visitRevisit", [requiredLocations:requiredLocations, allPatients:allPatients]) }
        </td>
        <td valign="top">
-           ${ ui.includeFragment("aihdreports", "complications") }
+           ${ ui.includeFragment("aihdreports", "complications", [requiredLocations:requiredLocations, allPatients:allPatients]) }
       </td>
 
         <td valign="top">
-            ${ ui.includeFragment("aihdreports", "treatment") }
+            ${ ui.includeFragment("aihdreports", "treatment", [requiredLocations:requiredLocations, allPatients:allPatients]) }
            <br />
-            ${ ui.includeFragment("aihdreports", "waistCircumference") }
+            ${ ui.includeFragment("aihdreports", "waistCircumference", [requiredLocations:requiredLocations, allPatients:allPatients]) }
       </td>
    </tr>
 </table>

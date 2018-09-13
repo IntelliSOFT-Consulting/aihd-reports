@@ -1,13 +1,8 @@
 package org.openmrs.module.aihdreports.fragment.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
-import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
-import org.openmrs.PersonAttribute;
-import org.openmrs.User;
-import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationService;
@@ -16,7 +11,7 @@ import org.openmrs.module.aihdreports.reporting.calculation.Calculations;
 import org.openmrs.module.aihdreports.reporting.calculation.EmrCalculationUtils;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.utils.Filters;
-import org.openmrs.ui.framework.annotation.SpringBean;
+import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
 import java.util.ArrayList;
@@ -28,14 +23,13 @@ import java.util.Set;
 public class ComplicationsFragmentController {
 
     public void controller(FragmentModel model,
-                           @SpringBean("locationService") LocationService locationService) {
+                           @FragmentParam(value = "requiredLocations", required = false) List<Integer> overral_location,
+                           @FragmentParam(value = "allPatients", required = false) List<Patient> allPatients) {
 
-        //set context
+        //get a collection of all patients
         PatientCalculationService patientCalculationService = Context.getService(PatientCalculationService.class);
         PatientCalculationContext context = patientCalculationService.createCalculationContext();
         context.setNow(new Date());
-        //get a collection of all patients
-        List<Patient> allPatients = Context.getPatientService().getAllPatients();
         List<Integer> cohort = new ArrayList<>();
         //loop through all and get their patient ids
         if (allPatients.size() > 0) {
@@ -48,12 +42,6 @@ public class ComplicationsFragmentController {
         Set<Integer> male = Filters.male(alivePatients, context);
         Set<Integer> female = Filters.female(alivePatients, context);
 
-        User user = Context.getAuthenticatedUser();
-        PersonAttribute attribute = user.getPerson().getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid("8930b69a-8e7c-11e8-9599-337483600ed7"));
-        Location loggedInLocation = locationService.getLocation(1);
-        if(attribute != null && StringUtils.isNotEmpty(attribute.getValue())){
-            loggedInLocation = locationService.getLocation(Integer.parseInt(attribute.getValue()));
-        }
         //declare concepts here to passed
         Concept problem_added = Dictionary.getConcept(Dictionary.PROBLEM_ADDED);
         Concept stroke = Dictionary.getConcept(Dictionary.STROKE);
@@ -66,32 +54,32 @@ public class ComplicationsFragmentController {
         Concept nephropathy = Dictionary.getConcept(Dictionary.Nephropathy);
 
         //add maps
-        model.addAttribute("sM", getCount(problem_added, stroke, male, context, loggedInLocation));
-        model.addAttribute("isM", getCount(problem_added, ischemic_heart_disease, male, context, loggedInLocation));
-        model.addAttribute("pM", getCount(problem_added, Peripheral_Vascular_disease, male, context, loggedInLocation));
-        model.addAttribute("hM", getCount(problem_added, Heart_failure, male, context, loggedInLocation));
-        model.addAttribute("nM", getCount(problem_added, Neuropathy, male, context, loggedInLocation));
-        model.addAttribute("rM", getCount(problem_added, Retinopathy, male, context, loggedInLocation));
-        model.addAttribute("dM", getCount(problem_added, Diabetic_foot, male, context, loggedInLocation));
-        model.addAttribute("neM", getCount(problem_added, nephropathy, male, context, loggedInLocation));
+        model.addAttribute("sM", getCount(problem_added, stroke, male, context, overral_location));
+        model.addAttribute("isM", getCount(problem_added, ischemic_heart_disease, male, context, overral_location));
+        model.addAttribute("pM", getCount(problem_added, Peripheral_Vascular_disease, male, context, overral_location));
+        model.addAttribute("hM", getCount(problem_added, Heart_failure, male, context, overral_location));
+        model.addAttribute("nM", getCount(problem_added, Neuropathy, male, context, overral_location));
+        model.addAttribute("rM", getCount(problem_added, Retinopathy, male, context, overral_location));
+        model.addAttribute("dM", getCount(problem_added, Diabetic_foot, male, context, overral_location));
+        model.addAttribute("neM", getCount(problem_added, nephropathy, male, context, overral_location));
 
-        model.addAttribute("sF", getCount(problem_added, stroke, female, context, loggedInLocation));
-        model.addAttribute("isF", getCount(problem_added, ischemic_heart_disease, female, context, loggedInLocation));
-        model.addAttribute("pF", getCount(problem_added, Peripheral_Vascular_disease, female, context, loggedInLocation));
-        model.addAttribute("hF", getCount(problem_added, Heart_failure, female, context, loggedInLocation));
-        model.addAttribute("nF", getCount(problem_added, Neuropathy, female, context, loggedInLocation));
-        model.addAttribute("rF", getCount(problem_added, Retinopathy, female, context, loggedInLocation));
-        model.addAttribute("dF", getCount(problem_added, Diabetic_foot, female, context, loggedInLocation));
-        model.addAttribute("neF", getCount(problem_added, nephropathy, female, context, loggedInLocation));
+        model.addAttribute("sF", getCount(problem_added, stroke, female, context, overral_location));
+        model.addAttribute("isF", getCount(problem_added, ischemic_heart_disease, female, context, overral_location));
+        model.addAttribute("pF", getCount(problem_added, Peripheral_Vascular_disease, female, context, overral_location));
+        model.addAttribute("hF", getCount(problem_added, Heart_failure, female, context, overral_location));
+        model.addAttribute("nF", getCount(problem_added, Neuropathy, female, context, overral_location));
+        model.addAttribute("rF", getCount(problem_added, Retinopathy, female, context, overral_location));
+        model.addAttribute("dF", getCount(problem_added, Diabetic_foot, female, context, overral_location));
+        model.addAttribute("neF", getCount(problem_added, nephropathy, female, context, overral_location));
 
         }
 
-    private Integer getCount(Concept q, Concept a1, Set<Integer> cohort, PatientCalculationContext context, Location location){
+    private Integer getCount(Concept q, Concept a1, Set<Integer> cohort, PatientCalculationContext context, List<Integer> loc){
         Set<Integer> allSet = new HashSet<>();
         CalculationResultMap problem_added = Calculations.lastObs(q, cohort, context);
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(problem_added, pId);
-            if(obs != null && (obs.getValueCoded().equals(a1)) && obs.getLocation().equals(location)){
+            if(obs != null && (obs.getValueCoded().equals(a1)) && loc.contains(obs.getLocation().getLocationId())){
                 allSet.add(pId);
             }
         }
