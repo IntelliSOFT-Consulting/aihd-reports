@@ -45,7 +45,7 @@ public class VisitRevisitFragmentController {
 
         //declare concepts
         EncounterType initial = Context.getEncounterService().getEncounterTypeByUuid(Metadata.EncounterType.DM_INITIAL);
-        EncounterType followup = Context.getEncounterService().getEncounterTypeByUuid(Metadata.EncounterType.DM_INITIAL);
+        EncounterType followup = Context.getEncounterService().getEncounterTypeByUuid(Metadata.EncounterType.DM_FOLLOWUP);
 
 
 
