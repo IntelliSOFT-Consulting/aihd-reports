@@ -30,7 +30,9 @@ public class DashboardPageController {
                            @RequestParam(value = "endDate", required = false) String dateEnd,
                            @RequestParam(value = "chosenLocation", required = false) String loc,
                            @SpringBean("locationService") LocationService locationService) {
+
         List<Location> requiredLocations = new ArrayList<Location>();
+        List<Location> allLocations = Context.getLocationService().getAllLocations();
         boolean isSuperUser = false;
         boolean hasTheRequiredRole = false;
         Set<Role> roles = Context.getAuthenticatedUser().getRoles();
@@ -41,7 +43,7 @@ public class DashboardPageController {
         }
 
         if (Daemon.isDaemonUser(Context.getAuthenticatedUser()) || Context.getAuthenticatedUser().isSuperUser() || hasTheRequiredRole) {
-            requiredLocations.addAll(Context.getLocationService().getAllLocations());
+            requiredLocations.addAll(allLocations);
             isSuperUser = true;
         }
         else {
@@ -68,7 +70,7 @@ public class DashboardPageController {
             List<Integer> user_location = new ArrayList<Integer>();
             List<Integer> overral_location = null;
 
-            List<Location> allLocations = Context.getLocationService().getAllLocations();
+
 
             for(Location loc1: allLocations){
                 required_locations_super.add(loc1.getId());//will be used for the administrators
@@ -76,17 +78,12 @@ public class DashboardPageController {
 
             user_location.add(loggedInLocation.getId());//specific user location
 
-            if (Daemon.isDaemonUser(Context.getAuthenticatedUser()) || Context.getAuthenticatedUser().isSuperUser()) {
+            if (Daemon.isDaemonUser(Context.getAuthenticatedUser()) || Context.getAuthenticatedUser().isSuperUser() || hasTheRequiredRole) {
                 overral_location = new ArrayList<Integer>(required_locations_super);
             }
             else {
                 overral_location = new ArrayList<Integer>(user_location);
             }
-
-            //set context
-            PatientCalculationService patientCalculationService = Context.getService(PatientCalculationService.class);
-            PatientCalculationContext context = patientCalculationService.createCalculationContext();
-            context.setNow(new Date());
 
 
             model.addAttribute("location", requiredLocations);
@@ -97,7 +94,6 @@ public class DashboardPageController {
             model.addAttribute("loo", loc);
             model.addAttribute("requiredLocations", overral_location);
             model.addAttribute("allPatients", Context.getPatientService().getAllPatients());
-            model.addAttribute("context", context);
             model.addAttribute("isSuperUser", isSuperUser);
             model.addAttribute("hasRole", hasTheRequiredRole);
 

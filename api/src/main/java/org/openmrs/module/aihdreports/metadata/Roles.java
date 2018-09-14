@@ -25,7 +25,8 @@ public class Roles {
                     Privileges.APP_AIHDREPORTS_PRV,
                     Privileges.PRV_GET_PATIENTS,
                     Privileges.PRV_GET_CONCEPTS,
-                    Privileges.PRV_GET_USERS
+                    Privileges.PRV_GET_USERS,
+                    Privileges.PRV_GET_LOCATIONS
             );
         }
 

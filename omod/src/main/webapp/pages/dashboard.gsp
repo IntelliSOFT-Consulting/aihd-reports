@@ -60,7 +60,6 @@
 </div>
 <br />
 <div class="dashboard clear">
-    the locations are ${requiredLocations} and has role ${hasRole}
 <table border="0">
    <tr>
         <td valign="top">
