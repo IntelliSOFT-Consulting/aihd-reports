@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
@@ -11,6 +12,7 @@ import org.openmrs.api.context.Daemon;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.module.aihdreports.AIHDReportUtil;
+import org.openmrs.module.aihdreports.metadata.Roles;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class DashboardPageController {
 
@@ -29,7 +32,15 @@ public class DashboardPageController {
                            @SpringBean("locationService") LocationService locationService) {
         List<Location> requiredLocations = new ArrayList<Location>();
         boolean isSuperUser = false;
-        if (Daemon.isDaemonUser(Context.getAuthenticatedUser()) || Context.getAuthenticatedUser().isSuperUser()) {
+        boolean hasTheRequiredRole = false;
+        Set<Role> roles = Context.getAuthenticatedUser().getRoles();
+        for(Role role:roles){
+            if(role.getUuid().equals(Roles.REPORT_MANAGER.uuid())){
+                hasTheRequiredRole = true;
+            }
+        }
+
+        if (Daemon.isDaemonUser(Context.getAuthenticatedUser()) || Context.getAuthenticatedUser().isSuperUser() || hasTheRequiredRole) {
             requiredLocations.addAll(Context.getLocationService().getAllLocations());
             isSuperUser = true;
         }
@@ -88,6 +99,7 @@ public class DashboardPageController {
             model.addAttribute("allPatients", Context.getPatientService().getAllPatients());
             model.addAttribute("context", context);
             model.addAttribute("isSuperUser", isSuperUser);
+            model.addAttribute("hasRole", hasTheRequiredRole);
 
 
     }

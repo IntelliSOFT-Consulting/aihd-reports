@@ -18,7 +18,10 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.aihdreports.metadata.AihdReportsCommonMetadataBundle;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -36,6 +39,9 @@ public class AIHDReportsActivator extends BaseModuleActivator {
 
 	@Override
 	public void started() {
+		MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
+		// install commonly used metadata
+		installCommonMetadata(deployService);
 		log.info("AIHD Reports module started - initializing...");
 		for (Initializer initializer : getInitializers()) {
 			initializer.started();
@@ -48,5 +54,14 @@ public class AIHDReportsActivator extends BaseModuleActivator {
 			getInitializers().get(i).stopped();
 		}
 		log.info("AIHD Reports module stopped");
+	}
+
+	private void installCommonMetadata(MetadataDeployService deployService) {
+		try {
+			deployService.installBundle(Context.getRegisteredComponents(AihdReportsCommonMetadataBundle.class).get(0));
+		}
+		catch (Exception e) {
+			throw new RuntimeException("failed to install the common metadata ", e);
+		}
 	}
 }

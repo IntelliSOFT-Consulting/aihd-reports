@@ -23,7 +23,8 @@
         "label": "Reports",
         "url": "aihdreports/dashboard.page",
         "icon": "icon-book",
-        "order": 110
+        "order": 110,
+        "requiredPrivilege": "App: aihdreports.viewReports"
       },
       {
         "id": "Daily Register",

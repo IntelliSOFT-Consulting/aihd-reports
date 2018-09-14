@@ -31,7 +31,7 @@
         <appuiVersion>1.6</appuiVersion>
         <calculationVersion>1.1</calculationVersion>
         <luceneVersion>6.6.0</luceneVersion>
-        <metadatadeployVersion>1.6</metadatadeployVersion>
+        <metadatadeployVersion>1.8.1</metadatadeployVersion>
         <metadatamappingVersion>1.0.2</metadatamappingVersion>
         <metadatasharingVersion>1.1.9</metadatasharingVersion>
         <reportingVersion>1.13.0</reportingVersion>
