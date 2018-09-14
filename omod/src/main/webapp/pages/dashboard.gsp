@@ -34,17 +34,25 @@
                     <td>End date</td>
                     <td><input type="text" id="endDate" name="endDate"  onclick="endDate()" value="${endDate}"/></td>
                 </tr>
-                <tr>
-                    <td>Health Facility</td>
-                    <td>
-                        <select name="chosenLocation" id="chosenLocation">
-                            <% if(location.size() > 0) {%>
-                                <% location.each{%>
-                                <option value="${it.locationId}">${it.name}</option>
+                <%if(isSuperUser){%>
+                    <tr>
+                        <td>Health Facility</td>
+                        <td>
+                            <select name="chosenLocation" id="chosenLocation">
+                                <% if(location.size() > 0) {%>
+                                    <% location.each{%>
+                                    <option value="${it.locationId}">${it.name}</option>
+                                    <%}%>
                                 <%}%>
-                            <%}%>
-                        </select>
+                            </select>
+                        </td>
+                    </tr>
+                <%}%>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Filter" />
                     </td>
+
                 </tr>
             </table>
         </fieldset>

@@ -28,8 +28,10 @@ public class DashboardPageController {
                            @RequestParam(value = "chosenLocation", required = false) String loc,
                            @SpringBean("locationService") LocationService locationService) {
         List<Location> requiredLocations = new ArrayList<Location>();
+        boolean isSuperUser = false;
         if (Daemon.isDaemonUser(Context.getAuthenticatedUser()) || Context.getAuthenticatedUser().isSuperUser()) {
             requiredLocations.addAll(Context.getLocationService().getAllLocations());
+            isSuperUser = true;
         }
         else {
             User user = Context.getAuthenticatedUser();
@@ -85,6 +87,7 @@ public class DashboardPageController {
             model.addAttribute("requiredLocations", overral_location);
             model.addAttribute("allPatients", Context.getPatientService().getAllPatients());
             model.addAttribute("context", context);
+            model.addAttribute("isSuperUser", isSuperUser);
 
 
     }
