@@ -22,7 +22,7 @@
 </div>
 <br />
 <div>
-    <form id="form-parameters" name="form-parameters" class="simple-form-ui" novalidate  action="">
+    <form id="form-parameters" name="form-parameters" class="simple-form-ui" novalidate method="post"  action="">
         <fieldset>
             <legend>Report Parameters</legend>
             <table width="100%">
@@ -46,6 +46,9 @@
                                 <%}%>
                             </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Sub County</td>
                     </tr>
                 <%}%>
                 <tr>

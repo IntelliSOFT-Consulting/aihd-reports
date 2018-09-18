@@ -9,10 +9,9 @@ import org.openmrs.User;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.Daemon;
-import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.module.aihdreports.AIHDReportUtil;
 import org.openmrs.module.aihdreports.metadata.Roles;
+import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,11 +105,12 @@ public class DashboardPageController {
         return c.getTime();
     }
 
-    public String post(PageModel model,
+    public String post(PageModel model, UiUtils ui,
                        @RequestParam(value = "chosenLocation", required = false) Integer locationId,
                        @RequestParam(value = "startDate", required = false) String startDate,
                        @RequestParam(value = "endDate", required = false) String endDate){
-
-        return "dashboard.page";
+        System.out.println("We are doing great guys");
+        return "redirect:" + ui.pageLink("aihdreports", "parameterizedDashboard"+"?location="+locationId);
+       // return "aihdreports/parameterizedDashboard.page";
     }
 }
