@@ -108,9 +108,16 @@ public class DashboardPageController {
     public String post(PageModel model, UiUtils ui,
                        @RequestParam(value = "chosenLocation", required = false) Integer locationId,
                        @RequestParam(value = "startDate", required = false) String startDate,
-                       @RequestParam(value = "endDate", required = false) String endDate){
-        System.out.println("We are doing great guys");
-        return "redirect:" + ui.pageLink("aihdreports", "parameterizedDashboard"+"?location="+locationId);
-       // return "aihdreports/parameterizedDashboard.page";
+                       @RequestParam(value = "endDate", required = false) String endDate,
+                       @RequestParam(value = "subcounty", required = false) String subCounty){
+        String parameterString = "startDate="+startDate+"&endDate="+endDate;
+        if(locationId != null){
+            parameterString +="&location="+locationId;
+        }
+        if(StringUtils.isNotEmpty(subCounty)){
+            parameterString +="&subcounty="+subCounty;
+        }
+        return "redirect:" + ui.pageLink("aihdreports", "parameterizedDashboard"+"?"+parameterString);
+
     }
 }

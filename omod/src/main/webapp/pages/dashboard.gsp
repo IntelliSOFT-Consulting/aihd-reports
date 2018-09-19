@@ -36,19 +36,41 @@
                 </tr>
                 <%if(isSuperUser){%>
                     <tr>
-                        <td>Health Facility</td>
+                        <td>Filter by</td>
                         <td>
-                            <select name="chosenLocation" id="chosenLocation">
-                                <% if(location.size() > 0) {%>
-                                    <% location.each{%>
-                                    <option value="${it.locationId}">${it.name}</option>
-                                    <%}%>
-                                <%}%>
+                            <select name="choice" id="choice">
+                                <option>...choose option....</option>
+                                <option value="facility">Facility</option>
+                                <option value="subcounty">Sub-County</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
+                        <td>Health Facility</td>
+                        <td>
+                            <div id="facility-bloc">
+                                <select name="chosenLocation" id="chosenLocation" disabled="disabled">
+                                    <% if(location.size() > 0) {%>
+                                        <% location.each{%>
+                                        <option value="${it.locationId}">${it.name}</option>
+                                        <%}%>
+                                    <%}%>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Sub County</td>
+                        <td>
+                            <div id="sub-county-bloc">
+                                <select name="subcounty" id="subcounty" disabled="disabled">
+                                    <option value="eesc">EMBAKASI EAST SUB-COUNTY</option>
+                                    <option value="ewsc">EMBAKASI WEST SUB-COUNTY</option>
+                                    <option value="rsc">RUARAKA SUB-COUNTY</option>
+                                    <option value="wsc">WESTLANDS SUB-COUNTY</option>
+                                </select>
+                            </div>
+                        </td>
                     </tr>
                 <%}%>
                 <tr>
@@ -65,6 +87,7 @@
 <div class="dashboard clear">
 <table border="0">
    <tr>
+
         <td valign="top">
             ${ ui.includeFragment("aihdreports", "diabeticHypertension", [requiredLocations:requiredLocations, allPatients:allPatients]) }
         </td>
@@ -118,9 +141,23 @@
             minDate: new Date(2018, 1 - 1, 1)
         });
     }
+    function flipFlop() {
+        jQuery("#choice").change( function(){
+            if(this.value === 'facility'){
+                jQuery("#chosenLocation").removeAttr("disabled");
+                jQuery("#subcounty").prop("disabled", "disabled");
+            }
+            else if(this.value === 'subcounty'){
+                jQuery("#subcounty").removeAttr("disabled");
+                jQuery("#chosenLocation").prop("disabled", "disabled");
+            }
+        });
+    }
+
     jQuery(function () {
         startDate();
         endDate();
+        flipFlop()
     });
 
 </script>
