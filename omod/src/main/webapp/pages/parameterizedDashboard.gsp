@@ -27,10 +27,32 @@
         End Date:<b>${endDate}</b><br />
         <% if(facility){%>
         Facility: <b>${facility}</b>
-        <%}%>
         <br />
+        <%}%>
         <% if(subcounty){%>
         Sub-County: ${subcounty}
         <%}%>
     </fieldset>
+</div>
+<div class="dashboard clear">
+
+    <table border="0">
+        <tr>
+
+            <td valign="top">
+                ${ ui.includeFragment("aihdreports", "parameterized/diabeticHypertension", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, allPatients:allPatients]) }
+            </td>
+            %{--<td valign="top">
+                ${ ui.includeFragment("aihdreports", "bmiSummary", [requiredLocations:requiredLocations, allPatients:allPatients,]) }
+                <br />
+                ${ ui.includeFragment("aihdreports", "bpSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
+            </td>
+            <td valign="top">
+                ${ ui.includeFragment("aihdreports", "dmhtnSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
+                <br />
+                ${ ui.includeFragment("aihdreports", "tbSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
+            </td>--}%
+        </tr>
+    </table>
+
 </div>

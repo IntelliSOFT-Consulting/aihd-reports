@@ -7,7 +7,9 @@ import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 
+import java.text.DateFormat;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,5 +102,10 @@ public class AIHDReportUtil {
 
         return formatter.format(date);
 
+    }
+
+    public static Date formatDateStringWithoutHours(String s) throws ParseException {
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.parse(s);
     }
 }
