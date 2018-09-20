@@ -23,15 +23,40 @@
 <div>
     <fieldset>
         <legend>Parameters filtered dashboard</legend>
-        Start Date:<b>${startDate}</b><br />
-        End Date:<b>${endDate}</b><br />
-        <% if(facility){%>
-        Facility: <b>${facility}</b>
-        <br />
-        <%}%>
-        <% if(subcounty){%>
-        Sub-County: ${subcounty}
-        <%}%>
+        <table>
+            <tr>
+                <td colspan="2">
+                    Start Date:<b>${startDate}</b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    End Date:<b>${endDate}</b>
+                </td>
+            </tr>
+            <% if(facility){%>
+            <tr><td colspan="2">Facility: <b>${facility}</b></td></tr>
+            <%}%>
+            <% if(subcounty){%>
+                <tr>
+
+                </tr>
+                <td colspan="2">Sub-County:<b>${region}</b></td>
+                <tr>
+                    <td></td>
+                    <td>
+                        <table>
+                            <% subcounty.each {%>
+                            <tr>
+                                <td>${it}</td>
+                            </tr>
+                            <%}%>
+
+                        </table>
+                    </td>
+                </tr>
+            <%}%>
+        </table>
     </fieldset>
 </div>
 <div class="dashboard clear">
@@ -40,18 +65,8 @@
         <tr>
 
             <td valign="top">
-                ${ ui.includeFragment("aihdreports", "parameterized/diabeticHypertension", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, allPatients:allPatients]) }
+                ${ ui.includeFragment("aihdreports", "parameterized/diabeticHypertension", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
             </td>
-            %{--<td valign="top">
-                ${ ui.includeFragment("aihdreports", "bmiSummary", [requiredLocations:requiredLocations, allPatients:allPatients,]) }
-                <br />
-                ${ ui.includeFragment("aihdreports", "bpSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
-            </td>
-            <td valign="top">
-                ${ ui.includeFragment("aihdreports", "dmhtnSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
-                <br />
-                ${ ui.includeFragment("aihdreports", "tbSummary", [requiredLocations:requiredLocations, allPatients:allPatients]) }
-            </td>--}%
         </tr>
     </table>
 

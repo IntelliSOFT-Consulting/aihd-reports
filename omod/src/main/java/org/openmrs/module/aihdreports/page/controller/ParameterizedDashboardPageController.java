@@ -1,13 +1,30 @@
 package org.openmrs.module.aihdreports.page.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Location;
+import org.openmrs.Patient;
+import org.openmrs.Person;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
+import org.openmrs.User;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.calculation.patient.PatientCalculationContext;
+import org.openmrs.calculation.patient.PatientCalculationService;
+import org.openmrs.module.aihdreports.AIHDReportUtil;
+import org.openmrs.module.aihdreports.metadata.SubCountiesAndTheirFacilities;
+import org.openmrs.module.aihdreports.reporting.utils.Filters;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.ui.framework.page.PageModel;
+import org.openmrs.util.OpenmrsUtil;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class ParameterizedDashboardPageController {
 
@@ -15,23 +32,81 @@ public class ParameterizedDashboardPageController {
                            @RequestParam(value = "location", required = false) Integer locationId,
                            @RequestParam(value = "startDate", required = false) String startDate,
                            @RequestParam(value = "endDate", required = false) String endDate,
-                           @RequestParam(value = "subcounty", required = false) String subCounty){
+                           @RequestParam(value = "subcounty", required = false) String subCounty) throws ParseException {
+
+        Date stDate = AIHDReportUtil.firstDayOfTheCurrentMonth();
+        Date edDate = new Date();
+
+        if(StringUtils.isNotEmpty(startDate)){
+            stDate = AIHDReportUtil.formatDateStringWithoutHours(startDate);
+        }
+
+        if(StringUtils.isNotEmpty(endDate)){
+            edDate = AIHDReportUtil.formatDateStringWithoutHours(endDate);
+        }
+        //get all the patients that are required for our use case
+        List<Integer> cohort = new ArrayList<>();
+        for (Patient patient : Context.getPatientService().getAllPatients()) {
+            cohort.add(patient.getPatientId());
+        }
+        //get default location for every user
+        User user = Context.getAuthenticatedUser();
+        Person person = user.getPerson();
+        PersonAttributeType type = MetadataUtils.existing(PersonAttributeType.class, "8930b69a-8e7c-11e8-9599-337483600ed7");
+        PersonAttribute personAttribute = person.getAttribute(type);
 
         Location location = null;
         LocationService service = Context.getLocationService();
+
         if(locationId != null){
             location = service.getLocation(locationId);
         }
-        List<Integer> eesc = Arrays.asList(18271,18463,12935,13175,23373,12869,12977,21273,18668,13101);
-        List<Integer> ewsc = Arrays.asList(291107,22012,13016,13015,22769,13222,13240,18334,12872,17473);
-        List<Integer> rsc = Arrays.asList(13172,12997,12876,19234,13077,13130,13071,18895,13000,13205,13208,13246);
-        List<Integer> wsc = Arrays.asList(13258,13001,13049,22077,18888,19507,12870,13052,18887,13093,13209,21146,13009);
+        else if(personAttribute != null){
+            location = service.getLocation(Integer.parseInt(personAttribute.getValue()));
+        }
+        PatientCalculationService patientCalculationService = Context.getService(PatientCalculationService.class);
+        PatientCalculationContext context = patientCalculationService.createCalculationContext();
+        context.setNow(new Date());
 
-        model.addAttribute("startDate", startDate);
-        model.addAttribute("endDate", endDate);
+        Set<Integer> alivePatients = Filters.alive(cohort, context);
+        Set<Integer> male = Filters.male(alivePatients, context);
+        Set<Integer> female = Filters.female(alivePatients, context);
+
+        List<Location> eesc = new ArrayList<Location>();
+        List<Location> ewsc = new ArrayList<Location>();
+        List<Location> rsc = new ArrayList<Location>();
+        List<Location> wsc = new ArrayList<Location>();
+        List<Location> finalList = new ArrayList<Location>();
+        String subCountyName = "";
+
+        for(String string: SubCountiesAndTheirFacilities.EMBAKASI_EAST_SUB_COUNTY()){
+            eesc.add(service.getLocation(string));
+        }
+
+        if(StringUtils.isNotEmpty(subCounty) && subCounty.equals("eesc")){
+            finalList.addAll(eesc);
+            subCountyName = "Embakasi East";
+        }
+        else if(StringUtils.isNotEmpty(subCounty) && subCounty.equals("ewsc")){
+            finalList.addAll(ewsc);
+            subCountyName = "Embakasi West";
+        }
+        else if(StringUtils.isNotEmpty(subCounty) && subCounty.equals("rsc")){
+            finalList.addAll(rsc);
+            subCountyName = "Ruaraka";
+        }
+        else if(StringUtils.isNotEmpty(subCounty) && subCounty.equals("wsc")){
+            finalList.addAll(wsc);
+            subCountyName = "Westlands";
+        }
+
+        model.addAttribute("startDate", stDate);
+        model.addAttribute("endDate", edDate);
         model.addAttribute("facility", location);
-        model.addAttribute("subcounty", subCounty);
-        model.addAttribute("allPatients", Context.getPatientService().getAllPatients());
+        model.addAttribute("subcounty", finalList);
+        model.addAttribute("male", male);
+        model.addAttribute("female", female);
+        model.addAttribute("region", subCountyName);
 
 
     }

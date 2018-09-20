@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,5 +108,11 @@ public class AIHDReportUtil {
     public static Date formatDateStringWithoutHours(String s) throws ParseException {
         DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         return format.parse(s);
+    }
+
+    public static Date firstDayOfTheCurrentMonth(){
+        Calendar c = Calendar.getInstance();   // this takes current date
+        c.set(Calendar.DAY_OF_MONTH, 1);
+        return c.getTime();
     }
 }
