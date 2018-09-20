@@ -83,6 +83,17 @@ public class ParameterizedDashboardPageController {
             eesc.add(service.getLocation(string));
         }
 
+        for(String string: SubCountiesAndTheirFacilities.EMBAKASI_WEST_SUB_COUNTY()){
+            ewsc.add(service.getLocation(string));
+        }
+
+        for(String string: SubCountiesAndTheirFacilities.RUARAKA_SUB_COUNTY()){
+            rsc.add(service.getLocation(string));
+        }
+        for(String string: SubCountiesAndTheirFacilities.WESTLANDS_SUB_COUNTY()){
+            wsc.add(service.getLocation(string));
+        }
+
         if(StringUtils.isNotEmpty(subCounty) && subCounty.equals("eesc")){
             finalList.addAll(eesc);
             subCountyName = "Embakasi East";
