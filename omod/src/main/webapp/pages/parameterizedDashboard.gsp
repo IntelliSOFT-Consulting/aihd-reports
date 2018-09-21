@@ -59,6 +59,7 @@
         </table>
     </fieldset>
 </div>
+<br />
 <div class="dashboard clear">
 
     <table border="0">
@@ -76,6 +77,25 @@
                 ${ ui.includeFragment("aihdreports", "parameterized/dmhtnSummary", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
                 <br />
                 ${ ui.includeFragment("aihdreports", "parameterized/tbSummary", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+            </td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <td valign="top">
+                ${ ui.includeFragment("aihdreports", "parameterized/diabeticTypes", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+                <br />
+                ${ ui.includeFragment("aihdreports", "parameterized/visitRevisit", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+            </td>
+            <td valign="top">
+                ${ ui.includeFragment("aihdreports", "parameterized/complications", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+            </td>
+
+            <td valign="top">
+                ${ ui.includeFragment("aihdreports", "parameterized/treatment", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+                <br />
+                ${ ui.includeFragment("aihdreports", "parameterized/waistCircumference", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
             </td>
         </tr>
     </table>
