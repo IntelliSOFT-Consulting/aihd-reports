@@ -67,6 +67,16 @@
             <td valign="top">
                 ${ ui.includeFragment("aihdreports", "parameterized/diabeticHypertension", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
             </td>
+            <td valign="top">
+                ${ ui.includeFragment("aihdreports", "parameterized/bmiSummary", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+                <br />
+                ${ ui.includeFragment("aihdreports", "parameterized/bpSummary", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+            </td>
+            <td valign="top">
+                ${ ui.includeFragment("aihdreports", "parameterized/dmhtnSummary", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+                <br />
+                ${ ui.includeFragment("aihdreports", "parameterized/tbSummary", [location: facility, startDate:startDate, endDate:endDate, subcounty:subcounty, male:male, female:female]) }
+            </td>
         </tr>
     </table>
 
