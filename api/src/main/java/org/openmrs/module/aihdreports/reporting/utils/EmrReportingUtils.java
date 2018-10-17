@@ -1,5 +1,6 @@
 package org.openmrs.module.aihdreports.reporting.utils;
 
+import org.openmrs.Location;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.dataset.definition.CohortIndicatorDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
@@ -24,6 +25,7 @@ public class EmrReportingUtils {
 		CohortIndicator ind = new CohortIndicator(name);
 		ind.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		ind.addParameter(new Parameter("endDate", "End Date", Date.class));
+		ind.addParameter(new Parameter("location", "Facility", Location.class));
 		ind.setCohortDefinition(cohort);
 		return ind;
 	}

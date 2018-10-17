@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.aihdreports.reports;
 
+import org.openmrs.Location;
 import org.openmrs.module.aihdreports.reporting.library.dimension.CommonDimension;
 import org.openmrs.module.aihdreports.reporting.library.indicator.MonthlyReporting;
 import org.openmrs.module.aihdreports.reporting.utils.ColumnParameters;
@@ -104,8 +105,8 @@ public class MonthlyDhis2Report extends AIHDDataExportManager {
 		CohortIndicatorDataSetDefinition dsd = new CohortIndicatorDataSetDefinition();
 		dsd.setParameters(getParameters());
 		dsd.setName("MD");
-		
-		String indParams = "startDate=${startDate},endDate=${endDate}";
+
+		String indParams = "startDate=${startDate},endDate=${endDate},location=${location}";
 		//add dimensions to the dsd gender is needed
 		dsd.addDimension("gender", ReportUtils.map(commonDimension.gender()));
 					
@@ -132,8 +133,8 @@ public class MonthlyDhis2Report extends AIHDDataExportManager {
 	public List<Parameter> getParameters() {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
-				new Parameter("endDate", "End Date",Date.class)
-				//new Parameter("location", "Location", Location.class)
+				new Parameter("endDate", "End Date",Date.class),
+				new Parameter("location", "Facility", Location.class)
 		);
 	}
 }
