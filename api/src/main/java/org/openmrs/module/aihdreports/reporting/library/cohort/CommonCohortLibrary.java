@@ -88,7 +88,7 @@ public class CommonCohortLibrary {
      * @return CohortDefinition
      */
     public CohortDefinition agedAtLeastAgedAtMost(int minAge, int maxAge) {
-    	CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
         cd.setName("aged between " + minAge + " and " + maxAge + " years");
         cd.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
         cd.addSearch("min", ReportUtils.map(agedAtLeast(minAge), "effectiveDate=${effectiveDate}"));
@@ -124,7 +124,7 @@ public class CommonCohortLibrary {
         cd.setTimeQualifier(TimeQualifier.ANY);
         cd.addParameter(new Parameter("onOrBefore", "Before Date", Date.class));
         cd.addParameter(new Parameter("onOrAfter", "After Date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Location", Location.class));
+        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
         if (types.length > 0) {
             cd.setEncounterTypeList(Arrays.asList(types));
         }
@@ -148,14 +148,14 @@ public class CommonCohortLibrary {
         }
         return cd;
     }
-    
+
     /**
      * Patients who have an obs between ${onOrAfter} and ${onOrBefore}
      * @param question the question concept
      * @param answers the answers to include
      * @return the cohort definition
      */
-    public CohortDefinition hasObs(Concept question, Concept... answers) {
+    public CohortDefinition hasCodedObs(Concept question, Concept... answers) {
         CodedObsCohortDefinition cd = new CodedObsCohortDefinition();
         cd.setName("has obs between dates");
         cd.setQuestion(question);
@@ -168,13 +168,13 @@ public class CommonCohortLibrary {
         }
         return cd;
     }
-    
+
     /**
      * Patients who transferred in between ${onOrAfter} and ${onOrBefore}
      *
      * @return the cohort definition
      */
-    
+
     /**
      * MoH definition of children who is anybody 14 years and below
      * @return
@@ -182,7 +182,7 @@ public class CommonCohortLibrary {
     public CohortDefinition MoHChildren(){
         return agedAtMost(14);
     }
-    
+
     /**
      * MoH definition of adults who are 15 years and older
      * @return
@@ -196,7 +196,7 @@ public class CommonCohortLibrary {
      *
      * @return the cohort definition
      */
-	public CohortDefinition agedAtLeastDaysAgedAtMostDays(int minAge, int maxAge) {
+    public CohortDefinition agedAtLeastDaysAgedAtMostDays(int minAge, int maxAge) {
         AgeCohortDefinition cd = new AgeCohortDefinition();
         cd.setName("aged between " + minAge + " and " + maxAge + " days");
         cd.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
@@ -205,14 +205,14 @@ public class CommonCohortLibrary {
         cd.setMaxAge(maxAge);
         cd.setMaxAgeUnit(DurationUnit.DAYS);
         return cd;
-	}
+    }
 
     /**
      * Patients who are at least minAge Days old and at most maxAge years old on ${effectiveDate}
      *
      * @return the cohort definition
      */
-	public CohortDefinition agedAtLeastDaysAgedAtMostYears(int minAge, int maxAge) {
+    public CohortDefinition agedAtLeastDaysAgedAtMostYears(int minAge, int maxAge) {
         AgeCohortDefinition cd = new AgeCohortDefinition();
         cd.setName("aged between " + minAge + " days and " + maxAge + " years");
         cd.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
@@ -221,14 +221,14 @@ public class CommonCohortLibrary {
         cd.setMaxAge(maxAge);
         cd.setMaxAgeUnit(DurationUnit.YEARS);
         return cd;
-	}
+    }
 
     /**
      * Patients who are at least minAge Months old and at most maxAge years old on ${effectiveDate}
      *
      * @return the cohort definition
      */
-	public CohortDefinition agedAtLeastMonthsAgedAtMostYears(int minAge, int maxAge) {
+    public CohortDefinition agedAtLeastMonthsAgedAtMostYears(int minAge, int maxAge) {
         AgeCohortDefinition cd = new AgeCohortDefinition();
         cd.setName("aged between " + minAge + " months and " + maxAge + " years");
         cd.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
@@ -237,6 +237,5 @@ public class CommonCohortLibrary {
         cd.setMaxAge(maxAge);
         cd.setMaxAgeUnit(DurationUnit.YEARS);
         return cd;
-	}    
+    }
 }
-

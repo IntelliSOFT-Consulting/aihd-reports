@@ -1,13 +1,19 @@
 package org.openmrs.module.aihdreports.reporting.metadata;
 
+import org.openmrs.Concept;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Metadata for reporting functionality
  */
 public class Metadata {
 
-    public static class Concept{
-		public final static String WEIGHT = "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-		public final static String HEIGHT = "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static class Concepts {
+        public final static String WEIGHT = "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String HEIGHT = "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIASTOLIC_BLOOD_PRESSURE = "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String SYSTOLIC_BLOOD_PRESSURE = "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String WAIST_CIRCUMFERENCE = "163080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -18,7 +24,10 @@ public class Metadata {
         public final static String RETURN_VISIT_DATE = "5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String SCREENED_FOR_TB = "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String TB_STATUS = "1659AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String TB_STATUS_1 = "8bbf58d8-ab67-4601-95e6-7cd2f400d60d";
         public final static String ON_TREATMENT = "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String DISCONTINUE_REASON = "161555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String TRANSFER_OUT = "159492AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
         public final static String MEDICATION_HISTORY = "160741AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -33,20 +42,27 @@ public class Metadata {
         public final static String INSULIN_SOLUBLE = "282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String INSULIN_NPH_TYPE_1 = "e4f96288-5a75-4259-a610-fa380d469f1f";
         public final static String INSULIN_NPH_TYPE_2 = "ee5647b4-3ebf-48ae-9428-2558118de260";
-        public final static String INSULIN_OTHER_MEDICATION = "ee5647b4-3ebf-48ae-9428-2558118de260";
-        public final static String ANT_HYPETENSIVE = "";//d
+        public final static String INSULIN_OTHER_MEDICATION = "5fdb89e1-d6f5-484d-abaa-ff2a18e12621";
+        public final static String BOTH_OGLAS_INSULIN = "287e075d-61d6-4273-89a7-e9bcb3d925e5";//d
         public final static String HERBAL = "c2769cb4-6f2a-476b-b8a1-8a7a7cb7d62e";//e
         public final static String OTHER_NON_CODED = "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//f
-        public final static String OGLAS_AND_INSULIN = "";//g
+        public final static String DIABETIC_COMPLICATIONS = "c3d7f917-4eb8-466e-8175-e82d4405a6a8";
+        public final static String HYPERTENSION_COMPLICATIONS = "f12649c9-14ea-4de1-b9eb-db411b48cd85";
+        public final static String REASON_FOR_ADMISION = "1655AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String ADMITTED_KDA = "21afa89c-6a33-4317-bc19-efec95d0716a";
+        public final static String HYPOGLYCEMIA = "138061AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
 
 
         public final static String NHIF_MEMBER = "1917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-
         public final static String HTN = "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String NEW = "";//1
-        public final static String KNOWN = "";//2
+        public final static String HDL = "1007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//1
+        public final static String LDL = "1008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//2
+        public final static String TG =  "1009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String VISIT_TYPE = "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String NEW_VISIT = "164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String REVISIT = "164142AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
 
         public final static String AGE_AT_DIAGNOSIS_YEARS = "160617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -57,7 +73,7 @@ public class Metadata {
         public final static String NO = "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         public final static String SYMPTOM = "1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = "";//d
+        //public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = Diabetes_Secondary_to_other_causes;//d
 
         //complication options
         public final static String PROBLEM_ADDED = "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -66,19 +82,17 @@ public class Metadata {
         public final static String NEPTHOPATHY = "";//c
         public final static String CELEBRALVARSULAR_DISEASES = "";//d
         public final static String COLONARY_HEART_DISEASES = "";//e
-        public final static String PERIPHERAL_VASCULAR_DISEASES = "";//f
-        public final static String DIABETIC_FOOT = "";//g
+        public final static String DIABETIC_FOOT = "1cb3fefb-e44a-4092-adbc-b33cf068a37a";//g
         public final static String HEART_FAILURE = "";//h
-        public final static String ERECTILE_DISFUNCTION = "";//i
-        public final static String GASTROPATHY = "";//j
-        public final static String CATARACTS = "";//k
-        public final static String DENTAL_COMPLICATIONS = "";//l
-
-        public final static String HYPERTENSION = "";
-        public final static String DYSLIPIDEMIA = "";
-        public final static String OBESITY = "";
-        public final static String HIV = "";
-        public final static String TB = "";
+        public final static String ERECTILE_DISFUNCTION = "156162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String GASTROPATHY = "145339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//j
+        public final static String CATARACTS = "120860AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//k
+        public final static String DENTAL_COMPLICATIONS = "0e34f15a-0f94-4c3e-bdcd-4576b7e4d3d5";//l
+        public final static String HIV_STATUS = "138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String NEGATIVE="664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String POSITIVE = "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String HIV_POSTIVE = "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String ONTREATMENT = "1662AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
         //populating the monthly report indicators concepts here
         public final static String DIABETIC_VISIT_TYPE = "2d0d45ca-a92f-4fb2-a6af-c53a1c079bf3";
@@ -96,7 +110,7 @@ public class Metadata {
         public final static String FOOT_AMPUTATION = "99290a23-7b79-460d-b982-ea9f32486259";
         public final static String FOOT_ULCER = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String KIDNEY_FAILURE = "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public final static String VISUAL_IMPAIRMENT = "159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String VISUAL_IMPAIRMENT = "97f8c173-af0d-4b4e-b107-a4243b6176e0";
         public final static String EDUCATION_COUNSELING_ORDERS = "1379AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String DIABETES = "2ea479b2-7324-4f03-8e91-d8933a2fa51e";
         public final static String STROKE = "111103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -107,6 +121,30 @@ public class Metadata {
         public final static String Retinopathy = "113257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String Nephropathy = "113338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String Diabetic_foot = "163411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String DIABETES_SECONDARY_TO_OTHER_CAUSES = "44a5bd2a-e0c9-43f5-b96b-de00fad98bf0";
+        public final static String HYPETENSION_TYPE = "d4678d10-c650-4a2b-87ad-6e3d3283c06d";
+        public final static String MILD_HYPERTENSION = "c447006f-9923-4840-8a56-6b7ad8cb55a1";
+        public final static String MODERATE_HYPERTENSION ="51879821-770d-4ba1-8cfe-e358c9209dab";
+        public final static String SEVERE_HYPERTENSION ="fa3b33e0-bbd6-4d1a-b74b-26d411a928da";
+        public final static String PREECLAMSIA ="c9614f94-cf50-4ed4-b0cd-58e06c6266d6";
+        public final static String DIABETIC_YEAR_OF_DIAGNOSIS = "95d4aa36-05ee-44cb-823b-35a62f07ce49";
+        public final static String HYPERTENSION_YEAR_OF_DIAGNOSIS = "b863e568-1491-42d0-b881-04df389ad0de";
+        public final static String UNDER_TREATMENT = "160749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String FOOT_RISK_ASSESSMENT = "db47c759-d53e-4057-a2d7-e54d074276fd";
+        public final static String LOW_CURRENT_RISK = "0d2aa75a-3903-45ed-a040-c948842479ba";
+        public final static String AT_RISK = "a3758dd9-b172-40fb-b78a-8697aa9abe9a";
+        public final static String HIGH_RISK = "e39ac969-5f99-4674-9cfa-8e0439a5eea8";
+        public final static String ULCERATED_FOOT = "123919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String FOOT_EMERGENCY = "f8f1dae8-9674-4957-b93e-d842832d7416";
+        public final static String RESSOLVED = "6097AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String FOOT_ULCERS_FOOT = "1cb3fefb-e44a-4092-adbc-b33cf068a37a";
+        public final static String DEFORMITY = "da9de57f-0f8f-468b-afbb-06c1537c6f44";
+        public final static String FOOT_PHERIPHERAL = "f99ef1c4-7d2b-445d-82f6-729c3de4b149";
+        public final static String FOOT_SAVED = "79121359-20e6-4431-9117-34beab9bd193";
+        public final static String ACUTE_JOINTS = "be3b8237-1818-4adc-b2d4-eb9a727ca20b";
+        public final static String LOSS_OF_SENSATION = "fadecc5f-f848-4240-8bb7-0a617c088bfe";
+        public final static String FOOT_PAST_CONDITION = "09569a18-ac73-47e1-b77f-a10544bf053e";
+        public final static String FOOT_ASSESSMENT = "39922aa9-e1b6-4036-9f6a-4c840351cfad";
 
         //concepts uuids for anti hypertensive drugs
         //ACE  inhibitor
@@ -151,24 +189,103 @@ public class Metadata {
         public static final String Prazocin = "77985AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String other_z = "88680685-27ee-4a6f-a3b9-f0fa8ef3cb8b";
 
-        //Diabetic foot register concepts
-        public static final String LEG_SWEALING = "135966AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public static final String OTHER_CHIEF_COMPLAINT_TEXT = "3e9366c4-f93e-4f90-9ab7-b473f26d4169";
+    }
 
-    }
-    
     public static class Identifier{
-		public final static String PATIENT_ID = "b9ba3418-7108-450c-bcff-7bc1ed5c42d1";
-		public final static String PHONE_NUMBER = "d0929ad2-f87a-11e7-80ee-672bf941f754";
+        public final static String PATIENT_ID = "b9ba3418-7108-450c-bcff-7bc1ed5c42d1";
+        public final static String PHONE_NUMBER = "d0929ad2-f87a-11e7-80ee-672bf941f754";
     }
-    
+
     public static class EncounterType{
 
-		public final static String DM_FOLLOWUP = "2da542a4-f87d-11e7-8eb4-37dc291c1b12";
-		public final static String DM_INITIAL ="bf3f3108-f87c-11e7-913d-5f679b8fdacb";
+        public final static String DM_FOLLOWUP = "2da542a4-f87d-11e7-8eb4-37dc291c1b12";
+        public final static String DM_INITIAL ="bf3f3108-f87c-11e7-913d-5f679b8fdacb";
     }
-    
+
     public static class Program{
+
+    }
+    public static class ListsofConcepts{
+        public final static List<Concept> dietAndExercise(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.DIET));
+            list.add(Dictionary.getConcept(Dictionary.PHYSICAL_EXERCISE));
+            return list;
+        }
+
+        public final static List<Concept> oglas(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_GILBERCLAMIDE));
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_METFORMIN));
+            list.add(Dictionary.getConcept(Dictionary.OGLAS_OTHER));
+            return list;
+        }
+        public final static List<Concept> insulin(){
+            List<Concept> listInsulin = new ArrayList<Concept>();
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_70_30));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_1));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_2));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_OTHER_MEDICATION));
+            listInsulin.add(Dictionary.getConcept(Dictionary.INSULIN_SOLUBLE));
+            return listInsulin;
+        }
+        public final static List<Concept> herbal(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.HERBAL));
+            return list;
+        }
+
+        public final static List<Concept> other(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.OTHER_NON_CODED));
+            return list;
+        }
+        public final static List<Concept> hypertensive(){
+            List<Concept> list = new ArrayList<Concept>();
+            list.add(Dictionary.getConcept(Dictionary.Captopril));
+            list.add(Dictionary.getConcept(Dictionary.Enalapril));
+            list.add(Dictionary.getConcept(Dictionary.Lisinopril));
+            list.add(Dictionary.getConcept(Dictionary.Perindopril));
+            list.add(Dictionary.getConcept(Dictionary.Ramipril));
+            list.add(Dictionary.getConcept(Dictionary.other_ace));
+            list.add(Dictionary.getConcept(Dictionary.Candesartan));
+            list.add(Dictionary.getConcept(Dictionary.Irbesartan));
+            list.add(Dictionary.getConcept(Dictionary.Losartan));
+            list.add(Dictionary.getConcept(Dictionary.Telmisartan));
+            list.add(Dictionary.getConcept(Dictionary.Valsartan));
+            list.add(Dictionary.getConcept(Dictionary.Olmesartan));
+            list.add(Dictionary.getConcept(Dictionary.other_arb));
+            list.add(Dictionary.getConcept(Dictionary.Atenolol));
+            list.add(Dictionary.getConcept(Dictionary.Labetolol));
+            list.add(Dictionary.getConcept(Dictionary.Propranolol));
+            list.add(Dictionary.getConcept(Dictionary.Carvedilol));
+            list.add(Dictionary.getConcept(Dictionary.Metoprolol));
+            list.add(Dictionary.getConcept(Dictionary.Bisoprolol));
+            list.add(Dictionary.getConcept(Dictionary.other_b));
+            list.add(Dictionary.getConcept(Dictionary.Amlodipine));
+            list.add(Dictionary.getConcept(Dictionary.Felodipine));
+            list.add(Dictionary.getConcept(Dictionary.Nifedipine));
+            list.add(Dictionary.getConcept(Dictionary.Chlorthalidone));
+            list.add(Dictionary.getConcept(Dictionary.HydrochlorothiazideHCTZ));
+            list.add(Dictionary.getConcept(Dictionary.Indapamide));
+            list.add(Dictionary.getConcept(Dictionary.other_d1));
+            list.add(Dictionary.getConcept(Dictionary.other_d2));
+            list.add(Dictionary.getConcept(Dictionary.Methyldopa));
+            list.add(Dictionary.getConcept(Dictionary.Hydralazine));
+            list.add(Dictionary.getConcept(Dictionary.Prazocin));
+            list.add(Dictionary.getConcept(Dictionary.other_z));
+            list.add(Dictionary.getConcept(Dictionary.Nebivolol));
+            return list;
+        }
+
+        public final static List<Concept> heartDisease(){
+            return Arrays.asList(Dictionary.getConcept(Dictionary.Ischemic_heart_disease),
+                    Dictionary.getConcept(Dictionary.Heart_failure),
+                    Dictionary.getConcept(Dictionary.Peripheral_Vascular_disease)
+            );
+
+        }
+
 
     }
 }

@@ -2,7 +2,6 @@ package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.aihdreports.data.converter.DiabeticFootComplainsDataConverter;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
@@ -68,7 +67,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
     @Override
     public String getName() {
-        return "Diabetic Foot Care Daily Register";
+        return "Diabetic Foot Register";
     }
 
     @Override
@@ -101,40 +100,42 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
     private DataSetDefinition dataSetDefinition() {
         PatientDataSetDefinition dsd = new PatientDataSetDefinition();
+        dsd.addParameters(getParameters());
         PatientIdentifierType patientId = CoreUtils.getPatientIdentifierType(Metadata.Identifier.PATIENT_ID);
-		DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
-		DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
+        DataConverter identifierFormatter = new ObjectFormatter("{identifier}");
+        DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(patientId.getName(), patientId), identifierFormatter);
 
-		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
-		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-        dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}");
+        DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
+        DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
+        dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}");
 
 
-		dsd.addColumn("id", new PersonIdDataDefinition(), "");
-		dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
-		dsd.addColumn("Patient No", identifierDef, "");
-		dsd.addColumn("Names", nameDef, "");
-		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
+        dsd.addColumn("id", new PersonIdDataDefinition(), "");
+        dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
+        dsd.addColumn("Patient No", identifierDef, "");
+        dsd.addColumn("Names", nameDef, "");
+        dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
         dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
         dsd.addColumn("rbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
-		dsd.addColumn("fbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
+        dsd.addColumn("fbs", sdd.obsDataDefinition("fbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
         dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
         dsd.addColumn("abi", sdd.obsDataDefinition("abi",  Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE)), "", new ObsDataConverter());
-        dsd.addColumn("complains", sdd.obsDataDefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new DiabeticFootComplainsDataConverter());
+        dsd.addColumn("complains", sdd.obsDataDefinition("complains",  Dictionary.getConcept(Dictionary.PROBLEM_ADDED)), "", new ObsDataConverter());
         return dsd;
     }
 
     private DataDefinition encounterDate(){
-		CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
-		return cd;
-	}
+        CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
+        cd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        return cd;
+    }
 
     @Override
     public List<Parameter> getParameters() {
         return Arrays.asList(
-                new Parameter("onOrAfter", "Start Date", Date.class),
-                new Parameter("onOrBefore", "End Date",Date.class),
-                new Parameter("locationList", "Location", Location.class)
+                new Parameter("startDate", "Start Date", Date.class),
+                new Parameter("endDate", "End Date",Date.class),
+                new Parameter("locationList", "Facility", Location.class)
         );
     }
 
