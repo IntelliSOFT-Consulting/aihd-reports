@@ -111,7 +111,8 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		dsd.addParameters(getParameters());
 		dsd.setName("M");
 		
-		String indParams = "startDate=${startDate},endDate=${endDate},locationList=${locationList}";
+		String indParams = "startDate=${startDate},endDate=${endDate},location=${location}";
+
 		//add dimensions to the dsd gender is needed
 		dsd.addDimension("gender", ReportUtils.map(commonDimension.gender()));
 		//add dimension for the age bands
@@ -196,7 +197,6 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		Concept hypoglycemia = Dictionary.getConcept(Dictionary.HYPOGLYCEMIA);
 
 
-
 		EmrReportingUtils.addRow(dsd, "NDP", "Number of diabetic patients", ReportUtils.map(indicators.numberOfDiabeticPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "NDC", "New diagnosis cases", ReportUtils.map(indicators.numberOfNewDiagnosedPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "FV", "First Visit", ReportUtils.map(indicators.numberOfPatientsWithEncounter(Metadata.EncounterType.DM_INITIAL), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
@@ -241,7 +241,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date",Date.class),
-				new Parameter("locationList", "Facility", Location.class)
+				new Parameter("location", "Facility", Location.class)
 		);
 	}
 }

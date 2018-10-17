@@ -106,7 +106,7 @@ public class MonthlyDhis2Report extends AIHDDataExportManager {
 		dsd.setParameters(getParameters());
 		dsd.setName("MD");
 		
-		String indParams = "startDate=${startDate},endDate=${endDate}";
+		String indParams = "startDate=${startDate},endDate=${endDate},location=${location}";
 		//add dimensions to the dsd gender is needed
 		dsd.addDimension("gender", ReportUtils.map(commonDimension.gender()));
 					
@@ -124,7 +124,6 @@ public class MonthlyDhis2Report extends AIHDDataExportManager {
 
 		EmrReportingUtils.addRow(dsd, "NDP", "Number of diabetic patients", ReportUtils.map(indicators.numberOfDiabeticPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
 		EmrReportingUtils.addRow(dsd, "NHP", "Number of hypetension patients", ReportUtils.map(indicators.numberOfhypertensionPatients(), indParams), allColumnsGender, Arrays.asList("01","02", "03"));
-
 		
 		return dsd;
 	}
@@ -134,7 +133,7 @@ public class MonthlyDhis2Report extends AIHDDataExportManager {
 		return Arrays.asList(
 				new Parameter("startDate", "Start Date", Date.class),
 				new Parameter("endDate", "End Date",Date.class),
-				new Parameter("locationList", "Facility", Location.class)
+				new Parameter("location", "Facility", Location.class)
 		);
 	}
 }

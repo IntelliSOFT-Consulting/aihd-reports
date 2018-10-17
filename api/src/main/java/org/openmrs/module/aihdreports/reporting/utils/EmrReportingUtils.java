@@ -25,7 +25,7 @@ public class EmrReportingUtils {
 		CohortIndicator ind = new CohortIndicator(name);
 		ind.addParameter(new Parameter("startDate", "Start Date", Date.class));
 		ind.addParameter(new Parameter("endDate", "End Date", Date.class));
-		ind.addParameter(new Parameter("locationList","Facility", Location.class));
+		ind.addParameter(new Parameter("location","Facility", Location.class));
 		ind.setCohortDefinition(cohort);
 		return ind;
 	}

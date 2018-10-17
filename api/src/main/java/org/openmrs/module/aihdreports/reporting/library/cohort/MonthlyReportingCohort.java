@@ -1,6 +1,7 @@
 package org.openmrs.module.aihdreports.reporting.library.cohort;
 
 import org.openmrs.Concept;
+import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.module.aihdreports.reporting.calculation.CauseOfDeathCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.ValueTextObsCalculation;
@@ -11,6 +12,7 @@ import org.openmrs.module.reporting.cohort.definition.BaseObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.NumericObsCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.SqlCohortDefinition;
 import org.openmrs.module.reporting.common.RangeComparator;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,28 @@ public class MonthlyReportingCohort {
     @Autowired
     private CommonCohortLibrary commonCohortLibrary;
 
+    public CohortDefinition getEncounters(){
+        SqlCohortDefinition cd = new SqlCohortDefinition();
+        cd.setName("Encounters");
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
+        cd.addParameter(new Parameter("onOrAfter", "Start Date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End Date", Date.class));
+        cd.setQuery("SELECT patient_id FROM encounter WHERE location_id=:location and voided=0 and encounter_datetime>=:onOrAfter and encounter_datetime<=:onOrBefore");
+        return cd;
+    }
+
+    public CohortDefinition hasEncounterPerLocation(EncounterType type){
+        CompositionCohortDefinition cd = new CompositionCohortDefinition();
+        cd.setName("Has encounters per location");
+        cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
+        cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
+        cd.addSearch("location", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
+        cd.addSearch("encounter", ReportUtils.map(commonCohortLibrary.hasEncounter(type), ""));
+        cd.setCompositionString("location AND encounter");
+        return cd;
+    }
+
     public CohortDefinition newDiagnosedCases(){
         CompositionCohortDefinition cd = new CompositionCohortDefinition();
         Concept diabeticQuestion = Dictionary.getConcept(Dictionary.DIABETIC_VISIT_TYPE);
@@ -34,12 +58,12 @@ public class MonthlyReportingCohort {
         cd.setName("New diagnosed cases");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
 
         cd.addSearch("newDiabetic", ReportUtils.map(commonCohortLibrary.hasCodedObs(diabeticQuestion, newDmPatient), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.addSearch("newHypertension", ReportUtils.map(commonCohortLibrary.hasCodedObs(hypertensionQuestion, newHTNPatient), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
-        cd.addSearch("location", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
-        cd.setCompositionString("newDiabetic AND newHypertension AND location");
+        cd.addSearch("location", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
+        cd.setCompositionString("(newDiabetic OR newHypertension) AND location");
 
         return cd;
     }
@@ -49,9 +73,9 @@ public class MonthlyReportingCohort {
         cd.setName("Has obs in a location");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
 
-        cd.addSearch("location", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("location", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("hasCodedObs", ReportUtils.map(commonCohortLibrary.hasCodedObs(q, a), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("location AND hasCodedObs");
         return cd;
@@ -62,7 +86,7 @@ public class MonthlyReportingCohort {
         cd.setName("takes insulin in a location");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
 
         Concept question = Dictionary.getConcept(Dictionary.MEDICATION_ORDERED);
         Concept ins7030 = Dictionary.getConcept(Dictionary.INSULIN_70_30);
@@ -71,7 +95,7 @@ public class MonthlyReportingCohort {
         Concept nphT2 = Dictionary.getConcept(Dictionary.INSULIN_NPH_TYPE_2);
         Concept otherIns = Dictionary.getConcept(Dictionary.INSULIN_OTHER_MEDICATION);
 
-        cd.addSearch("location", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("location", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("hasCodedObsIns", ReportUtils.map(commonCohortLibrary.hasCodedObs(question, ins7030, solins, nphT1, nphT2), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.addSearch("other", ReportUtils.map(valueTextCalculation(otherIns), "onDate=${onOrBefore}"));
         cd.setCompositionString("location AND (hasCodedObsIns OR other)");
@@ -83,14 +107,14 @@ public class MonthlyReportingCohort {
         cd.setName("takes oglas in a location");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
 
         Concept question = Dictionary.getConcept(Dictionary.MEDICATION_ORDERED);
         Concept metrofim = Dictionary.getConcept(Dictionary.OGLAS_METFORMIN);
         Concept gilbersmine = Dictionary.getConcept(Dictionary.OGLAS_GILBERCLAMIDE);
         Concept otherOglas = Dictionary.getConcept(Dictionary.OGLAS_OTHER);
 
-        cd.addSearch("location", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("location", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("hasCodedObsOglas", ReportUtils.map(commonCohortLibrary.hasCodedObs(question, metrofim, gilbersmine), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.addSearch("other", ReportUtils.map(valueTextCalculation(otherOglas), "onDate=${onOrBefore}"));
         cd.setCompositionString("location AND (hasCodedObsOglas OR other)");
@@ -119,9 +143,9 @@ public class MonthlyReportingCohort {
         cd.setName("HbA1c");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
 
-        cd.addSearch("location", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("location", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("hba1c", ReportUtils.map(havingValueNumericObsHbA1c(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("location AND hba1c");
         return cd;
@@ -144,9 +168,9 @@ public class MonthlyReportingCohort {
         cd.setName("HbA1cLess7");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
 
-        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("loc", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("less7", ReportUtils.map(havingValueNumericObsHbA1cLess7(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("loc AND less7");
         return cd;
@@ -171,9 +195,9 @@ public class MonthlyReportingCohort {
         cd.setName("pressure");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
 
-        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addSearch("loc", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("gt140", ReportUtils.map(havingValueNumericWithBoundaries(Dictionary.getConcept(Dictionary.SYSTOLIC_BLOOD_PRESSURE), 140.0), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.addSearch("gt90", ReportUtils.map(havingValueNumericWithBoundaries(Dictionary.getConcept(Dictionary.DIASTOLIC_BLOOD_PRESSURE), 90.0), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("loc AND gt140 AND gt90");
@@ -185,8 +209,8 @@ public class MonthlyReportingCohort {
         cd.setName("Foot Ulcers");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
-        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
+        cd.addSearch("loc", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("initial", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.PROBLEM_ADDED), Dictionary.getConcept(Dictionary.FOOT_ULCER)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.addSearch("foot", ReportUtils.map(commonCohortLibrary.hasCodedObs(Dictionary.getConcept(Dictionary.FOOT_ULCERS_FOOT), Dictionary.getConcept(Dictionary.UNDER_TREATMENT)), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("loc AND (initial OR foot)");
@@ -222,8 +246,8 @@ public class MonthlyReportingCohort {
         cd.setName("amputationAcuteJointLossOfSensation");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
-        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
+        cd.addSearch("loc", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("pndfu", ReportUtils.map(peripheralNeuropathyDeformityFootUlcer(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.addSearch("aajlos", ReportUtils.map(amputationAcuteJointLossOfSensation(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("loc AND (pndfu OR aajlos)");
@@ -248,8 +272,8 @@ public class MonthlyReportingCohort {
         cd.setName("diabeticFootOptionsWithLocation");
         cd.addParameter(new Parameter("onOrAfter", "Start date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End date", Date.class));
-        cd.addParameter(new Parameter("locationList", "Facility", Location.class));
-        cd.addSearch("loc", ReportUtils.map(commonCohortLibrary.hasEncounter(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},locationList=${locationList}"));
+        cd.addParameter(new Parameter("location", "Facility", Location.class));
+        cd.addSearch("loc", ReportUtils.map(getEncounters(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore},location=${location}"));
         cd.addSearch("dfo", ReportUtils.map(diabeticFootOptions(), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
         cd.setCompositionString("loc AND dfo");
         return cd;
