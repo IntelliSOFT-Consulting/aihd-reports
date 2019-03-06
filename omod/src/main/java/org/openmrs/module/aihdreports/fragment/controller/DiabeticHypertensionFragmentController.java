@@ -28,7 +28,6 @@ import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
