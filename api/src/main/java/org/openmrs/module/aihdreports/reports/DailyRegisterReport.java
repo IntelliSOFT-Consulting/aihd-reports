@@ -114,7 +114,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
-		dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
+		dsd.addColumn("Date", encounterDate(), "onDate=${endDate}", new CalculationResultConverter());
 		dsd.addColumn("Patient No", identifierDef, "");
 		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
@@ -147,7 +147,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 
 	private DataDefinition encounterDate(){
 		CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
-		cd.addParameter(new Parameter("endDate", "End Date", Date.class));
+		cd.addParameter(new Parameter("onDate", "End Date", Date.class));
 		return cd;
 	}
 	private DataDefinition firstOrRevisit(){
