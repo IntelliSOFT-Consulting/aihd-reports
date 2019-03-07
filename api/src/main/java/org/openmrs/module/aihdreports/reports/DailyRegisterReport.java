@@ -119,7 +119,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
 		dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
-		dsd.addColumn("fvrv", firstOrRevisit(), "", new CalculationResultConverter());
+		dsd.addColumn("fvrv", firstOrRevisit(), "onDate=${endDate}", new CalculationResultConverter());
 		dsd.addColumn("weight", sdd.obsDataDefinition("weight",  Dictionary.getConcept(Dictionary.WEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("height", sdd.obsDataDefinition("height",  Dictionary.getConcept(Dictionary.HEIGHT)), "", new ObsDataConverter());
 		dsd.addColumn("bmi", bmi(), "", new CalculationResultConverter());
@@ -152,6 +152,7 @@ public class DailyRegisterReport extends AIHDDataExportManager {
 	}
 	private DataDefinition firstOrRevisit(){
 		CalculationDataDefinition cd = new CalculationDataDefinition("fvrv", new InitialReturnVisitCalculation());
+		cd.addParameter(new Parameter("onDate", "On Date", Date.class));
 		return cd;
 	}
 
