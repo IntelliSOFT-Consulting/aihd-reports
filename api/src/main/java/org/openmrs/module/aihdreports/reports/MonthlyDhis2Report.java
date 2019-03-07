@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.List;
 
 
-@Component
+//@Component
 public class MonthlyDhis2Report extends AIHDDataExportManager {
 	
 	@Autowired
