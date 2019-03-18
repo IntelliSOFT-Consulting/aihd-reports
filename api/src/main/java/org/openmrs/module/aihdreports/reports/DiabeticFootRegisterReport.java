@@ -107,11 +107,11 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
         DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
         DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-        dsd.addRowFilter(cohortLibrary.hasEncounter(Context.getEncounterService().getEncounterTypeByUuid("2da542a4-f87d-11e7-8eb4-37dc291c1b12")), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${locationList}");
+        dsd.addRowFilter(cohortLibrary.hasEncounter(CoreUtils.getEncounterType(Metadata.EncounterType.DM_FOLLOWUP), CoreUtils.getEncounterType(Metadata.EncounterType.DM_INITIAL)), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${location}");
 
 
         dsd.addColumn("id", new PersonIdDataDefinition(), "");
-        dsd.addColumn("Date", encounterDate(), "", new CalculationResultConverter());
+        dsd.addColumn("Date", encounterDate(), "onDate=${endDate}", new CalculationResultConverter());
         dsd.addColumn("Patient No", identifierDef, "");
         dsd.addColumn("Names", nameDef, "");
         dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
@@ -126,7 +126,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
     private DataDefinition encounterDate(){
         CalculationDataDefinition cd = new CalculationDataDefinition("Date", new EncounterDateCalculation());
-        cd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        cd.addParameter(new Parameter("onDate", "End Date", Date.class));
         return cd;
     }
 
@@ -135,7 +135,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
         return Arrays.asList(
                 new Parameter("startDate", "Start Date", Date.class),
                 new Parameter("endDate", "End Date",Date.class),
-                new Parameter("locationList", "Facility", Location.class)
+                new Parameter("location", "Facility", Location.class)
         );
     }
 

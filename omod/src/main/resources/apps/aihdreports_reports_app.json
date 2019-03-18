@@ -30,7 +30,7 @@
         "id": "Daily Register",
         "extensionPointId": "org.openmrs.module.aihdreports.reports.registers",
         "type": "link",
-        "label": "Daily Register",
+        "label": "Daily Register MOH 222",
         "url": "reportingui/runReport.page?reportDefinition=fed89032-0017-11e8-9580-f731617cc228",
         "order": 5
       },
@@ -46,24 +46,16 @@
         "id": "Permanent Register",
         "extensionPointId": "org.openmrs.module.aihdreports.reports.registers",
         "type": "link",
-        "label": "Permanent Register",
+        "label": "Permanent Register MOH 270",
         "url": "reportingui/runReport.page?reportDefinition=713f9b56-0271-11e8-8377-3fa4a39ea76a",
         "order": 7
       },
       {
-        "id": "Monthly Reporting Form",
+        "id": "Monthly Summary Form",
         "extensionPointId": "org.openmrs.module.aihdreports.reports.monthly",
         "type": "link",
-        "label": "Monthly Reporting Form",
+        "label": "Monthly Summary Form MOH 740",
         "url": "reportingui/runReport.page?reportDefinition=94ead1d2-0015-11e8-87c2-ebf60d915687",
-        "order": 5
-      },
-      {
-        "id": "Monthly DHIS2 Reporting Form",
-        "extensionPointId": "org.openmrs.module.aihdreports.reports.monthly",
-        "type": "link",
-        "label": "Monthly DHIS2 Reporting Form",
-        "url": "reportingui/runReport.page?reportDefinition=6cd0b441-d644-487c-8466-5820a73f9ce5",
         "order": 5
       }
     ]
