@@ -2,9 +2,7 @@ package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.aihdreports.reporting.calculation.ComplicationsCalculation;
-import org.openmrs.module.aihdreports.reporting.calculation.TreatmentCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.*;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
@@ -24,11 +22,8 @@ import org.openmrs.module.reporting.data.DataDefinition;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
-import org.openmrs.module.reporting.data.converter.AgeConverter;
-import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
-import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
 import org.openmrs.module.reporting.data.person.definition.*;
 import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
 import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
@@ -133,7 +128,13 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
         dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
-        
+        dsd.addColumn("village", personVillageAddress(), "", new CalculationResultConverter());
+        dsd.addColumn("subCounty", personSubcountyAddress(), "", new CalculationResultConverter());
+        dsd.addColumn("landmark", personLandmarkAddress(), "", new CalculationResultConverter());
+//        dsd.addColumn("supporterName", personAttribute("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
+//        dsd.addColumn("supporterContact", personAttribute("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
+
+
 
         return dsd;
     }
@@ -148,6 +149,27 @@ public class PermanentRegister extends AIHDDataExportManager {
         CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
         return cd;
     }
+
+    private DataDefinition personVillageAddress(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("village", new VillageAddressCalculation());
+        return cd;
+    }
+
+    private DataDefinition personSubcountyAddress(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("subcounty", new SubcountyAddressCalculation());
+        return cd;
+    }
+
+    private DataDefinition personLandmarkAddress(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("landmark", new LandmarkAddressCalculation());
+        return cd;
+    }
+
+//    private DataDefinition personAttribute(String uuid){
+//        CalculationDataDefinition cd = new CalculationDataDefinition("personAttribute", new PersonAttributeCalculation());
+//        cd.addCalculationParameter("uuid", uuid);
+//        return cd;
+//    }
 
     @Override
     public List<Parameter> getParameters() {
