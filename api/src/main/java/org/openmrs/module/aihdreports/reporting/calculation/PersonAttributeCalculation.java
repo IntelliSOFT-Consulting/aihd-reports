@@ -23,7 +23,7 @@ public class PersonAttributeCalculation extends AbstractPatientCalculation {
             String value="";
             Person person=personService.getPerson(pid);
             PersonAttribute personAttribute=person.getAttribute(personService.getPersonAttributeTypeByUuid(uuid));
-            if (StringUtils.isNotEmpty(personAttribute.getValue())){
+            if (personAttribute != null && StringUtils.isNotEmpty(personAttribute.getValue())){
                 value=personAttribute.getValue();
             }
             calculationResultMap.put(pid, new SimpleResult(value, this));

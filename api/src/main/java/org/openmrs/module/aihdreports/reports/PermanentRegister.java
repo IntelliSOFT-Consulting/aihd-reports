@@ -131,8 +131,8 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("village", personVillageAddress(), "", new CalculationResultConverter());
         dsd.addColumn("subCounty", personSubcountyAddress(), "", new CalculationResultConverter());
         dsd.addColumn("landmark", personLandmarkAddress(), "", new CalculationResultConverter());
-//        dsd.addColumn("supporterName", personAttribute("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
-//        dsd.addColumn("supporterContact", personAttribute("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
+        dsd.addColumn("supporterName", personAttribute("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
+        dsd.addColumn("supporterContact", personAttribute("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
 
 
 
@@ -165,11 +165,11 @@ public class PermanentRegister extends AIHDDataExportManager {
         return cd;
     }
 
-//    private DataDefinition personAttribute(String uuid){
-//        CalculationDataDefinition cd = new CalculationDataDefinition("personAttribute", new PersonAttributeCalculation());
-//        cd.addCalculationParameter("uuid", uuid);
-//        return cd;
-//    }
+    private DataDefinition personAttribute(String uuid){
+        CalculationDataDefinition cd = new CalculationDataDefinition("personAttribute", new PersonAttributeCalculation());
+        cd.addCalculationParameter("uuid", uuid);
+        return cd;
+    }
 
     @Override
     public List<Parameter> getParameters() {
