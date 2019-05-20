@@ -14,7 +14,7 @@ public class FacilityAddress {
         SqlDataSetDefinition dsd = new SqlDataSetDefinition();
         dsd.setName("countyAndSubcounty");
         dsd.setParameters(getParameters);
-        dsd.setSqlQuery("SELECT address14 as subcounty,address15 as county FROM location WHERE location_id=:location");
+        dsd.setSqlQuery("SELECT l.address13 as level, l.address14 as subcounty,l.address15 as county, la.value_reference as mflcode FROM location l join location_attribute la ON la.location_id=l.location_id WHERE l.location_id=:location");
         return dsd;
     }
 
