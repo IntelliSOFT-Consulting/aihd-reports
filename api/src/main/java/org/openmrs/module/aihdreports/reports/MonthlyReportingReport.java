@@ -21,9 +21,11 @@ import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.ColumnParameters;
 import org.openmrs.module.aihdreports.reporting.utils.EmrReportingUtils;
+import org.openmrs.module.aihdreports.reporting.utils.FacilityAddress;
 import org.openmrs.module.aihdreports.reporting.utils.ReportUtils;
 import org.openmrs.module.reporting.dataset.definition.CohortIndicatorDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportDesign;
@@ -98,6 +100,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		rd.setDescription(getDescription());
 		rd.addParameters(getParameters());
 		rd.addDataSetDefinition("M", Mapped.mapStraightThrough(dataSetDefinition()));
+		rd.addDataSetDefinition("A", Mapped.mapStraightThrough(FacilityAddress.facilityAddress(getParameters())));
 		return rd;
 	}
 
@@ -235,6 +238,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 
 		return dsd;
 	}
+
 
 	@Override
 	public List<Parameter> getParameters() {

@@ -5,9 +5,11 @@ import org.openmrs.Location;
 import org.openmrs.module.aihdreports.reporting.calculation.*;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
+import org.openmrs.module.aihdreports.reporting.utils.FacilityAddress;
 import org.openmrs.module.reporting.data.converter.BirthdateConverter;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportDesign;
@@ -93,7 +95,9 @@ public class PermanentRegister extends AIHDDataExportManager {
         rd.setName(getName());
         rd.setDescription(getDescription());
         rd.addParameters(getParameters());
+
         rd.addDataSetDefinition("P", Mapped.mapStraightThrough(dataSetDefinition()));
+        rd.addDataSetDefinition("A", Mapped.mapStraightThrough(FacilityAddress.facilityAddress(getParameters())));
         return rd;
     }
 
