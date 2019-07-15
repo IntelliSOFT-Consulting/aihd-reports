@@ -17,6 +17,7 @@ import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,7 @@ public class DashboardPageController {
 
         List<Location> requiredLocations = new ArrayList<Location>();
         List<Location> allLocations = Context.getLocationService().getAllLocations();
+        allLocations.removeAll(locationListToRemoveFromMain());
         boolean isSuperUser = false;
         boolean hasTheRequiredRole = false;
         Set<Role> roles = Context.getAuthenticatedUser().getRoles();
@@ -119,5 +121,19 @@ public class DashboardPageController {
         }
         return "redirect:" + ui.pageLink("aihdreports", "parameterizedDashboard"+"?"+parameterString);
 
+    }
+
+    private List<Location> locationListToRemoveFromMain() {
+        List<Location> locationList = new ArrayList<>();
+        LocationService service = Context.getLocationService();
+        List<String> stringList = Arrays.asList("Amani Hospital", "Inpatient Ward", "Isolation Ward", "Laboratory", "Outpatient Clinic", "Pharmacy", "Registration Desk");
+        for (String str: stringList) {
+            Location location = service.getLocation(str);
+            if(location != null) {
+                locationList.add(location);
+            }
+
+        }
+        return locationList;
     }
 }
