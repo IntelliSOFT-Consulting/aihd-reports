@@ -113,9 +113,7 @@ public class PermanentRegister extends AIHDDataExportManager {
 
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
-        EncounterType initial = CoreUtils.getEncounterType(Metadata.EncounterType.DM_INITIAL);
-        EncounterType followUp = CoreUtils.getEncounterType(Metadata.EncounterType.DM_FOLLOWUP);
-		dsd.addRowFilter(cohortLibrary.hasEncounter(initial, followUp), "onOrAfter=${startDate},onOrBefore=${endDate},locationList=${location}");
+		dsd.addRowFilter(cohortLibrary.getPatientsByLocationPassed(), "location=${location}");
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
