@@ -36,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-@Component
+//@Component
 public class DiabeticFootRegisterReport extends AIHDDataExportManager{
 
     @Autowired
