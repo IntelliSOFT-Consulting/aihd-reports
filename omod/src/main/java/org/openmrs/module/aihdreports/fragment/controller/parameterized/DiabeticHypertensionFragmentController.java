@@ -46,7 +46,7 @@ public class DiabeticHypertensionFragmentController {
 
         PatientCalculationService patientCalculationService = Context.getService(PatientCalculationService.class);
         PatientCalculationContext context = patientCalculationService.createCalculationContext();
-        context.setNow(new Date());
+        context.setNow(endDate);
 
         //exclude dead patients
 
@@ -117,11 +117,11 @@ public class DiabeticHypertensionFragmentController {
 
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(diabeticMap, pId);
-            if(obs != null) {
-                if ((obs.getObsDatetime().equals(startDate) || obs.getObsDatetime().after(startDate)) && (obs.getObsDatetime().equals(endDate) || obs.getObsDatetime().before(endDate))) {
-                    if (loc != null && loc.equals(obs.getLocation()) && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))) {
+            if(obs != null && loc != null) {
+                if ((obs.getObsDatetime().compareTo(startDate) >= 0) && (obs.getObsDatetime().compareTo(endDate) <= 0) && obs.getValueCoded().equals(a1) && obs.getValueCoded().equals(a2)) {
+                    if (loc.equals(obs.getLocation())){
                         allSet.add(pId);
-                    } else if (subcounty.size() > 0  && subcounty.contains(obs.getLocation()) && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))) {
+                    } else if (subcounty.size() > 0  && subcounty.contains(obs.getLocation())) {
                         allSet.add(pId);
                     }
                 }
