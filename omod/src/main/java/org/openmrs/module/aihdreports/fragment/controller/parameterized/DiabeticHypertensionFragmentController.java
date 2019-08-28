@@ -16,6 +16,7 @@ package org.openmrs.module.aihdreports.fragment.controller.parameterized;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Obs;
+import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationService;
@@ -27,6 +28,7 @@ import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -59,14 +61,20 @@ public class DiabeticHypertensionFragmentController {
         Concept knownHypertension = Dictionary.getConcept(Dictionary.KNOWN_HYPERTENSION_PATIENT);
 
 
+        Set<Integer> cohort = new HashSet<>();
+        for (Patient patient : Context.getPatientService().getAllPatients()) {
+            cohort.add(patient.getPatientId());
+        }
+
+
 
         //start formulating the values to be displayed on the viewer for diabetes
-        model.addAttribute("diabeticMaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 0, 5, location, subCounty, startDate, endDate, "M"));
-        model.addAttribute("diabeticMale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 6, 18, location, subCounty, startDate, endDate, "M"));
-        model.addAttribute("diabeticMale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 19, 35, location, subCounty, startDate, endDate, "M"));
-        model.addAttribute("diabeticMale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 36, 60, location, subCounty, startDate, endDate, "M"));
-        model.addAttribute("diabeticMale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 60, 120, location, subCounty, startDate, endDate, "M"));
-        model.addAttribute("diabeticMaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, male, context, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, cohort, context, 0, 5, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, cohort, context, 6, 18, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, cohort, context, 19, 35, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, cohort, context, 36, 60, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, cohort, context, 60, 120, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, cohort, context, location, subCounty, startDate, endDate, "M"));
 
         model.addAttribute("diabeticFemaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 0, 5, location, subCounty, startDate, endDate, "F"));
         model.addAttribute("diabeticFemale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 6, 18, location, subCounty, startDate, endDate, "F"));
