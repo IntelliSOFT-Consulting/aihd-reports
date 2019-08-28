@@ -118,8 +118,9 @@ public class DiabeticHypertensionFragmentController {
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(diabeticMap, pId);
             if(obs != null && loc != null) {
-                if ((obs.getObsDatetime().compareTo(startDate) >= 0) && (obs.getObsDatetime().compareTo(endDate) <= 0) && obs.getValueCoded().equals(a1) && obs.getValueCoded().equals(a2)) {
-                    if (loc.equals(obs.getLocation())){
+                if ((obs.getObsDatetime().compareTo(startDate) >= 0) && (obs.getObsDatetime().compareTo(endDate) <= 0) && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))) {
+                    if (loc.getLocationId() == 41){
+                        System.out.println("The patients are>>>"+pId +" and gender is >>>"+obs.getPerson().getGender());
                         allSet.add(pId);
                     } else if (subcounty.size() > 0  && subcounty.contains(obs.getLocation())) {
                         allSet.add(pId);

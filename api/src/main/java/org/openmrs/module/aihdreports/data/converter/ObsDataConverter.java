@@ -19,6 +19,8 @@ import org.openmrs.module.reporting.data.converter.DataConverter;
 
 
 public class ObsDataConverter implements DataConverter {
+
+    public ObsDataConverter () {}
     @Override
     public Object convert(Object obj) {
         if (obj == null) {

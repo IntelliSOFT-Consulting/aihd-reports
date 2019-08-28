@@ -5,7 +5,9 @@ import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 
 public class NewlyDiagnosedConverter implements DataConverter {
+public NewlyDiagnosedConverter() {
 
+}
     @Override
     public Object convert(Object o) {
         if(o == null)

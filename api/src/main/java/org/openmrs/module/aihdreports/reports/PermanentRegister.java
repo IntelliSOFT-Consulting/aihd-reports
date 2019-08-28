@@ -11,7 +11,6 @@ import org.openmrs.module.aihdreports.reporting.calculation.PersonAttributeCalcu
 import org.openmrs.module.aihdreports.reporting.calculation.SubcountyAddressCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.VillageAddressCalculation;
 import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
-import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
@@ -128,7 +127,7 @@ public class PermanentRegister extends AIHDDataExportManager {
 		dsd.addColumn("Patient No", identifierDef, "");
 		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("dob", new BirthdateDataDefinition(), "", new BirthdateConverter());
-        dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
+        dsd.addColumn("Sex", new GenderDataDefinition(), (String) null);
         dsd.addColumn("occupation", sdd.obsDataDefinition("occupation",  Dictionary.getConcept(Dictionary.OCCUPATION)), "", new ObsDataConverter());
         dsd.addColumn("level_of_education", sdd.obsDataDefinition("level_of_education",  Dictionary.getConcept(Dictionary.LEVEL_OF_EDUCATION)), "", new ObsDataConverter());
         dsd.addColumn("telephone", phoneNumberDef, "");

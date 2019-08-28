@@ -10,7 +10,7 @@ import org.openmrs.module.reporting.data.converter.DataConverter;
 import java.util.Date;
 
 public class CalculationResultConverter implements DataConverter {
-
+public CalculationResultConverter() {}
     @Override
     public Object convert(Object obj) {
 

@@ -1,7 +1,6 @@
 package org.openmrs.module.aihdreports.reports;
 
 import org.openmrs.Location;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
@@ -11,7 +10,6 @@ import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
 import org.openmrs.module.aihdreports.reporting.metadata.Metadata;
 import org.openmrs.module.aihdreports.reporting.utils.CoreUtils;
@@ -21,12 +19,10 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
-import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
 import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
 import org.openmrs.module.reporting.data.person.definition.*;
-import org.openmrs.module.aihdreports.reporting.converter.GenderConverter;
 import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
 import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationDataDefinition;
 
@@ -115,7 +111,7 @@ public class DiabeticFootRegisterReport extends AIHDDataExportManager{
         dsd.addColumn("Patient No", identifierDef, "");
         dsd.addColumn("Names", nameDef, "");
         dsd.addColumn("Age", new AgeDataDefinition(), "", new AgeConverter());
-        dsd.addColumn("Sex", new GenderDataDefinition(), "", new GenderConverter());
+        dsd.addColumn("Sex", new GenderDataDefinition(), (String) null);
         dsd.addColumn("rbs", sdd.obsDataDefinition("rbs",  Dictionary.getConcept(Dictionary.RBS)), "", new ObsDataConverter());
         dsd.addColumn("fbs", sdd.obsDataDefinition("fbs",  Dictionary.getConcept(Dictionary.FBS)), "", new ObsDataConverter());
         dsd.addColumn("currentHbac", sdd.obsDataDefinition("currentHbac",  Dictionary.getConcept(Dictionary.HBA1C)), "", new ObsDataConverter());
