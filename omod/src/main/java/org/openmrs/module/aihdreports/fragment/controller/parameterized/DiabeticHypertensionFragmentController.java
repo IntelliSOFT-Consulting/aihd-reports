@@ -61,48 +61,48 @@ public class DiabeticHypertensionFragmentController {
 
 
         //start formulating the values to be displayed on the viewer for diabetes
-        model.addAttribute("diabeticMaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 0, 5, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticMale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 6, 18, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticMale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 19, 35, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticMale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 36, 60, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticMale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 60, 120, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticMaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, male, context, location, subCounty, startDate, endDate));
+        model.addAttribute("diabeticMaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 0, 5, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 6, 18, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 19, 35, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 36, 60, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, male, context, 60, 120, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("diabeticMaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, male, context, location, subCounty, startDate, endDate, "M"));
 
-        model.addAttribute("diabeticFemaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 0, 5, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticFemale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 6, 18, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticFemale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 19, 35, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticFemale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 36, 60, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticFemale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 60, 120, location, subCounty, startDate, endDate));
-        model.addAttribute("diabeticFemaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, female, context, location, subCounty, startDate, endDate));
+        model.addAttribute("diabeticFemaleZeroTo5", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 0, 5, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("diabeticFemale6To18", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 6, 18, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("diabeticFemale19To35", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 19, 35, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("diabeticFemale36To60", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 36, 60, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("diabeticFemale60To120", getDiabeticPatients(diabetic, newDiabetic, knownDiabetic, female, context, 60, 120, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("diabeticFemaleTotals", getDiabeticTotalPatients(diabetic, newDiabetic, knownDiabetic, female, context, location, subCounty, startDate, endDate, "F"));
 
         //hypertension
-        model.addAttribute("hypertensionMaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 0, 5, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionMale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 6, 18, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionMale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 19, 35, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionMale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 36, 60, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionMale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 60, 120, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionMaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, male, context, location, subCounty, startDate, endDate));
+        model.addAttribute("hypertensionMaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 0, 5, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("hypertensionMale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 6, 18, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("hypertensionMale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 19, 35, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("hypertensionMale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 36, 60, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("hypertensionMale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, male, context, 60, 120, location, subCounty, startDate, endDate, "M"));
+        model.addAttribute("hypertensionMaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, male, context, location, subCounty, startDate, endDate, "M"));
 
-        model.addAttribute("hypertensionFemaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 0, 5, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionFemale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 6, 18, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionFemale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 19, 35, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionFemale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 36, 60, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionFemale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 60, 120, location, subCounty, startDate, endDate));
-        model.addAttribute("hypertensionFemaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, female, context, location, subCounty, startDate, endDate));
+        model.addAttribute("hypertensionFemaleZeroTo5", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 0, 5, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("hypertensionFemale6To18", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 6, 18, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("hypertensionFemale19To35", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 19, 35, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("hypertensionFemale36To60", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 36, 60, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("hypertensionFemale60To120", getDiabeticPatients(hypertension, newHypertension, knownHypertension, female, context, 60, 120, location, subCounty, startDate, endDate, "F"));
+        model.addAttribute("hypertensionFemaleTotals", getDiabeticTotalPatients(hypertension, newHypertension, knownHypertension, female, context, location, subCounty, startDate, endDate, "F"));
 
     }
 
-    private Integer getDiabeticPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context, int minAge, int maxAge, Location loc, List<Location> subcounty, Date startDate, Date endDate){
+    private Integer getDiabeticPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context, int minAge, int maxAge, Location loc, List<Location> subcounty, Date startDate, Date endDate, String gender){
         Set<Integer> allSet = new HashSet<>();
         CalculationResultMap diabeticMap = Calculations.lastObs(q, cohort, context);
 
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(diabeticMap, pId);
-            if(obs != null && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))) {
-                if ((obs.getObsDatetime().equals(startDate) || obs.getObsDatetime().after(startDate)) && (obs.getObsDatetime().equals(endDate) || obs.getObsDatetime().before(endDate))) {
-                    if (loc != null && obs.getPerson().getAge() >= minAge && obs.getPerson().getAge() <= maxAge && obs.getLocation().equals(loc)) {
+            if(loc != null && obs != null && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2)) && obs.getPerson().getAge(endDate) >= minAge && obs.getPerson().getAge(endDate) <= maxAge && obs.getPerson().getGender().equals(gender)) {
+                if ((obs.getObsDatetime().compareTo(startDate) >= 0 && obs.getObsDatetime().compareTo(endDate) <= 0)) {
+                    if (loc.equals(obs.getLocation())) {
                         allSet.add(pId);
-                    } else if (subcounty.size() > 0 && obs.getPerson().getAge() >= minAge && obs.getPerson().getAge() <= maxAge && subcounty.contains(obs.getLocation())) {
+                    } else if (subcounty.size() > 0 && subcounty.contains(obs.getLocation())) {
                         allSet.add(pId);
                     }
                 }
@@ -111,16 +111,15 @@ public class DiabeticHypertensionFragmentController {
         }
         return allSet.size();
     }
-    private Integer getDiabeticTotalPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context, Location loc, List<Location> subcounty, Date startDate, Date endDate){
+    private Integer getDiabeticTotalPatients(Concept q, Concept a1, Concept a2, Set<Integer> cohort, PatientCalculationContext context, Location loc, List<Location> subcounty, Date startDate, Date endDate, String gender){
         Set<Integer> allSet = new HashSet<>();
         CalculationResultMap diabeticMap = Calculations.lastObs(q, cohort, context);
 
         for(Integer pId: cohort){
             Obs obs = EmrCalculationUtils.obsResultForPatient(diabeticMap, pId);
             if(obs != null && loc != null) {
-                if ((obs.getObsDatetime().compareTo(startDate) >= 0) && (obs.getObsDatetime().compareTo(endDate) <= 0) && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2))) {
-                    if (loc.getLocationId() == 41){
-                        System.out.println("The patients are>>>"+pId +" and gender is >>>"+obs.getPerson().getGender());
+                if ((obs.getObsDatetime().compareTo(startDate) >= 0) && (obs.getObsDatetime().compareTo(endDate) <= 0) && (obs.getValueCoded().equals(a1) || obs.getValueCoded().equals(a2)) && obs.getPerson().getGender().equals(gender)) {
+                    if (loc.equals(obs.getLocation())){
                         allSet.add(pId);
                     } else if (subcounty.size() > 0  && subcounty.contains(obs.getLocation())) {
                         allSet.add(pId);
