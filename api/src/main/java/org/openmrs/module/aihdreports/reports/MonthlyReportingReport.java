@@ -126,36 +126,29 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 		ColumnParameters male = new ColumnParameters("Male", "Male", "gender=M");
 		ColumnParameters totals = new ColumnParameters("totals", "Totals", "");
 
-		//build the columns parameters here for type 1 for female
-		ColumnParameters zeroTo18FemaleT1 = new ColumnParameters("0-18FT1", "0-18-F", "age=0-18|gender=F");
-		ColumnParameters ninteenTo35FemaleT1 = new ColumnParameters("19-35FT1", "19-35-F", "age=19-35|gender=F");
-		ColumnParameters thirty6PlusFemaleT1 = new ColumnParameters("36+FT1", "36+F", "age=36+|gender=F");
-
-		//build the columns parameters here for type 1 for male
-		ColumnParameters zeroTo18MaleT1 = new ColumnParameters("0-18MT1", "0-18-M", "age=0-18|gender=M");
-		ColumnParameters ninteenTo35MaleT1 = new ColumnParameters("19-35MT1", "19-35-M", "age=19-35|gender=M");
-		ColumnParameters thirty6PlusMaleT1 = new ColumnParameters("36+MT1", "36+M", "age=36+|gender=M");
 
 		//build the columns parameters for type2 for female
 		ColumnParameters zeroTo18FemaleT2 = new ColumnParameters("0-18FT2", "0-18-F", "age=0-18|gender=F");
 		ColumnParameters ninteenTo35FemaleT2 = new ColumnParameters("19-35FT2", "19-35-F", "age=19-35|gender=F");
 		ColumnParameters thirty6To60FemaleT2 = new ColumnParameters("36-60FT2", "36-60-F", "age=36-60|gender=F");
-		ColumnParameters sixtyPlusFemaleT2 = new ColumnParameters("60+FT2", "60+F", "age=60+|gender=F");
+		ColumnParameters sixtyPlusFemaleT2 = new ColumnParameters("61+FT2", "61+F", "age=61+|gender=F");
 		//build the columns parameters for type2 for male
 		ColumnParameters zeroTo18MaleT2 = new ColumnParameters("0-18MT2", "0-18-M", "age=0-18|gender=M");
 		ColumnParameters ninteenTo35MaleT2 = new ColumnParameters("19-35MT2", "19-35-M", "age=19-35|gender=M");
 		ColumnParameters thirty6To60MaleT2 = new ColumnParameters("36-60MT2", "36-60-M", "age=36-60|gender=M");
-		ColumnParameters sixtyPlusMaleT2 = new ColumnParameters("60+MT2", "60+M", "age=60+|gender=M");
+		ColumnParameters sixtyPlusMaleT2 = new ColumnParameters("61+MT2", "61+M", "age=61+|gender=M");
 
 		//columns specific for type 1 diabetes
 		//female
 		ColumnParameters zeroTo5FemaleT1 = new ColumnParameters("0-5FT1", "0-5-F", "age=0-5|gender=F");
 		ColumnParameters sixTo18FemaleT1 = new ColumnParameters("6-18FT1", "6-18-F", "age=6-18|gender=F");
-		ColumnParameters thirty5PlusFemaleT1 = new ColumnParameters("35+FT1", "35+F", "age=35+|gender=F");
+		ColumnParameters ninteenTo35FemaleT1 = new ColumnParameters("19-35FT1", "19-35-F", "age=19-35|gender=F");
+		ColumnParameters thirty6PlusFemaleT1 = new ColumnParameters("36+FT1", "36+F", "age=36+|gender=F");
 		//male
 		ColumnParameters zeroTo5MaleT1 = new ColumnParameters("0-5MT1", "0-5-M", "age=0-5|gender=M");
 		ColumnParameters sixTo18MaleT1 = new ColumnParameters("6-18MT1", "6-18-M", "age=6-18|gender=M");
-		ColumnParameters thirty5PlusMaleT1 = new ColumnParameters("35+MT1", "35+M", "age=35+|gender=M");
+		ColumnParameters ninteenTo35MaleT1 = new ColumnParameters("19-35MT1", "19-35-M", "age=19-35|gender=M");
+		ColumnParameters thirty6PlusMaleT1 = new ColumnParameters("36+MT1", "36+M", "age=36+|gender=M");
 
 
 
@@ -163,7 +156,7 @@ public class MonthlyReportingReport extends AIHDDataExportManager {
 
 		//form columns as list to be used in the dsd
 		List<ColumnParameters> allColumnsGender = Arrays.asList(male, female, totals);
-		List<ColumnParameters> allColumnsT1 = Arrays.asList(zeroTo5MaleT1, sixTo18MaleT1, ninteenTo35MaleT1, thirty5PlusMaleT1, zeroTo5FemaleT1, sixTo18FemaleT1, ninteenTo35FemaleT1, thirty5PlusFemaleT1, totals);
+		List<ColumnParameters> allColumnsT1 = Arrays.asList(zeroTo5MaleT1, sixTo18MaleT1, ninteenTo35MaleT1, thirty6PlusMaleT1, zeroTo5FemaleT1, sixTo18FemaleT1, ninteenTo35FemaleT1, thirty6PlusFemaleT1, totals);
 		List<ColumnParameters> allColumnsT2 = Arrays.asList(zeroTo18MaleT2, ninteenTo35MaleT2, thirty6To60MaleT2, sixtyPlusMaleT2, zeroTo18FemaleT2, ninteenTo35FemaleT2, thirty6To60FemaleT2, sixtyPlusFemaleT2, totals);
 
 		//build the design here, all patients in the system with different aggregation

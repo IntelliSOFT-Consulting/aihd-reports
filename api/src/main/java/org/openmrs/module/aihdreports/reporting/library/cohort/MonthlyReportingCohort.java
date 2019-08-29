@@ -3,10 +3,10 @@ package org.openmrs.module.aihdreports.reporting.library.cohort;
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
-import org.openmrs.module.aihdreports.reporting.calculation.CauseOfDeathCalculation;
 import org.openmrs.module.aihdreports.reporting.calculation.ValueTextObsCalculation;
 import org.openmrs.module.aihdreports.reporting.cohort.definition.CalculationCohortDefinition;
 import org.openmrs.module.aihdreports.reporting.metadata.Dictionary;
+import org.openmrs.module.aihdreports.reporting.queries.Queries;
 import org.openmrs.module.aihdreports.reporting.utils.ReportUtils;
 import org.openmrs.module.reporting.cohort.definition.BaseObsCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
@@ -32,7 +32,7 @@ public class MonthlyReportingCohort {
         cd.addParameter(new Parameter("location", "Facility", Location.class));
         cd.addParameter(new Parameter("onOrAfter", "Start Date", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "End Date", Date.class));
-        cd.setQuery("SELECT patient_id FROM encounter WHERE location_id=:location and voided=0 and encounter_datetime>=:onOrAfter and encounter_datetime<=:onOrBefore");
+        cd.setQuery("SELECT patient_id FROM encounter WHERE location_id=:location AND voided=0 AND encounter_datetime BETWEEN :onOrAfter AND :onOrBefore");
         return cd;
     }
 
@@ -280,11 +280,19 @@ public class MonthlyReportingCohort {
 
     }
 
-    public CohortDefinition causeOfDeathCalculation(Concept concept){
-        CalculationCohortDefinition cd = new CalculationCohortDefinition("value", new CauseOfDeathCalculation());
-        cd.addParameter(new Parameter("onDate", "On Date", Date.class));
-        cd.addCalculationParameter("concept", concept);
-        return cd;
+    /**
+     * Get the patients who are dead
+     * @return CohortDefinition
+     */
+    public CohortDefinition getDeadPatients(int conceptId) {
+        SqlCohortDefinition sql = new SqlCohortDefinition();
+        sql.setName("Dead Patients");
+        sql.addParameter(new Parameter("location", "Location", Location.class));
+        sql.addParameter(new Parameter("startDate", "Start Date", Date.class));
+        sql.addParameter(new Parameter("endDate", "End Date", Date.class));
+        sql.setQuery(Queries.getDeceasedPatientsWithBoundaries(conceptId));
+        return sql;
+
     }
 
 

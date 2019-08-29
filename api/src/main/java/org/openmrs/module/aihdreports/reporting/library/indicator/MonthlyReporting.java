@@ -246,10 +246,11 @@ public class MonthlyReporting {
 
     /**
      * cause of death for a patient
+     * @param concept
      */
 
     public CohortIndicator CauseOfDeath(Concept concept){
-        return cohortIndicator("causeOfDeath", ReportUtils.map(cohorts.causeOfDeathCalculation(concept), "onDate=${endDate}"));
+        return cohortIndicator("causeOfDeath", ReportUtils.map(cohorts.getDeadPatients(concept.getConceptId()), "startDate=${startDate},endDate=${endDate},location=${location}"));
 
     }
 
