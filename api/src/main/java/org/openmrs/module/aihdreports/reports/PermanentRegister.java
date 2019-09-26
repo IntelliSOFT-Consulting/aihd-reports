@@ -104,7 +104,7 @@ public class PermanentRegister extends AIHDDataExportManager {
         rd.addParameters(getParameters());
 
         rd.addDataSetDefinition("P", Mapped.mapStraightThrough(dataSetDefinition()));
-        rd.addDataSetDefinition("A", Mapped.mapStraightThrough(FacilityAddress.facilityAddress(getParameters())));
+        rd.addDataSetDefinition("AP", Mapped.mapStraightThrough(FacilityAddress.facilityAddress(getParameters())));
         return rd;
     }
 
@@ -121,7 +121,7 @@ public class PermanentRegister extends AIHDDataExportManager {
 		DataConverter nameFormatter = new ObjectFormatter("{familyName}, {givenName}");
 		DataDefinition nameDef = new ConvertedPersonDataDefinition("name", new PreferredNameDataDefinition(), nameFormatter);
 		dsd.addRowFilter(cohortLibrary.getPatientsByLocationPassed(), "location=${location}");
-		dsd.addSortCriteria("Date", SortCriteria.SortDirection.ASC);
+		//dsd.addSortCriteria("Date", SortCriteria.SortDirection.ASC);
 
 
 		dsd.addColumn("id", new PersonIdDataDefinition(), "");
@@ -130,9 +130,9 @@ public class PermanentRegister extends AIHDDataExportManager {
 		dsd.addColumn("Names", nameDef, "");
 		dsd.addColumn("dob", new BirthdateDataDefinition(), "", new BirthdateConverter());
         dsd.addColumn("Sex", new GenderDataDefinition(), (String) null);
+        dsd.addColumn("telephone", phoneNumberDef, "");
         dsd.addColumn("occupation", sdd.obsDataDefinition("occupation",  Dictionary.getConcept(Dictionary.OCCUPATION)), "", new ObsDataConverter());
         dsd.addColumn("level_of_education", sdd.obsDataDefinition("level_of_education",  Dictionary.getConcept(Dictionary.LEVEL_OF_EDUCATION)), "", new ObsDataConverter());
-        dsd.addColumn("telephone", phoneNumberDef, "");
         dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
         dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
