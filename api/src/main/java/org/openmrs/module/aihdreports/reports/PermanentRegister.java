@@ -4,12 +4,7 @@ import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.aihdreports.data.converter.ObsDataConverter;
 import org.openmrs.module.aihdreports.definition.dataset.definition.CalculationDataDefinition;
-import org.openmrs.module.aihdreports.reporting.calculation.ComplicationsCalculation;
-import org.openmrs.module.aihdreports.reporting.calculation.EncounterDateCalculation;
-import org.openmrs.module.aihdreports.reporting.calculation.LandmarkAddressCalculation;
-import org.openmrs.module.aihdreports.reporting.calculation.PersonAttributeCalculation;
-import org.openmrs.module.aihdreports.reporting.calculation.SubcountyAddressCalculation;
-import org.openmrs.module.aihdreports.reporting.calculation.VillageAddressCalculation;
+import org.openmrs.module.aihdreports.reporting.calculation.*;
 import org.openmrs.module.aihdreports.reporting.converter.CalculationResultConverter;
 import org.openmrs.module.aihdreports.reporting.dataset.definition.SharedDataDefinition;
 import org.openmrs.module.aihdreports.reporting.library.cohort.CommonCohortLibrary;
@@ -134,9 +129,11 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("occupation", sdd.obsDataDefinition("occupation",  Dictionary.getConcept(Dictionary.OCCUPATION)), "", new ObsDataConverter());
         dsd.addColumn("level_of_education", sdd.obsDataDefinition("level_of_education",  Dictionary.getConcept(Dictionary.LEVEL_OF_EDUCATION)), "", new ObsDataConverter());
         dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
-        dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
+//        dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
+        dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
-        dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
+//        dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
+        dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
         dsd.addColumn("village", personVillageAddress(), "", new CalculationResultConverter());
         dsd.addColumn("subCounty", personSubcountyAddress(), "", new CalculationResultConverter());
@@ -155,8 +152,21 @@ public class PermanentRegister extends AIHDDataExportManager {
 		return cd;
 	}
 
+//    private DataDefinition complications(){
+//        CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
+//        return cd;
+//    }
+    private DataDefinition treatment(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("treatment", new TreatmentCalculation());
+        return cd;
+    }
     private DataDefinition complications(){
         CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
+        return cd;
+    }
+
+    private DataDefinition diagnosis(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis", new DiagnosisCalculation());
         return cd;
     }
 
