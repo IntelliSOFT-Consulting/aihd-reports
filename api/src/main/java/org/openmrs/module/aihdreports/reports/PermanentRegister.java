@@ -131,7 +131,7 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
 //        dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
         dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
-        dsd.addColumn("diagnosis_year", sdd.obsDataDefinition("diagnosis_year",  Dictionary.getConcept(Dictionary.AGE_AT_DIAGNOSIS_YEARS)), "", new ObsDataConverter());
+        dsd.addColumn("diagnosis_year", yearOfDiagnosis(),"", new CalculationResultConverter());
 //        dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
         dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
@@ -152,10 +152,6 @@ public class PermanentRegister extends AIHDDataExportManager {
 		return cd;
 	}
 
-//    private DataDefinition complications(){
-//        CalculationDataDefinition cd = new CalculationDataDefinition("complications", new ComplicationsCalculation());
-//        return cd;
-//    }
     private DataDefinition treatment(){
         CalculationDataDefinition cd = new CalculationDataDefinition("treatment", new TreatmentCalculation());
         return cd;
@@ -167,6 +163,11 @@ public class PermanentRegister extends AIHDDataExportManager {
 
     private DataDefinition diagnosis(){
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis", new DiagnosisCalculation());
+        return cd;
+    }
+
+    private DataDefinition yearOfDiagnosis(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
         return cd;
     }
 
