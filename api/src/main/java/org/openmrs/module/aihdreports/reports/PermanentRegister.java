@@ -128,10 +128,8 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("occupation", sdd.obsDataDefinition("occupation",  Dictionary.getConcept(Dictionary.OCCUPATION)), "", new ObsDataConverter());
         dsd.addColumn("level_of_education", sdd.obsDataDefinition("level_of_education",  Dictionary.getConcept(Dictionary.LEVEL_OF_EDUCATION)), "", new ObsDataConverter());
         dsd.addColumn("complications", complications(), "", new CalculationResultConverter());
-//        dsd.addColumn("diagnosis", sdd.obsDataDefinition("diagnosis",  Dictionary.getConcept(Dictionary.SYMPTOM)), "", new ObsDataConverter());
         dsd.addColumn("diagnosis", diagnosis(), "", new CalculationResultConverter());
         dsd.addColumn("diagnosis_year", yearOfDiagnosis(),"", new CalculationResultConverter());
-//        dsd.addColumn("treatment", sdd.obsDataDefinition("treatment",  Dictionary.getConcept(Dictionary.MEDICATION_HISTORY)), "", new ObsDataConverter());
         dsd.addColumn("treatment", treatment(), "", new CalculationResultConverter());
         dsd.addColumn("nhif", sdd.obsDataDefinition("nhif",  Dictionary.getConcept(Dictionary.NHIF_MEMBER)), "", new ObsDataConverter());
         dsd.addColumn("village", personVillageAddress(), "", new CalculationResultConverter());
