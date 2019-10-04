@@ -1,6 +1,5 @@
 package org.openmrs.module.aihdreports.reporting.calculation;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Obs;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResultMap;

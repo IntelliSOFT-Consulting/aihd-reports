@@ -137,7 +137,7 @@ public class PermanentRegister extends AIHDDataExportManager {
         dsd.addColumn("landmark", personLandmarkAddress(), "", new CalculationResultConverter());
         dsd.addColumn("supporterName", personAttribute("14d07597-d618-4f58-baab-d921e43f0a4c"), "", new CalculationResultConverter());
         dsd.addColumn("supporterContact", personAttribute("9fe7f9c2-877c-4209-83f1-abeba41b80a7"), "", new CalculationResultConverter());
-
+        dsd.addColumn("patient_status", patientStatus(), "", new CalculationResultConverter());
 
 
         return dsd;
@@ -165,6 +165,11 @@ public class PermanentRegister extends AIHDDataExportManager {
 
     private DataDefinition yearOfDiagnosis(){
         CalculationDataDefinition cd = new CalculationDataDefinition("diagnosis_year", new YearOfDiagnosisCalculation());
+        return cd;
+    }
+
+    private DataDefinition patientStatus(){
+        CalculationDataDefinition cd = new CalculationDataDefinition("patient_status",new PatientStatusCalculation());
         return cd;
     }
 

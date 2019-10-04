@@ -4,7 +4,6 @@ import org.openmrs.Location;
 import org.openmrs.module.aihdreports.reporting.library.dimension.CommonDimension;
 import org.openmrs.module.aihdreports.reporting.library.indicator.SummaryIndicatorReport;
 import org.openmrs.module.aihdreports.reporting.utils.ColumnParameters;
-import org.openmrs.module.aihdreports.reporting.utils.EmrReportingUtils;
 import org.openmrs.module.aihdreports.reporting.utils.ReportUtils;
 import org.openmrs.module.reporting.dataset.definition.CohortIndicatorDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
@@ -13,8 +12,6 @@ import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
