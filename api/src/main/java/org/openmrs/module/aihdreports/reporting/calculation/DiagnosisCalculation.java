@@ -21,10 +21,8 @@ public class DiagnosisCalculation extends AbstractPatientCalculation {
             String value = "";
             SimpleResult diabeticResults = (SimpleResult) diabeticPatients.get(ptId);
             SimpleResult hypertensionResults = (SimpleResult) hypertensionPatients.get(ptId);
-            if(diabeticResults != null && hypertensionResults != null){
-                if(StringUtils.isNotEmpty(diabeticResults.getValue().toString()) && StringUtils.isNotEmpty(hypertensionResults.getValue().toString())) {
-                    value = diabeticResults.getValue() + "," + hypertensionResults.getValue();
-                }
+            if(diabeticResults != null && hypertensionResults != null && StringUtils.isNotEmpty(diabeticResults.getValue().toString()) && StringUtils.isNotEmpty(hypertensionResults.getValue().toString())){
+                value = diabeticResults.getValue() + "," + hypertensionResults.getValue();
             }
             else if(diabeticResults != null && StringUtils.isNotEmpty(diabeticResults.getValue().toString())){
                 value = diabeticResults.getValue().toString();
