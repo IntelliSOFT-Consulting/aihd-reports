@@ -16,6 +16,8 @@ public class HypertensionTypeCalculation extends AbstractPatientCalculation {
 
         CalculationResultMap ret = new CalculationResultMap();
         CalculationResultMap hypetensionTypes = Calculations.lastObs(Dictionary.getConcept(Dictionary.HYPETENSION_TYPE), cohort, context);
+        CalculationResultMap HTN = Calculations.lastObs(Dictionary.getConcept(Dictionary.HTN), cohort, context);
+
         Concept mild = Dictionary.getConcept(Dictionary.MILD_HYPERTENSION);
         Concept moderate = Dictionary.getConcept(Dictionary.MODERATE_HYPERTENSION);
         Concept severe = Dictionary.getConcept(Dictionary.SEVERE_HYPERTENSION);
@@ -23,6 +25,7 @@ public class HypertensionTypeCalculation extends AbstractPatientCalculation {
         for(Integer ptId:cohort){
             String value = "";
             Concept result = EmrCalculationUtils.codedObsResultForPatient(hypetensionTypes, ptId);
+            Concept resultHTN = EmrCalculationUtils.codedObsResultForPatient(HTN, ptId);
             if(result != null){
                 if(result.equals(mild) || result.equals(moderate) || result.equals(severe)){
                     value = "e";
@@ -30,6 +33,9 @@ public class HypertensionTypeCalculation extends AbstractPatientCalculation {
                 else if(result.equals(preeclampsia)){
                     value = "f";
                 }
+            }
+            else if (resultHTN != null) {
+                value = "e";
             }
             ret.put(ptId, new SimpleResult(value, this));
         }
