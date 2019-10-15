@@ -16,7 +16,7 @@ public class HypertensionTypeCalculation extends AbstractPatientCalculation {
 
         CalculationResultMap ret = new CalculationResultMap();
         CalculationResultMap hypetensionTypes = Calculations.lastObs(Dictionary.getConcept(Dictionary.HYPETENSION_TYPE), cohort, context);
-        CalculationResultMap HTN = Calculations.lastObs(Dictionary.getConcept(Dictionary.HTN), cohort, context);
+        CalculationResultMap HTN = Calculations.lastObs(Dictionary.getConcept(Dictionary.HYPERTENSION_VISIT_TYPE), cohort, context);
 
         Concept mild = Dictionary.getConcept(Dictionary.MILD_HYPERTENSION);
         Concept moderate = Dictionary.getConcept(Dictionary.MODERATE_HYPERTENSION);
