@@ -43,6 +43,14 @@
         "order": 7
       },
       {
+        "id": "System Usage Report",
+        "extensionPointId": "org.openmrs.module.aihdreports.reports.registers",
+        "type": "link",
+        "label": "System Usage Report",
+        "url": "reportingui/runReport.page?reportDefinition=3976c5f0-8492-11ea-bb57-e3371ce88bc1",
+        "order": 8
+      },
+      {
         "id": "Monthly Summary Form",
         "extensionPointId": "org.openmrs.module.aihdreports.reports.monthly",
         "type": "link",
