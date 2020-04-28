@@ -1,15 +1,18 @@
 package org.openmrs.module.aihdreports.reports;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+
 import org.openmrs.module.aihdreports.reporting.queries.Queries;
-import org.openmrs.module.reporting.dataset.definition.CohortIndicatorDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class SystemUsageReport extends AIHDDataExportManager {
@@ -49,6 +52,13 @@ public class SystemUsageReport extends AIHDDataExportManager {
     @Override
     public String getExcelDesignUuid() {
         return "545edb82-8492-11ea-bba6-d353472f76d7";
+    }
+
+    @Override
+    public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
+        List<ReportDesign> l = new ArrayList<ReportDesign>();
+        l.add(buildReportDesign(reportDefinition));
+        return l;
     }
 
     @Override
